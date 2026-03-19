@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rooms>          
+    <room id="270" name="Embankment Underground Station" youPrefix="at" tags="no-curfew">
+        <description>
+            The air is damp and the roar of flowing water fills your ears. Pipes and conduits run overhead. 
+            Somewhere above is the Thames Embankment.
+        </description>
+        <exits>
+            <exit direction="NW" room="210"/> 
+            <exit direction="E" room="271"/>
+            <exit direction="SW" room="275"/>
+            <exit direction="W" room="220"/>
+        </exits>
+    </room>
+    
+    <room id="271" name="the Miniplenty access tunnel" youPrefix="in" tags="no-curfew">
+        <description>
+            This is one way the Party brings in premium goods bartered from abroad. 
+            A reinforced door blocks the southern passage through to a stairwell leading to the Ministry. 
+            A painted slogan reads: "LESS IS MORE".
+        </description>
+        <exits>
+            <exit direction="E" room="272" timeCost="5"/>
+            <exit direction="W" room="270" timeCost="5"/>
+            <!-- south into Ministry of Plenty (locked) -->
+        </exits>
+    </room> 
+    
+    <room id="272" name="a Cold Storage Room" youPrefix="in" tags="no-curfew">
+        <description>
+            Rokws of refrigeration units line the frost covered walls of this low chamber. 
+            A few empty tins lie scattered on the floor.
+        </description>
+        <exits>
+            <exit direction="W" room="271" timeCost="5"/>
+            <exit direction="E" room="273" timeCost="5"/>
+        </exits>
+    </room>
+
+    <room id="273" name="a Contraband Store" youPrefix="in" tags="no-curfew">
+        <description>
+            The shelves are piled with dusty bottles of foreign liquor, chocolate wrappers, 
+            and packets of coffee marked 'INNER PARTY'. 
+            A sign on the wall warns: "THEFT IS PUNISHABLE BY DEATH."
+        </description>
+        <exits>
+            <exit direction="W" room="272"/>
+        </exits>
+    </room> 
+</rooms>
+

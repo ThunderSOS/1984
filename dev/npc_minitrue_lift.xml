@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npcs>     
+    <npc id="51000" name="The Minitrue Lift" altNames="LIFT|ELEVATOR" hidden="true">
+        
+        <configuration initialRoom="507" initialState="1"/>
+        
+        <state id="1" value="PASSIVE">
+            <action type="message">Buttons down one side of the door indicate the different levels inside Minitrue.</action>
+            <action type="choice" validResponses="1|2|3|4" prompt="Select a floor: ">1) Ground, 2) Level 1 - Editorial, 3) Level 2 - Prolesec Literature, 4) Archives.</action>
+            <action type="setNextState" nextState="2"/>            
+        </state>
+        
+        <state id="2">
+            <action type="response" response="1" nextState="3"/>
+            <action type="response" response="2" nextState="4"/>
+            <action type="response" response="3" nextState="5"/> 
+            <action type="response" response="4" nextState="6"/>
+            <action type="runNpcState"/>
+        </state>
+        
+        <state id="3">
+            <action type="message">You exit the lift onto the ground floor, the doors automatically close behind you.</action>
+            <action type="removeExit" roomId="510" direction="N"/>
+            <action type="movePlayer" roomId="510"/>
+            <action type="clearNpcResponse"/>
+            <action type="setNextState" nextState="99"/>
+        </state>
+        
+        <state id="4">
+            <action type="message">You exit the lift onto the first floot, the doors automatically close behind you.</action>
+            <action type="removeExit" roomId="520" direction="N"/>
+            <action type="movePlayer" roomId="520"/>
+            <action type="clearNpcResponse"/>
+            <action type="setNextState" nextState="99"/>
+        </state>
+        
+        <state id="5">
+            <action type="message">You exit the lift onto the second floot, the doors automatically close behind you.</action>
+            <action type="removeExit" roomId="530" direction="N"/>
+            <action type="movePlayer" roomId="530"/>
+            <action type="clearNpcResponse"/>
+            <action type="setNextState" nextState="99"/>
+        </state>
+        
+        <state id="6">
+            <action type="message">You exit the lift onto the third floot, the doors automatically close behind you.</action>
+            <action type="removeExit" roomId="540" direction="N"/>
+            <action type="movePlayer" roomId="540"/>
+            <action type="clearNpcResponse"/>
+            <action type="setNextState" nextState="99"/>
+        </state>
+                
+        <state id="99" value="DONE"/>
+    </npc>
+</npcs>
+

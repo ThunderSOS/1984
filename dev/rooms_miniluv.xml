@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rooms>
+    <room id="900" name="a detention cell in the Ministry of Love." youPrefix="in">
+        <description>
+            A small detention cell in the Ministry of Love. A few other miserable looking detainees are sitting along side you on a narrow bench. 
+            Everyone looks starved and gaunt. Some have clearly been savagely beaten. 
+            There are no windows in the room and only one solid iron door, firmly locked. A telescreen watches silently. 
+            You wait nervously for whatever is to come next.
+        </description>
+    </room>
+</rooms>
+

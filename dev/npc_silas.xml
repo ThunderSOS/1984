@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npcs>     
+    <npc id="11001" name="Silas" altNames="SILAS|COMRADE SILAS">   
+        
+        <configuration initialRoom="999" initialState="1"/>       
+        
+        <properties>
+            <property name="loop_exit" value="false"/>
+        </properties>
+        
+        <state id="0" value="ENTRY FROM TASK 110">
+            <!-- State 1 will be run by doAfterAction --> 
+            <action type="setNextState" nextState="1"/>
+        </state>
+        
+        <state id="1" value="PASSIVE">
+            <action type="message">"So. You've got the leaflet?"</action>
+            <action type="choice" validResponses="1|2">1) Ask where the meeting is. 2) Stay silent.</action>
+            <action type="setNextState" nextState="2"/>
+        </state>
+        
+        <state id="2">
+            <action type="response" response="1" nextState="6"/>   
+            <action type="response" response="2" nextState="3">Silas says, "You can trust us, comrade. We're taking a risk trusting you too."</action>
+            <action type="runNpcState"/>
+        </state>
+		
+        <state id="3" value="PASSIVE">
+            <action type="message">"Just show me the leaflet, I won't ask how you came across it."</action>
+            <action type="choice" validResponses="1|2">1) Show leaflet. 2) Remain tight lipped.</action>
+            <action type="setNextState" nextState="2"/>         
+        </state>
+        
+        <state id="6"> 
+            <action type="message">"South of the river. Old theatre, basement. Over Vauxhall Bridge. 7pm. Don't be followed."</action>
+            <action type="setGameState" key="directedToTheatre" value="true"/>
+            <!-- remove this version of Silas and add the conspirators to the theatre basement -->
+            <action type="moveNpc" npcId="11001" roomId="999"/>
+            <action type="moveNpc" npcId="16101" roomId="161"/>
+            <action type="moveNpc" npcId="16102" roomId="161"/>
+            <action type="moveNpc" npcId="16103" roomId="161"/>
+            <action type="setNextState" nextState="7"/> 
+        </state>
+        
+        <state id="7" value="DONE"/>
+    </npc>
+</npcs>
+

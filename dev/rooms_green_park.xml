@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rooms>
+    <room id="100" name="outside Freedom Mansions.">        
+        <description>
+            The building looms grey and dilapidated behind you, plastered with posters of Big Brother. 
+            The air is acrid with smoke from nearby chimneys. 
+            The street stretches eastward toward the Prole quarters.
+        </description>
+        <exits>
+            <exit room="10" direction="W" timeCost="5"/> 
+            <exit room="101" direction="S" timeCost="5"/>
+            <exit room="390" direction="E" timeCost="10"/>
+        </exits>
+    </room>
+
+    <room id="101" name="a Party-controlled street." youPrefix="on">
+        <description>
+            This wide street is cracked and grimy.
+            Telescreens mounted on poles blare Party propaganda, their metallic voices echoing off empty shopfronts. Few people linger here; the patrols make sure of that.
+        </description>
+        <exits>
+            <exit room="100" direction="N" timeCost="5"/>
+            <exit room="140" direction="E" timeCost="15"/>
+            <exit room="120" direction="S" timeCost="5"/>
+        </exits>
+    </room>
+
+    <room id="102" name="the entrance to Green Park." youPrefix="at">
+        <description>
+            Once a pleasant green space, Green Park now lies untended and grim.
+            The grass grows wild in patches, littered with broken bottles and scraps of paper. Groups of men huddle together, watching strangers with suspicion.
+            Patrols cut across the paths at irregular intervals, their boots heavy on the gravel. To the east, the broken facades of Victory Square loom.
+            A group of guards blocks the exit through to Victory Square.
+        </description>
+        <exits>
+            <exit room="121" direction="N"/>
+            <exit room="103" direction="S"/>
+            <exit room="104" direction="SE"/>
+            <exit room="106" direction="SW"/>
+        </exits>
+    </room>
+
+    <room id="103" name="deep in Green Park.">
+        <description>
+            Tall, unkempt grass and thickets of bare trees block the light. In the shadows, shapes move and voices whisper.
+            A rusted bench sits beneath a leaning lamppost that has not worked for years.
+            You feel exposed here.
+        </description>
+        <exits>
+            <exit room="102" direction="N"/>
+            <exit room="104" direction="E"/>
+            <exit room="107" direction="S"/>
+            <exit room="106" direction="W"/>
+            <exit room="105" direction="SW"/>             
+        </exits>
+    </room>
+
+    <room id="104" name="a ruined bandstand." youPrefix="by">
+        <description>
+            The remains of a bandstand rise like broken teeth, its roof long collapsed. This part of the park feels quieter, as if it's been forgotten.            
+            A lamppost stands next to the bandstand, paint peeling and rusted beneath. It's been many years since the lamp was last lit. 
+            A pane of cracked glass dangles precariously from the rusted lamp housing, catching the light. It looks like a stiff breeze would blow it down.
+            To the South lies Freedom Square but the route is blocked by patrols. 
+        </description>
+        <exits>
+            <exit room="102" direction="NW" timeCost="5"/>            
+            <exit room="105" direction="SW" timeCost="5"/>
+            <exit room="103" direction="W" timeCost="5"/>
+        </exits>
+        <roomItems>
+            <roomItem id="102"/>
+        </roomItems>
+    </room>
+
+    <room id="105" name="a crumbling fountain in Green Park." youPrefix="by">
+        <description>
+            The broken remains of a fountain stand here, cracked and dry. The stone basin is filled with debris and rainwater.
+            A group of Prole youths linger nearby, their eyes darting toward you with unfriendly curiosity.
+        </description>
+        <exits>
+            <exit room="106" direction="N" timeCost="5"/>
+            <exit room="103" direction="NE" timeCost="5"/>
+            <exit room="107" direction="E" timeCost="5"/>
+            <exit room="108" direction="W" timeCost="5"/>
+        </exits>
+        <roomItems>
+            <roomItem id="101"/>
+        </roomItems>
+    </room>
+
+    <room id="106" name="a shadowed path near a service grate." youPrefix="on">
+        <description>
+            The path narrows here, flanked by wild grass and broken trees. A rusted iron grate lies half-buried in the dirt to the south.
+            Something heavy lies in the grass nearby. Faint voices carry from the east.
+        </description>
+        <exits>
+            <exit room="103" direction="E" timeCost="5"/>
+            <exit room="105" direction="S" timeCost="5"/>
+            <exit room="102" direction="NE" timeCost="5"/>
+        </exits>
+        <roomItems>
+            <roomItem id="103"/>
+        </roomItems>
+    </room>
+    
+    <room id="107" name="a Patrol Crossing in Green Park." youPrefix="at">
+        <description>
+            The gravel path is cut by a Party patrol route. Guards march in pairs, blocking the way east through to Victory Square.
+            Their eyes are sharp for anyone lingering too long. A telescreen is mounted on a tree, its flickering face watching the path.
+        </description>
+        <exits>            
+            <exit room="103" direction="N" timeCost="5"/>
+            <exit room="104" direction="NE" timeCost="5"/>
+            <exit room="106" direction="NW" timeCost="5"/>
+            <exit room="105" direction="W" timeCost="5"/>
+        </exits>
+    </room>
+
+    <room id="108" name="a collapsed air-raid shelter." youPrefix="by">
+        <description>
+            Concrete steps lead down into darkness, but rubble blocks the way. A faded sign reads 'SHELTER'.
+            Perhaps with tools or persistence, it could be cleared one day.
+        </description>
+        <exits>
+            <exit room="106" direction="NE" timeCost="5"/>
+            <exit room="105" direction="E" timeCost="5"/>
+        </exits>
+    </room>
+
+    <room id="110" name="Victory Square." youPrefix="in">
+        <description>
+            Once known as Trafalgar Square, this place is now a monument to Party control. Nelson&apos;s Column is gone, replaced by a towering statue of Big Brother, his eyes watching every movement.
+            The facades of buildings are cracked and peeling, plastered with propaganda posters. A few Proles mill about, under the gaze of ever-present telescreens.
+        </description>
+        <exits>
+            <exit room="107" direction="W" timeCost="5"/>
+            <exit room="150" direction="S" timeCost="5"/>
+        </exits>
+    </room>
+    
+    <room id="120" name="Holborn Crossing." youPrefix="at">
+        <description>
+            The wide junction of cracked streets, once a hub of London. 
+            Rubble and posters choke the corners, and telescreens bark orders from the lampposts. 
+        </description>
+        <exits>
+            <exit room="101" direction="N" timeCost="5"/> <!-- Party-controlled street -->
+            <exit room="121" direction="SW" timeCost="10"/> <!-- Piccadilly -->
+            <exit room="130" direction="S" timeCost="5"/> <!-- Aldwych / Minitrue spur -->
+        </exits>
+    </room>
+
+    <room id="121" name="Piccadilly Circus." youPrefix="in">
+        <description>
+            Once a bustling landmark, the square now lies hollow under the Party&apos;s gaze. 
+            The statue of Eros is gone, replaced by a plinth topped with gallows and noose. Public executions are frequent. 
+            Telescreens look out in all directions from below the gallows. 
+            Storefronts are stripped bare except for official Party shops: Victory Gin, Victory Shoes, Victory Coffee. 
+            Propaganda posters peel from the walls, their slogans half-lost to the rain. 
+            A few Inner Party members pass briskly, ignoring the ruin. 
+        </description>
+        <exits>
+            <exit room="120" direction="NE" timeCost="10"/>
+            <exit room="102" direction="S" timeCost="5"/>
+        </exits>
+    </room>
+    
+    <room id="130" name="Kingsway, near Aldwych." youPrefix="on">
+        <description>
+            The street slopes gently down, lined with grand but ruined facades. 
+            Most windows are broken, and the few intact doors are painted with Party symbols.
+            Eastward, the road curves toward Aldwych.
+        </description>
+        <exits>
+            <exit room="120" direction="N" timeCost="5"/>
+            <exit room="131" direction="SE" timeCost="10"/>
+        </exits>
+    </room>
+    
+    <room id="131" name="what used to be Aldwych by the Strand." youPrefix="on">
+        <description>
+            Once a fashionable crescent, now a desolate square of cracked pavement and guards patrolling around the Ministry.
+            The Ministry of Truth stands before you a huge, gleaming white pyramidal edifice.
+        </description>
+        <exits>
+            <exit room="130" direction="NW" timeCost="5"/>
+            <exit room="500" direction="S" timeCost="5"/>   
+            <!-- west to Ministry of Plenty at Embankment --> 
+            <!-- then southwest to Ministry of Peace at Westminster -->
+        </exits>
+    </room>
+    
+    <room id="140" name="Gray&apos;s Inn Road." youPrefix="on">
+        <description>
+            A long, straight road heading northeast.  
+            Bombed-out terraces stand beside Party offices with loudspeakers nailed above their doors. 
+            Few linger here - the Ministry’s shadow looms ahead.
+        </description>
+        <exits>
+            <exit room="101" direction="W" timeCost="15"/>
+            <exit room="141" direction="NE" timeCost="10"/>
+        </exits>
+    </room>
+
+    <room id="141" name="Pentonville." youPrefix="at">
+        <description>
+            The streets grow darker, narrower, more oppressive.  
+            Concrete walls cut across where old roads once ran.  
+            Ahead, barbed wire and watchtowers guard a massive block of stone - the Ministry of Love.
+        </description>
+        <exits>
+            <exit room="140" direction="SW" timeCost="10"/>
+        </exits>
+    </room>
+    
+    <room id="150" name="Whitehall." youPrefix="on">
+        <description>
+            Once the administrative heart of government, Whitehall now lies beneath the shadow of the Ministries. 
+            The tradition stone columns rise on either side, their facades scarred by decades of "restoration work." 
+            Party slogans "AUSTERITY IS LIBERTY", "WAR IS PEACE" - are plastered over boarded windows. 
+            A slow procession of blue-overalled clerks shuffles between buildings, heads bowed, eyes averted from the omnipresent telescreens mounted on lamp posts. 
+            Occasionally, a figure in black overalls glides past - an Inner Party official - and conversation dies until they've gone. 
+            Somewhere far above, a loudspeaker crackles, broadcasting a speech about increased production quotas in the Munitions Department.
+        </description>
+        <exits>
+            <exit room="110" direction="N" timeCost="10"/>
+            <exit room="151" direction="S" timeCost="10"/>
+            <!-- Westminster Bridge --> 
+            <!--<exit room="151" direction="E" timeCost="5"/>-->
+        </exits>
+    </room>
+    
+    <room id="151" name="Miilbank." youPrefix="on">
+        <description>
+            The wide avenue curves south beside the river, its once-grand embassies converted into Party bureaus. 
+            The air smells faintly of oil and disinfectant. 
+            Armoured trucks idle along the kerb, their engines rumbling softly while uniformed officers inspect passers-by for papers. 
+            Beyond the checkpoints, the skyline is a tangle of cranes and half-finished Ministry extensions. 
+            A poster on a brick wall peels in the damp wind - the face of Big Brother, his eyes following you wherever you move.
+        </description>
+        <exits>
+            <exit room="150" direction="N" timeCost="10"/>
+            <exit room="153" direction="E" timeCost="10"/>
+        </exits>
+    </room>
+    
+    <!-- 152 WESTMINSTER BRIDGE -->
+   
+    <room id="153" name="Vauxhall Bridge." youPrefix="on">
+        <description>
+            The river glints darkly beneath the bridge, carrying debris and the faint smell of chemicals downstream. 
+            Patrol boats drift between the piers, their searchlights sweeping lazily across the water. 
+            Beyond the eastern bank, you can just make out the shell of a disused theatre - its roof sagging, its once-bright façade blackened with soot. 
+            Somewhere nearby, a burst of static from a telescreen fades into silence. 
+            The air feels colder here, thinner, as though the city itself is holding its breath.
+            Armoured trucks idle along the kerb, their engines rumbling softly while uniformed officers inspect passers-by for papers. 
+            Beyond the checkpoints, the skyline is a tangle of cranes and half-finished Ministry extensions. 
+            A poster on a brick wall peels in the damp wind - the face of Big Brother, his eyes following you wherever you move.
+        </description>
+        <exits>
+            <exit room="154" direction="E" timeCost="10"/>
+            <exit room="151" direction="W" timeCost="10"/>            
+        </exits>
+    </room> 
+    
+</rooms>

@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tasks>
+    <task id="100" name="Open Winston's Desk">
+        <trigger action="OPEN" actionObject="DESK" roomId="1"/>
+        <conditions>
+            <condition type="checkGameState" key="homeDeskOpen" value="false">The desk is already open.</condition>
+        </conditions>
+        <onSuccess>
+            <!--<consequence type="revealItem" item="6"/> add hidden items -->
+            <consequence type="message">You open the desk drawer.</consequence>
+            <consequence type="setGameState" key="homeDeskOpen" value="true"/>
+            <consequence type="addItemsToRoom" itemIds="6"/>
+            <consequence type="removeItemsFromRoom" itemIds="5"/>
+        </onSuccess>
+    </task>
+    
+    <task id="101" name="Close Winston's Desk">
+        <trigger action="CLOSE" actionObject="DESK" roomId="1"/>
+        <conditions>
+            <condition type="checkGameState" key="homeDeskOpen" value="true">It's already closed.</condition>
+        </conditions>
+        <onSuccess>
+            <!--<consequence type="revealItem" item="6"/> add hidden items -->
+            <consequence type="message">You close the desk drawer.</consequence>
+            <consequence type="setGameState" key="homeDeskOpen" value="false"/>
+            <consequence type="addItemsToRoom" itemIds="5"/>
+            <consequence type="removeItemsFromRoom" itemIds="6"/>
+        </onSuccess>
+    </task>
+    
+    <task id="102" name="Attach Board to Telescreen">
+        <trigger action="ATTACH|PLUG" actionObject="BOARD" actionObjectAdjective="ASSEMBLED" targetObject="TELESCREEN" roomId="1"/>
+        <conditions>
+            <condition type="checkGameState" key="boardInstalled" value="false">The board is already attached.</condition>
+            <condition type="carrying" itemId="432">You don't have the assembled board.</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">
+                You carefully plug the reversed board into the slot on the side of the telescreen.
+                It snaps in place with a soft click.
+            </consequence>
+            <consequence type="removeItemsFromInventory" itemIds="432"/>
+            <consequence type="setGameState" key="boardInstalled" value="true"/>
+            <consequence type="timeCost" timeCost="3"/>
+
+            <!-- Now trigger the surveillance outcome event -->
+            <consequence type="cycleEvent" key="task_10002_eventIndex" eventIds="100|101|102|103"/>
+        </onSuccess>
+    </task>
+    
+    <task id="103" name="Detach Board from Telescreen">
+        <trigger action="DETACH|UNPLUG" actionObject="BOARD" actionObjectAdjective="ASSEMBLED" targetObject="TELESCREEN" roomId="1"/>
+        <conditions>
+            <condition type="checkGameState" key="boardInstalled" value="true">It's not attached.</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">
+                You carefully unplug the reversed board from your telescreen.
+            </consequence>
+            <consequence type="addItemsToInventory" itemIds="432"/>
+            <consequence type="setGameState" key="boardInstalled" value="false"/>
+            <consequence type="timeCost" timeCost="3"/>
+        </onSuccess>
+    </task>
+        
+    <task id="700" name="Unblock Mrs Parsons sink">
+        <trigger action="UNBLOCK" actionObject="SINK" targetObject="PLUNGER" roomId="7"/>
+        <conditions>
+            <condition type="carrying" itemId="11">You need something to unblock it with.</condition>
+            <condition type="roomHasItem" itemId="9">The sink is already unblocked.</condition>
+        </conditions>
+        <onSuccess>            
+            <consequence type="message">
+                You unblock the sink by extracting a revolting mass of human hair and rotting cabbage from the drain. 
+                The putrid water immediately drains out and you run some fresh water to rinse it out. 
+                The kitchen immediately smells better.
+                
+                Mrs Parsons says, "'ere you know, something funny happened to me Telescreen the other night, I think it's broke. 
+                I was watching the report about the war and all of a sudden it went all dark and a message appeared saying debug or something."
+                "I 'ad to watch the rest of the report in the kitchen. I think that's 'ow me sink got blocked."
+                "I suppose I oughta report it to the Caretaker but I never seem to find the time, what with the kids an' all."
+                She turns and heads back to her living room.
+            </consequence>
+            <consequence type="setGameState" key="mrsParsonsSinkUnblocked" value="true"/>
+            <consequence type="updateRoomDescription" roomId="7">The smell of cabbage is somewhat reduced.</consequence>
+            <consequence type="addItemsToRoom" itemIds="10"/>
+            <consequence type="removeItemsFromRoom" itemIds="9"/>
+            <consequence type="setNpcState" npcId="500" newState="3"/>
+            <consequence type="timeCost" timeCost="10"/>
+            <consequence type="moveNpc" npcId="500" roomId="6"/>
+        </onSuccess>
+    </task>
+        
+    <task id="1300" name="Open Caretakers Desk">
+        <trigger action="OPEN" actionObject="DESK" actionAdjective="CARETAKERS" roomId="13"/>
+        <conditions>
+            <condition type="checkGameState" key="caretakersDeskClosed" value="false">It's already open.</condition>
+            <condition type="checkDistracted" npcId="1300">The Caretaker barks at you, "Don't touch that."</condition>           
+        </conditions>
+        <onSuccess>
+            <!--<consequence type="revealItem" item="6"/> add hidden items -->
+            <consequence type="setGameState" key="caretakersDeskClosed" value="true"/>
+            <consequence type="message">You open the desk drawer.</consequence>    
+            <consequence type="addItemsToRoom" itemIds="13"/>
+            <consequence type="removeItemsFromRoom" itemIds="12"/>
+        </onSuccess>
+    </task>
+        
+    <task id="1301" name="Close Caretakers Desk">
+        <trigger action="CLOSE" actionObject="DESK" actionAdjective="CARETAKERS" roomId="13"/>
+        <conditions>
+            <condition type="checkGameState" key="caretakersDeskClosed" value="true">It's already closed.</condition>       
+        </conditions>
+        <onSuccess>
+            <!--<consequence type="revealItem" item="6"/> add hidden items -->
+            <consequence type="setGameState" key="caretakersDeskClosed" value="false"/>
+            <consequence type="message">You close the desk drawer.</consequence>                
+            <consequence type="addItemsToRoom" itemIds="12"/>
+            <consequence type="removeItemsFromRoom" itemIds="13"/>
+        </onSuccess>
+    </task>
+    
+    <task id="2000" name="Unlock service door">
+        <trigger action="UNLOCK" actionObject="DOOR" actionAdjective="SERVICE" 
+                 targetObject="KEY" targetAdjective="CARETAKERS" 
+                 roomId="20"/>
+        <conditions>
+            <condition type="checkGameState" key="serviceDoorUnlocked" value="false">The door is already unlocked.</condition>
+            <condition type="carrying" itemId="16">You need a key to unlock it with.</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">The lock is well maintained and turns easily.</consequence>
+            <consequence type="timeCost" timeCost="1"/>
+            <consequence type="setGameState" key="serviceDoorUnlocked" value="true"/>
+        </onSuccess>
+    </task> 
+    
+    <task id="2001" name="Open service door">
+        <trigger action="OPEN" actionObject="DOOR" actionAdjective="SERVICE" roomId="20"/>
+        <conditions>
+            <condition type="checkGameState" key="serviceDoorUnlocked" value="true">You need to unlock it first.</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">The service door opens easily revealing a manhole leading down into the depths of the city.</consequence>
+            <consequence type="addExit" roomId="20" direction="W" toRoom="21"/>
+            <consequence type="addExit" roomId="21" direction="E" toRoom="20"/>
+            <consequence type="addItemsToRoom" itemIds="18"/>
+            <consequence type="removeItemsFromRoom" itemIds="17"/>
+            <consequence type="setGameState" key="serviceDoorOpen" value="true"/>
+            <consequence type="updateRoomDescription" roomId="21">
+                A rusty iron ladder provides a way down to the tunnels below street level. 
+                A heavy steel service door leads east.
+            </consequence>
+        </onSuccess>
+    </task>
+    
+    <task id="2002" name="Close service door">
+        <trigger action="CLOSE" actionObject="DOOR" actionAdjective="SERVICE" roomId="20"/>
+        <conditions>
+            <condition type="checkGameState" key="serviceDoorOpen" value="true">You need to open it first.</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">The service door clicks closed.</consequence>
+            <consequence type="removeExit" roomId="20" direction="W"/>
+            <consequence type="removeExit" roomId="21" direction="E"/>
+            <consequence type="addItemsToRoom" itemIds="17"/>
+            <consequence type="removeItemsFromRoom" itemIds="18"/>
+            <consequence type="setGameState" key="serviceDoorOpen" value="false"/>
+        </onSuccess>
+    </task>
+    
+    <task id="2003" name="Open service door">
+        <trigger action="OPEN" actionObject="DOOR" actionAdjective="SERVICE" roomId="21"/>
+        <conditions>
+            <condition type="checkGameState" key="serviceDoorUnlocked" value="true">You need to unlock it first.</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">The service door opens easily leading east into the basement of Freedom Mansions.</consequence>
+            <consequence type="addExit" roomId="20" direction="W" toRoom="21"/>
+            <consequence type="addExit" roomId="21" direction="E" toRoom="20"/>
+            <consequence type="addItemsToRoom" itemIds="18"/>
+            <consequence type="removeItemsFromRoom" itemIds="17"/>
+            <consequence type="setGameState" key="serviceDoorOpen" value="true"/>
+            <consequence type="updateRoomDescription" roomId="21">A rusty iron ladder provides a way down. A heavy steel service door leads east.</consequence>
+        </onSuccess>
+    </task>
+    
+    <task id="2004" name="Close service door">
+        <trigger action="CLOSE" actionObject="DOOR" actionAdjective="SERVICE" roomId="21"/>
+        <conditions>
+            <condition type="checkGameState" key="serviceDoorOpen" value="true">You need to open it first.</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">The service door clicks closed.</consequence>
+            <consequence type="removeExit" roomId="20" direction="W"/>
+            <consequence type="removeExit" roomId="21" direction="E"/>
+            <consequence type="addItemsToRoom" itemIds="17"/>
+            <consequence type="removeItemsFromRoom" itemIds="18"/>
+            <consequence type="setGameState" key="serviceDoorOpen" value="false"/>
+        </onSuccess>
+    </task>
+    
+    <task id="2005" name="Unlock service door (wrong side)">
+        <trigger action="UNLOCK" actionObject="DOOR" actionAdjective="SERVICE" 
+                 targetObject="KEY" targetAdjective="CARETAKERS" 
+                 roomId="21"/>
+        <conditions>
+            <condition type="checkGameState" key="serviceDoorUnlocked" value="false">The door is already unlocked, you only need to open it.</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">The service door only unlocks from the other side.</consequence>
+            <consequence type="timeCost" timeCost="1"/>
+        </onSuccess>
+    </task> 
+    
+    <task id="10400" name="Distract patrols with rock">
+        <trigger action="THROW" actionObject="ROCK" actionAdjective="LOOSE" targetObject="LAMP" roomId="104"/>
+        <conditions>
+            <condition type="carrying" itemId="101">You need something to throw at the lamp.</condition>
+            <condition type="roomHasItem" itemId="102">The glass is already broken.</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">
+                You hurl the rock at the lantern and the glass shatters loudly, echoing across the park. 
+                The patrols shout and rush toward the noise, leaving the southern path clear.
+            </consequence>
+            <consequence type="addExit" roomId="107" direction="E" toRoom="110" timeCost="2"/>
+            <consequence type="addExit" roomId="104" direction="S" toRoom="110" timeCost="2"/>
+            <consequence type="updateRoomDescription" roomId="107">
+                The gravel path is cut by a Party patrol route but the patrols have abandoned the crossing and gone to investigate the noise of breaking glass. 
+                A telescreen is mounted on a tree, its flickering face still watches the path.
+            </consequence>
+            <consequence type="updateRoomDescription" roomId="104">The remains of a bandstand rise like broken teeth, its roof long collapsed.
+                A lamp post stands next to the bandstand, paint peeling and rusted beneath. It's been many years since it was last lit. 
+                Shards of glass lie on the ground beneath it.
+            </consequence>
+            <consequence type="removeItemsFromInventory" itemIds="101"/>
+            <consequence type="addItemsToRoom" itemIds="101|104"/>
+            <consequence type="removeItemsFromRoom" itemIds="102"/>
+            <consequence type="timeCost" timeCost="2"/>
+        </onSuccess>
+    </task>
+    
+    <task id="11000" name="Show flyer to prole">
+        <trigger action="SHOW" actionObject="LEAFLET" npcId="11000"/>
+        <conditions>
+            <condition type="carrying" itemId="412">The prole tuts and says, "Don't waste my time, comrade."</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">The prole says, "OK, wait a minute."</consequence>
+            <consequence type="message">
+                You watch as he leaves by an alley beside the National Gallery North towards Charing Cross Road.
+
+                ...A few minutes pass...
+
+                There's a tap on your shoulder and your blood runs cold, not the Thought Police already? 
+                But a gaunt man with sharp eyes steps forward, "I'm Silas."
+            </consequence>
+            <consequence type="runNpcState" npcId="11000" newState="8"/>
+            <!-- Bring Silas out of limbo and trigger his first state -->
+            <consequence type="moveNpc" npcId="11001" roomId="110"/>
+            <consequence type="moveNpc" npcId="11000" roomId="999"/>
+            <consequence type="runNpcState" npcId="11001" newState="0"/>
+            <consequence type="timeCost" timeCost="10"/>
+        </onSuccess>
+    </task>
+        
+    <task id="15601" name="Show Minipax pass to guard">
+        <trigger action="SHOW" actionObject="PASS" actionAdjective="MINIPAX" npcId="15600"/>
+        <conditions>
+            <condition type="carrying" itemId="3">The guard says, "Get out of here before we arrest you". He raises his his gun and points it at your head.</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="runNpcState" npcId="15600" newState="6"/>
+        </onSuccess>
+    </task>   
+        
+    <task id="32600" name="Say Harry sent me">
+        <trigger action="SAY" quote="HARRY SENT ME" roomId="326"/>
+        <conditions>
+            <condition type="checkGameState" key="passwordHarrySet" value="true">Maybe a drink first?</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">
+                Someone looks over the top of the gate and eyes your blue overalls suspiciously. 
+                He disappears for a minute or two but then returns and the gate is unlocked.
+            </consequence>
+            <consequence type="addExit" roomId="326" direction="NE" toRoom="355" timeCost="2"/>
+            <consequence type="updateRoomDescription" roomId="326"></consequence>
+        </onSuccess>
+    </task>
+    
+    <task id="35700" name="Give Video CPU to Watson">
+        <trigger action="GIVE" actionObject="CPU" actionAdjective="VIDEO" npcId="35700"/>
+        <conditions>
+            <condition type="carrying" itemId="430">Watson tuts and says, "Don't waste my time, comrade."</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">Watson says, "Thank you, comrade. I'm gonna need that."
+                He stashes the CPU under the bench.
+            </consequence>
+            <consequence type="removeItemsFromInventory" itemIds="430"/>
+            <consequence type="setGameState" key="watsonReceivedCpu" value="true"/>
+            <consequence type="timeCost" timeCost="2"/>
+            <!-- run event to show message if Stencil still needed --> 
+            <consequence type="fireEvent" eventIds="35701"/>
+        </onSuccess>
+    </task>
+    
+    <task id="35701" name="Give Stencil to Watson">
+        <trigger action="GIVE" actionObject="STENCIL" actionAdjective="CIRCUIT" npcId="35700"/>
+        <conditions>
+            <condition type="carrying" itemId="431">Watson tuts and says, "Don't waste my time, comrade."</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">
+                Watson says, "Careful with that! It's delicate."
+                He stashes the stencil under the bench.
+            </consequence>
+            <consequence type="removeItemsFromInventory" itemIds="431"/>
+            <consequence type="setGameState" key="watsonReceivedStencil" value="true"/>
+            <consequence type="timeCost" timeCost="2"/>
+            <!-- run event to show message if CPU still needed --> 
+            <consequence type="fireEvent" eventIds="35702"/>
+        </onSuccess>
+    </task>
+    
+    <task id="35702" name="Pay Watson">
+        <trigger action="PAY" npcId="35700"/>
+        <conditions>
+            <!-- Only allow payment if both required parts have been given -->
+            <condition type="checkGameState" key="watsonReceivedPayment" value="false">Watson says, "You've already paid me, comrade."</condition>
+            <condition type="checkBalance" amount="15">Watson says, "Have you got enough? Maybe sell a few things in the market."</condition>
+            <!-- <condition type="playerHasCredits" amount="15">You don't have enough credits.</condition> -->
+        </conditions>
+        <onSuccess>
+            <consequence type="message">You hand the notes over to Watson. "Right," he says. "I'll get the other bits, it'll be ready in an hour."</consequence>
+            <consequence type="setGameState" key="watsonReceivedPayment" value="true"/>
+            <consequence type="timeCost" timeCost="2"/>
+            <consequence type="fireEvent" eventIds="35704" timeout="60"/>
+            <consequence type="updateBalance" amount="-15.00"/>
+        </onSuccess>
+    </task>
+        
+    <task id="50000" name="Show Minitrue pass to guard">
+        <trigger action="SHOW" actionObject="PASS" actionAdjective="MINITRUE" npcId="50000"/>
+        <conditions>
+            <condition type="carrying" itemId="1">The guard says, "Get out of here before we arrest you". He raises his his gun and points it at your head.</condition>
+            <condition type="checkTime" startHour="7" endHour="22">The guard says, "Labour hours only". He raises his his gun and points it at your head.</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="runNpcState" npcId="50000" newState="2"/>
+        </onSuccess>
+    </task>
+    
+    <task id="51000" name="Call Lift on ground floor">
+        <trigger action="PRESS" actionObject="BUTTON" actionObjectAdjective="LIFT" roomId="510"/>
+        <conditions/>
+        <onSuccess>
+            <consequence type="addExit" roomId="510" direction="N" toRoom="507"/>
+            <consequence type="message">There is a sound of unoiled gears grinding into action. After a few minutes the lift arrives with a clank.</consequence>
+            <consequence type="setNpcState" npcId="51000" newState="1"/>
+            <consequence type="timeCost" timeCost="2"/>
+        </onSuccess>
+    </task>
+    
+    <task id="51001" name="Call Lift on first floor">
+        <trigger action="PRESS" actionObject="BUTTON" actionObjectAdjective="LIFT" roomId="520"/>
+        <conditions/>
+        <onSuccess>
+            <consequence type="addExit" roomId="507" direction="N" toRoom="520"/>
+            <consequence type="message">There is a sound of unoiled gears grinding into action. After a few minutes the lift arrives with a clank.</consequence>
+            <consequence type="setNpcState" npcId="51000" newState="1"/>
+            <consequence type="timeCost" timeCost="2"/>
+        </onSuccess>
+    </task>
+    
+    <task id="51002" name="Call Lift on second floor">
+        <trigger action="PRESS" actionObject="BUTTON" actionObjectAdjective="LIFT" roomId="530"/>
+        <conditions/>
+        <onSuccess>
+            <consequence type="addExit" roomId="530" direction="N" toRoom="507"/>
+            <consequence type="message">There is a sound of unoiled gears grinding into action. After a few minutes the lift arrives with a clank.</consequence>
+            <consequence type="setNpcState" npcId="51000" newState="1"/>
+            <consequence type="timeCost" timeCost="2"/>
+        </onSuccess>
+    </task>
+    
+    <task id="51003" name="Call Lift on third floor">
+        <trigger action="PRESS" actionObject="BUTTON" actionObjectAdjective="LIFT" roomId="540"/>
+        <conditions/>
+        <onSuccess>
+            <consequence type="addExit" roomId="540" direction="N" toRoom="507"/>
+            <consequence type="message">There is a sound of unoiled gears grinding into action. After a few minutes the lift arrives with a clank.</consequence>
+            <consequence type="setNpcState" npcId="51000" newState="1"/>
+            <consequence type="timeCost" timeCost="2"/>
+        </onSuccess>
+    </task>  
+    
+    <task id="51004" name="Call Lift on ground floor">
+        <trigger action="CALL" actionObject="LIFT" roomId="510"/>
+        <conditions/>
+        <onSuccess>
+            <consequence type="addExit" roomId="510" direction="N" toRoom="507"/>
+            <consequence type="message">There is a sound of unoiled gears grinding into action. After a few minutes the lift arrives with a clank.</consequence>
+            <consequence type="setNpcState" npcId="51000" newState="1"/>
+            <consequence type="timeCost" timeCost="2"/>
+        </onSuccess>
+    </task>
+    
+    <task id="51005" name="Call Lift on first floor">
+        <trigger action="CALL" npcId="51000"/>
+        <conditions/>
+        <onSuccess>
+            <consequence type="addExit" roomId="507" direction="N" toRoom="520"/>
+            <consequence type="message">There is a sound of unoiled gears grinding into action. After a few minutes the lift arrives with a clank.</consequence>
+            <consequence type="setNpcState" npcId="51000" newState="1"/>
+            <consequence type="timeCost" timeCost="2"/>
+        </onSuccess>
+    </task>
+    
+    <task id="51006" name="Call Lift on second floor">
+        <trigger action="CALL" npcId="51000"/>
+        <conditions/>
+        <onSuccess>
+            <consequence type="addExit" roomId="530" direction="N" toRoom="507"/>
+            <consequence type="message">There is a sound of unoiled gears grinding into action. After a few minutes the lift arrives with a clank.</consequence>
+            <consequence type="setNpcState" npcId="51000" newState="1"/>
+            <consequence type="timeCost" timeCost="2"/>
+        </onSuccess>
+    </task>
+    
+    <task id="51007" name="Call Lift on third floor">
+        <trigger action="CALL" npcId="51000"/>
+        <conditions/>
+        <onSuccess>
+            <consequence type="addExit" roomId="540" direction="N" toRoom="507"/>
+            <consequence type="message">There is a sound of unoiled gears grinding into action. After a few minutes the lift arrives with a clank.</consequence>
+            <consequence type="setNpcState" npcId="51000" newState="1"/>
+            <consequence type="timeCost" timeCost="2"/>
+        </onSuccess>
+    </task>  
+    
+    <task id="54500">
+        <trigger action="OPEN" actionObject="DESK" roomId="545"/>
+        <conditions>
+            <condition type="checkGameState" key="isSupervisorsDeskUnlocked" value="true">
+                The desk is locked.
+            </condition>
+            <condition type="checkGameState" key="isSupervisorsDeskOpen" value="false">
+                The desk is already open.
+            </condition>
+            <condition type="checkTime" startHour="22" endHour="7">
+                It's far too dangerous to do this during the day!
+            </condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="setGameState" key="isSupervisorsDeskOpen" value="false"/>
+            <consequence type="removeItemsFromRoom" roomId="545" itemIds="509"/>
+            <consequence type="addItemsToRoom" roomId="545" itemIds="510"/>
+            <consequence type="message">
+                You slide the drawer open.
+            </consequence>
+        </onSuccess>
+    </task>
+        
+    <task id="54501">
+        <trigger action="CLOSE" actionObject="DESK" roomId="545"/>
+        <conditions>
+            <condition type="checkGameState" key="isSupervisorsDeskOpen" value="false">
+                The desk is already closed.
+            </condition>
+            <condition type="checkGameState" key="hasSmashedSupervisorsDesk" value="false">
+                The desk drawer cannot be closed properly because of the lock. The best you can do is slide it back into place so that from a distance it looks normal. 
+                You know that the subterfuge won't last. 
+            </condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="setGameState" key="isSupervisorsDeskOpen" value="false"/>
+            <consequence type="removeItemsFromRoom" roomId="545" itemIds="510"/>
+            <consequence type="addItemsToRoom" roomId="545" itemIds="509"/>
+            <consequence type="message">
+                The drawer slides closed.
+            </consequence>
+        </onSuccess>
+        <onFailed>
+            <consequence type="setGameState" key="isSupervisorsDeskOpen" value="true"/>
+        </onFailed>
+    </task>
+    
+    <task id="54502">
+        <trigger action="UNLOCK" actionObject="DESK|LOCK" targetObject="LOCKPICK" roomId="545"/>
+        <conditions>
+            <condition type="carrying" itemId="433">
+                You need something to unlock it with.
+            </condition>
+            <blockIfNot type="checkGameState" key="isSupervisorsDeskUnlocked" value="false">
+                The desk is already unlocked.
+            </blockIfNot>
+            <condition type="checkTime" startHour="22" endHour="7">
+                It's far too dangerous to do that during the day!
+            </condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">You've had little practice and the lockpick is difficult to use but after a few tries you succeed... The desk is unlocked!</consequence>
+            <consequence type="setGameState" key="isSupervisorsDeskUnlocked" value="true"/>            
+        </onSuccess>
+    </task>
+    
+    <task id="54503">
+        <trigger action="LOCK" actionObject="DESK|LOCK" targetObject="LOCKPICK" roomId="545"/>
+        <conditions>
+            <condition type="carrying" itemId="433">
+                You need something to lock it with.
+            </condition>
+            <blockIfNot type="checkGameState" key="isSupervisorsDeskUnlocked" value="true">
+                The desk is already locked.
+            </blockIfNot>
+            <blockIfNot type="checkGameState" key="hasSmashedSupervisorsDesk" value="true">
+                The lock is smashed and no longer works. 
+                The best you can do is fit the drawer back in place so at a distance it looks normal and just hope nobody figures out who did it.
+            </blockIfNot>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">The lock clicks closed.</consequence>
+            <consequence type="setGameState" key="isSupervisorsDeskUnlocked" value="false"/>
+            <consequence type="setGameState" key="isSupervisorsDeskOpen" value="false"/>
+        </onSuccess>
+    </task>
+    
+    <task id="54504">
+        <trigger action="SMASH|JEMMY|PRISE" actionObject="DESK|LOCK" targetObject="CROWBAR" roomId="545"/>
+        <conditions>
+            <condition type="carrying" itemId="400">
+                You need something to prise the lock it with.
+            </condition>
+            <condition type="checkGameState" key="hasSmashedSupervisorsDesk" value="false">
+                The lock has already been jemmied off.
+            </condition>
+            <blockIfNot type="checkGameState" key="isSupervisorsDeskUnlocked" value="false">
+                There's no need to do that, the desk is already unlocked. 
+            </blockIfNot>
+            <blockIfNot type="checkGameState" key="isSupervisorsDeskOpen" value="false">
+                There's no need to do that, the desk is already open. 
+            </blockIfNot>
+            <condition type="checkTime" startHour="22" endHour="7">
+                It's far too dangerous to do that during the day!
+            </condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">
+                You prise the lock off with the crowbar
+                The front of the drawer splits with the force you needed to use and you realise the enormity of what you've just done.
+            </consequence>
+            <consequence type="setGameState" key="isSupervisorsDeskUnlocked" value="true"/>
+            <consequence type="setGameState" key="supervisorsDeskSmashed" value="true"/>
+        </onSuccess>
+    </task>
+    
+    <task id="56000" name="Open security gate in Minitrue">
+        <trigger action="OPEN" actionObject="HATCH" actionAdjective="SECURITY" roomId="560">
+            <synonym action="UNBOLT"/>
+        </trigger>
+        <conditions>
+            <condition type="checkGameState" key="minitrueGateOpened" value="false">
+                The hatch is already open.
+            </condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">The bolt slides back easily and the hatch opens.</consequence>
+            <consequence type="setGameState" key="minitrueGateOpened" value="true"/>
+            <consequence type="addExit" roomId="268" direction="E" toRoom="560"/>
+            <consequence type="addExit" roomId="560" direction="W" toRoom="268"/>
+            <consequence type="timeCost" timeCost="2"/>
+        </onSuccess>
+    </task>
+      
+</tasks>
+

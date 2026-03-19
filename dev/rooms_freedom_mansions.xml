@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rooms>
+    <defaultDescriptions>
+        <description>
+            A poster of Big Brother is pinned to the wall, his eyes following you as you move. The caption under the poster reads 'Big Brother Is Watching You'.
+        </description>
+    </defaultDescriptions>
+    <room id="1" name="the living room of your flat." youPrefix="in" tags="home"> 
+        <description>
+            There is a sofa, a desk and the ubiquitous telescreen. The flat on the whole is dilapidated but not dirty or untidy.
+        </description>
+        <exits>
+            <exit room="2" direction="S"/>
+            <exit room="3" direction="N"/>
+        </exits>
+        <roomItems>
+            <roomItem id="2"/>
+            <roomItem id="5"/>
+        </roomItems>
+    </room>
+        
+    <room id="2" name="the kitchen in your flat." youPrefix="in" tags="home">
+        <description>
+            The telescreen is blaring brassy music loudly. 
+            Through the window to the South you can see the four Ministries rising far above all other structures in the city. 
+            Huge gleaming white pyramidal structures, a stark contrast to the grey London skyline. 
+            The Party slogans, in black lettering large enough to read even at this distance, are picked out on the Ministry of Truth:
+            
+            WAR IS PEACE. 
+            FREEDOM IS SLAVERY.
+            IGNORANCE IS STRENGTH.
+        </description>
+        <exits>
+            <exit room="1" direction="N"/>
+        </exits>
+        <roomItems>
+            <roomItem id="11"/>
+        </roomItems>
+    </room>
+        
+    <room id="3" name="the hallway outside your flat." youPrefix="in">
+        <description>
+            A large poster of Big Brother is pinned up at the end of the hall. His eyes stare balefully down at you and appear to follow you as you move.
+        </description>
+        <exits>
+            <exit room="1" direction="S"/>
+            <exit room="4" direction="E"/>
+            <exit room="5" direction="W"/>
+        </exits>
+    </room>  
+              
+    <room id="4" name="outside the lift on the first floor.">
+        <description>
+            The lift doesn't work, you can't remember the last time it worked. 
+            The telescreen at the end of hall can see everthing, it is showing a propaganda film about advances in technology. 
+            'We are finally able to bomb East Asia with pin point accuracy' exclaims the Newscaster excitedly. This is exciting news comrades, it should shorten the war by months. 
+        </description>
+        <exits>
+            <exit room="3" direction="W"/>
+            <exit room="8" direction="SE"/>
+        </exits>  
+    </room>
+    
+    <room id="5" name="outside Mrs Parsons flat.">
+        <description>
+            A poster of Big Brother watches you. The caption under the post reads 'Big Brother Is Watching You'.
+        </description>
+        <exits>
+            <exit room="3" direction="E"/>
+        </exits>
+    </room>
+        
+    <room id="6" name="Mrs Parsons flat." youPrefix="in"> 
+        <description>
+            Mrs Parson's children are young but eye you suspiciously. The smell of boiled cabbage lingers in the air.
+        </description>
+        <exits>
+            <exit room="5" direction="N"/>
+            <exit room="7" direction="S"/>
+        </exits> 
+    </room>
+        
+    <room id="7" name="Mrs Parsons kitchen" youPrefix="in">
+        <description>
+            The smell of boiled cabbage is almost overpowering.
+        </description>
+        <exits>
+            <exit room="6" direction="N"/>
+        </exits>
+        <roomItems>  
+            <roomItem id="9"/>
+        </roomItems> 
+    </room>
+     
+    <room id="8" name="the stairwell on the first floor." youPrefix="in" tags="no-curfew">
+        <description>A poster of Big Brother watches you. The caption under the post reads 'Big Brother Is Watching You'.</description>
+        <exits>
+            <exit room="4" direction="NW"/>
+            <exit room="9" direction="D" timeCost="1"/>
+        </exits>
+    </room>
+    
+    <room id="9" name="the stairwell on the ground floor." youPrefix="in" tags="no-curfew">
+        <description>A poster of Big Brother watches you. The caption under the post reads 'Big Brother Is Watching You'.</description>
+        <exits>
+            <exit room="10" direction="NW" timeCost="1"/>
+            <exit room="8" direction="U" timeCost="1"/>
+            <exit room="20" direction="D" timeCost="1"/>
+        </exits>
+    </room>
+    
+    <room id="10" name="outside the lift on the ground floor of Freedom Mansions.">
+        <description>A poster of Big Brother watches you.</description>
+        <exits>
+            <exit room="11" direction="W" timeCost="1"/>
+            <exit room="100" direction="E" timeCost="5"/>
+            <exit room="9" direction="SE" timeCost="1"/>
+        </exits>
+    </room>
+     
+    <room id="11" name="outside Syme's flat.">
+        <description>
+            The telescreen at the end of hall can see everthing, it is showing currently showing a news programme, the Newscaster babbles excitedly about the war.
+        </description>
+        <exits>
+            <exit room="12" direction="W" timeCost="1"/>
+            <exit room="10" direction="E" timeCost="1"/>
+        </exits>
+    </room>
+    
+    <room id="12" name="outside the caretakers flat.">
+        <description>
+            The telescreen at the end of hall can see everthing, it is showing currently showing a news programme, the Newscaster babbles excitedly about the war.
+        </description>
+        <exits>
+            <exit room="11" direction="E" timeCost="1"/>
+            <exit room="13" direction="S" timeCost="1"/>
+        </exits>
+    </room>
+    
+    <room id="13" name="the caretakers flat." youPrefix="in">
+        <description>
+            The telescreen at the end of hall can see everthing, it is showing currently showing a news programme, the Newscaster babbles excitedly about the war.
+        </description>
+        <exits>
+            <exit room="12" direction="N" timeCost="1"/>
+        </exits>
+        <roomItems>
+            <roomItem id="12"/>
+        </roomItems>
+    </room>
+    
+    <!-- Freedom Mansions basement link -->
+    <room id="20" name="the basement in Freedom Mansions" youPrefix="in" tags="no-curfew">
+        <description>
+            A smallish room dimly lit by a single low power bulb. It's mainly filled mostly with junk. 
+            There is a sturdy iron service door at the western end of the room.
+        </description>
+        <exits>
+            <exit room="9" direction="U" timeCost="1"/>
+            <!-- entrance to tunnels added dynamically -->
+        </exits>
+        <roomItems>
+            <roomItem id="17"/>
+        </roomItems>
+    </room>
+    
+    <room id="21" name="the top of a manhole leading downwards into some tunnels." youPrefix="at" tags="no-curfew">
+        <description>A rusty iron ladder provides a way down. A locked heavy steel service door leads east.</description>
+        <exits>
+            <exit room="200" direction="D" timeCost="10"/>
+        </exits>
+        <roomItems>
+            <roomItem id="17"/>
+        </roomItems>
+    </room>
+    
+    <!-- Limbo is for NPCs that aren't in play yet or are no longer needed -->
+    <room id="999" name="Limbo"/>    
+</rooms>
+

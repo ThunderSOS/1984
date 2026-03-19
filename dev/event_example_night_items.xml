@@ -1,0 +1,60 @@
+
+<!--Example events for item appears disappears at certain times. -->
+<events>
+    <event id="80003" name="Minpax pass in room 8?" type="UNIVERSAL">
+        <trigger type="checkTime" startHour="22" endHour="7"/>
+        <conditions>
+            <condition type="checkRoomHasItem" roomId="8" itemIds="3"/>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">Minipax pass here at night</consequence>
+        </onSuccess>
+        <onFailed>
+            <gateway>
+                <!-- only if item has never been taken does it respawn -->
+                <condition type="checkItemHasTag" itemIds="3" tags="taken" invert="true"/>
+            </gateway>
+            <consequence type="message">Minipax pass not here at night and not taken</consequence>
+            <consequence type="addItemsToRoom" roomId="8" itemIds="3"/>
+            <consequence type="addItemTags" itemIds="3" tags="spawned"/>
+        </onFailed>
+    </event>
+
+    <event id="80004" name="Minipax pass not taken room 8?" type="UNIVERSAL">
+        <trigger type="checkTime" startHour="7" endHour="22"/>
+        <conditions>
+            <condition type="checkRoomHasItem" roomId="8" itemIds="3"/>
+            <condition type="checkItemHasTag" itemIds="3" tags="spawned"/>
+        </conditions>
+        <onSuccess>	            
+            <consequence type="message">Minipax pass here daytime</consequence>
+            <consequence type="removeItemsFromRoom" roomId="8" itemIds="3"/>
+            <consequence type="removeItemTags" itemIds="3" tags="spawned"/>
+        </onSuccess>
+        <onFailed>
+            <gateway>
+                <condition type="checkRoomHasItem" roomId="8" itemIds="3"/>
+            </gateway>        
+            <consequence type="message">Minipax pass put back by player</consequence>
+            <consequence type="fireEvent" timeout="60" eventIds="80006"/>
+        </onFailed>
+    </event>
+
+    <event id="80005" name="Minipax pass taken from room 8" roomIds="8" type="EVENT_TRIGGERED">
+        <trigger type="passThrough"/>
+        <onSuccess>
+            <consequence type="message">Minipax pass taken</consequence>
+            <consequence type="addItemTags" itemIds="3" tags="taken"/>
+            <consequence type="removeItemTags" itemIds="3" tags="spawned"/>
+        </onSuccess>
+    </event>
+
+    <event id="80006" name="Minipax pass removed room 8 after a delay" roomIds="8" type="EVENT_TRIGGERED">
+        <trigger type="passThrough"/>
+        <onSuccess>
+            <consequence type="message">Minipax pass removed if it was there</consequence>
+            <consequence type="removeItemsFromRoom" roomId="8" itemIds="3"/>
+            <consequence type="removeItemTags" itemIds="3" tags="spawned"/>
+        </onSuccess>
+    </event>
+</events>

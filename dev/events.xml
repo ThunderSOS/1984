@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events>
+    <event id="600" name="Mrs Parsons children fire catapult at you" roomIds="6|7">	
+        <trigger type="chance" occurs="1" probabilitySpace="5" />
+        <conditions>
+            <condition type="checkGameState" key="catapultFired" value="false"/>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">
+                There's a sudden stinging blow on the back of your neck. 
+                You spin round just in time to see one of Mrs Parsons children pocketing a catapult. 
+                "Goldstein!" he yells as Mrs Parsons drags him away to a bedroom.
+            </consequence>
+            <consequence type="setGameState" key="catapultFired" value="true"></consequence>
+        </onSuccess>
+    </event>
+	    
+    <event id="15500" name="After 7pm Theatre Opens" roomIds="155" >
+        <trigger type="checkTime" startHour="19" endHour="21"/>
+        <conditions>
+            <condition type="checkGameState" key="directedToTheatre" value="true"/>
+        </conditions>
+        <onSuccess>
+            <consequence type="addExit" roomId="155" direction="S" toRoom="160"/>
+        </onSuccess>
+    </event>
+    
+    <event id="15501" name="After 9pm Theatre Closes" roomIds="155">
+        <trigger type="checkTime" startHour="21" endHour="19"/>
+        <onSuccess>
+            <consequence type="removeExit" roomId="155" direction="S"/>
+        </onSuccess>
+    </event>
+    
+    <event id="34100" name="NPC catches you stealing" roomIds="341|342">	
+        <trigger type="chance" occurs="4" probabilitySpace="10" />
+        <conditions>
+            <condition type="carrying" itemIds="404|405|410"/>
+        </conditions> 
+        <onSuccess>
+            <consequence type="message">The occupant of the house appears from upstairs.
+                He screams at you, "What do you think you're doing? Put that back!"
+                He attacks you, punching you hard in the face and roughly shoves you out. Your nose might be broken.
+            </consequence>
+            <consequence type="dropItems" itemIds="404|405|410"/>
+            <consequence type="movePlayer" roomId="340"/>
+        </onSuccess>
+        <onFailed>
+            <consequence type="message">The occupant of the house appears from upstairs.
+                He screams at you, "What the hell do you think you're doing in my house?"
+                He runs at you and roughly shoves you back out of the front door.
+            </consequence>
+            <consequence type="movePlayer" roomId="340"/>
+        </onFailed>
+    </event>
+    
+    <event id="35701" name="Check Stencil" roomIds="357" type="EVENT_TRIGGERED">
+        <trigger type="passThrough"/>
+        <conditions>
+            <condition type="checkGameState" key="watsonReceivedStencil" value="false"/>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">"Just need the Stencil now."</consequence>
+        </onSuccess>
+    </event>
+    
+    <event id="35702" name="Check CPU" roomIds="357" type="EVENT_TRIGGERED">
+        <trigger type="passThrough"/>
+        <conditions>
+            <condition type="checkGameState" key="watsonReceivedCpu" value="false"/>
+        </conditions>        
+        <onSuccess>
+            <consequence type="message">"Just need the CPU now."</consequence>
+        </onSuccess>
+    </event>
+    
+    <event id="35703" name="Check payment" roomIds="357" type="EVENT_TRIGGERED">
+        <trigger type="passThrough"/>
+        <conditions>
+            <condition type="checkGameState" key="watsonReceivedCpu" value="true"/>
+            <condition type="checkGameState" key="watsonReceivedStencil" value="true"/>
+            <condition type="checkGameState" key="watsonReceivedPayment" value="false"/>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">
+                "Remember it's still 15 dollars comrade, then I can get the other bits and get on with it. 
+                Blank boards and etching acid ain't free you know, then there's all the other components and solder ain't cheap to come by neither."
+            </consequence>
+        </onSuccess>
+    </event>
+    
+    <event id="35704" name="Assembled board appears" roomIds="357" type="EVENT_TRIGGERED">
+        <trigger type="passThrough"/>
+        <onSuccess>
+            <consequence type="message">Your board is now ready to pick up in the workshop.</consequence>
+            <consequence type="addItemsToRoom" roomId="357" itemIds="432"/>
+        </onSuccess>
+    </event>
+    
+    <event id="54500" name="Examine supervisors desk" type="EVENT_TRIGGERED">
+        <trigger type="passThrough"/>
+        <conditions>
+            <condition type="checkTime" startHour="22" endHour="7"/>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">
+                The drawer is locked, but the lock is old.
+                It looks like it could be forced or even picked quite easily.
+            </consequence>
+        </onSuccess>
+        <onFailed>
+            <consequence type="message">
+                You hesitate closer inspection. This would be noticed during working hours.
+            </consequence>
+        </onFailed>
+    </event> 
+    
+    <!-- Universal and Event Triggered events -->
+    <event id="100000" name="Lights out (home)" type="UNIVERSAL">
+        <trigger type="checkTime" startHour="22" endHour="7"/>
+        <conditions>
+            <condition type="checkRoomHasTag" tags="home"/>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">
+                All power everywhere is shut off except for the Telescreens. The volume on the Telescreens is lowered.
+                There's nothing to do except for sleep until morning.
+            </consequence>
+            <consequence type="message">... Time passes ...</consequence>
+            <consequence type="setNewTime" newTime="07:00"/>
+        </onSuccess>
+    </event>
+    
+    <event id="100001" name="Lights out" type="UNIVERSAL">
+        <trigger type="checkTime" startHour="22" endHour="7"/>
+        <conditions>
+            <condition type="checkRoomHasTag" tags="no-curfew"/>
+        </conditions>
+        <onFailed>	
+            <gateway>
+                <condition type="chance" occurs="1" probabilitySpace="5"/>
+            </gateway>
+            <consequence type="message">The nearest Telescreen screams at you: Citizen! It is past curfew, you should be at home.</consequence>
+            <consequence type="points" key="thoughtPolice" amount="10"/>            
+            <consequence type="fireEvent" eventIds="200000"/>
+        </onFailed>
+    </event>
+    
+    <event id="100002" name="No telescreen" type="UNIVERSAL">
+        <trigger type="passThrough"/>
+        <conditions>
+            <condition type="checkRoomHasTag" tags="no-curfew|telescreen-hidden"/>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">(There's no telescreen here.)</consequence>
+        </onSuccess>
+    </event>
+    
+    <event id="200000" name="Arrest" type="EVENT_TRIGGERED">
+        <trigger type="count" key="thoughtPolice" limit="100"/>
+        <onSuccess>
+            <consequence type="message">
+                The sound of heavy iron boots marching fills your ears.
+                You have been arrested and taken to the Ministry of Love for correction.
+            </consequence>
+            <consequence type="movePlayer" roomId="900"/>
+        </onSuccess>
+    </event>
+    
+    <event id="200001" name="Arrest" type="EVENT_TRIGGERED">
+        <trigger type="passThrough"/>
+        <onSuccess>
+            <consequence type="message">
+                The Telescreens cannot be tampered with. 
+                A voice from the Telescreen roars at you to stay where you are! You are under arrest! 
+            </consequence>
+            <consequence type="movePlayer" roomId="900"/>
+            <consequence type="message">
+                Over a period of weeks or is it months? Years? You are subject to reprogramming. 
+                The savage physical and psychological abuse takes its toll. 
+                Slowly, inevitably, you succomb - any possible thought of further insubordination is permanently extinguished.    
+                
+                You love Big Brother.
+            </consequence>
+            <consequence type="waitForKey">Press any key to continue.</consequence>
+            <consequence type="newGame"/>
+        </onSuccess>
+    </event>
+    
+    <event id="200002" name="Assmebled board taken" type="EVENT_TRIGGERED">
+        <trigger type="passThrough"/>
+        <onSuccess>
+            <consequence type="message">
+                Watson says, you can get a input device to help select the feed you can watch but I don't have those. 
+                As it stands it'll tune to a new one every time you plug it in. 
+            </consequence>           
+        </onSuccess>
+    </event>
+
+    <event id="200003" name="Remove dynamic exits at night" type="UNIVERSAL">
+        <trigger type="checkTime" startHour="22" endHour="7"/>
+        <conditions/>
+        <onSuccess>	
+            <consequence type="removeExit" roomId="500" direction="W"/>
+        </onSuccess>
+    </event>
+    
+    <event id="500000" name="Death" type="EVENT_TRIGGERED">
+        <trigger type="passThrough"/>
+        <onSuccess>
+            <consequence type="message">
+                 The final blow is too much and you collapse to the floor. Darkness descends. 
+            </consequence>
+            <consequence type="waitForKey">Press any key to continue.</consequence>
+            <consequence type="newGame"/>
+        </onSuccess>
+    </event>
+
+</events>
+

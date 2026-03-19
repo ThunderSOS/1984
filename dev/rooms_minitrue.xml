@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rooms>
+    <!-- BASEMENT -->
+    <room id="560" name="a basement maintenance corridor." youPrefix="in">
+        <description>
+            A low concrete passage runs beneath the Ministry, lit by bare bulbs behind wire cages.
+            At one end a barred steel hatch is bolted shut. Behind it you can see a manhole with an iron runged ladder leading downwards.
+            Steam pipes rattle along the ceiling, their labels peeling with age.
+            The air smells of ash and damp paper.
+        </description>
+        <exits>
+            <!--
+            opened by a puzzle - access to manhole leading down
+            <exit direction="W" room="564" timeCost="2"/>
+            --> 
+            <exit direction="E" room="561" timeCost="5"/>           
+        </exits>
+        <roomItems/>
+    </room>
+    
+    <room id="561" name="a service stairwell labelled basement access." youPrefix="in">
+        <description>
+            A narrow concrete stairwell rises toward the administrative levels above.
+            The walls are bare except for a single telescreen mounted high out of reach, its lens is dark.
+        </description>
+        <exits>
+            <exit direction="E" room="562" timeCost="2"/>
+            <exit direction="W" room="560" timeCost="2"/>
+            <exit direction="U" room="511" timeCost="5"/>
+        </exits>
+        <roomItems/>
+    </room>
+
+    <room id="562" name="a furnace access chamber." youPrefix="in">
+        <description>
+            Heavy iron doors line the walls, each marked with soot-darkened warning stencils.
+            Heat bleeds through the metal, and somewhere beyond you hear the steady roar of fire.
+            Ash drifts across the floor like black snow.
+        </description>
+        <exits>
+            <exit direction="W" room="561" timeCost="5"/>
+        </exits>
+        <roomItems/>
+    </room>
+
+    <!-- GROUND FLOOR --> 
+    <room id="500" name="the Minitrue street entrance checkpoint.">
+        <description>
+            Glass doors lead out to the street, flanked by uniformed guards.
+            Identification notices are plastered everywhere.
+            Anyone entering or leaving pauses here, however briefly, under the unblinking eye of the telescreen.
+            The security guard bars your way into the building. 
+        </description>
+        <exits>
+            <exit direction="N" room="131" timeCost="5"/>
+        </exits>
+        <roomItems/>
+    </room>
+
+    <room id="501" name="the Ministry of Truth lobby." youPrefix="in">
+        <description>
+            A vast marble-floored hall stretches out beneath a ceiling lost in shadow.
+            Party slogans are carved directly into the stone walls.
+            Clerks move through metal detectors while guards watch from behind mirrored glass.
+            A telescreen dominates the far wall, broadcasting the current bulletin.
+        </description>
+        <exits>
+            <exit direction="W" room="502" timeCost="5"/>
+            <exit direction="E" room="500" timeCost="5"/>
+        </exits>
+        <roomItems/>
+    </room>
+
+    <room id="502" name="a records intake corridor." youPrefix="in">
+        <description>
+            Metal carts stacked with documents line the walls, each tagged for revision or destruction.
+            The corridor smells of ink and hot dust.
+            A guard sits at a desk, barely glancing up as people pass.
+        </description>
+        <exits>
+            <!-- South to loading bay --> 
+            <exit direction="W" room="503" timeCost="5"/>                        
+            <exit direction="N" room="510" timeCost="5"/>
+            <exit direction="E" room="501" timeCost="5"/>
+        </exits>
+        <roomItems/>
+    </room>
+    
+    <room id="503" name="an administrative corridor." youPrefix="in">
+        <description>
+            A narrow corridor lined with doors leading to clerical offices and filing rooms.
+            The walls are covered with charts and notices of daily quotas.
+            Telescreens hum quietly above each doorway, tracking movement.
+        </description>
+        <exits>
+            <!-- South to loading bay --> 
+            <exit direction="W" room="504" timeCost="5"/> <!-- corridor to studios -->
+            <exit direction="E" room="502" timeCost="5"/> <!-- corridor to auditorium / loading bay -->
+        </exits>
+        <roomItems/>
+    </room>
+
+    <room id="504" name="outside Studio A.">
+        <description>
+            A narrow passage flanked by the doors of recording studios.
+            Studio A is to the south, a quiet space humming with equipment.
+            The corridor continues north toward other work areas.
+        </description>
+        <exits>
+            <!-- South to Studio A --> 
+            <exit direction="W" room="505" timeCost="5"/>
+            <exit direction="E" room="503" timeCost="5"/>
+        </exits>
+        <roomItems/>
+    </room>
+
+    <room id="505" name="outside the 2 Minutes Hate auditorium.">
+        <description>
+            The corridor stretches further west from the administrative areas.
+            Faded posters of enemy leaders are plastered along the walls.
+            Telescreens show looping propaganda clips.
+        </description>
+        <exits>
+            <exit direction="E" room="504" timeCost="5"/>
+            <exit direction="S" room="506" timeCost="5"/> <!-- auditorium off main corridor -->
+        </exits>
+        <roomItems/>
+    </room>
+
+    <room id="506" name="the 2 Minutes Hate auditorium." youPrefix="in">
+        <description>
+            A vast hall with tiered seating and a stage at the far end.
+            Large telescreens cover the front wall, each pulsing with the Party's latest denunciations.
+            The crowd below shifts nervously, caught between fear and excitement.
+        </description>
+        <exits>
+            <exit direction="N" room="505" timeCost="5"/> <!-- back to corridor -->
+        </exits>
+        <roomItems/>
+    </room>
+    
+    <room id="510" name="outside the document lift (Ground floor).">
+        <description>
+            The button to call the lift sits to the right of the doors. Currently it's dark but it's still visibly grimy with years of use. 
+            Stencilled glyphs next to the doors indicate furnaces basement, editorial level 1, prolesec and creative level 2, archives level 3, other areas are restricted inner party only.
+            A faint draft rises from the shaft.
+        </description>
+        <exits>
+            <exit direction="S" room="502" timeCost="5"/>
+            <exit direction="NE" room="511" timeCost="2"/> <!-- to stairwell -->
+        </exits>
+        <roomItems/>
+    </room>
+
+    <room id="511" name="a service stairwell labelled ground floor access." youPrefix="in">
+        <description>
+            A narrow concrete stairwell rises toward the administrative levels above.
+            The walls are bare except for a single telescreen mounted high out of reach, its lens dark but faintly humming.
+        </description>
+        <exits>
+            <exit direction="SW" room="510" timeCost="2"/>
+            <exit direction="U" room="521" timeCost="2"/> <!-- to basement -->
+            <exit direction="D" room="561" timeCost="2"/> <!-- to basement -->
+        </exits>
+        <roomItems/>
+    </room>
+    
+    <room id="507" name="the document lift." youPrefix="in">
+        <description>
+            The interior of the lift is grimy and scarred by years of heavy use, although the telescreens on either side are polished and well maintained.             
+            The doors close as soon as you step inside. It is brightly lit, there is no hiding in here. 
+        </description>
+        <exits/>
+        <roomItems/>
+    </room>
+
+    <room id="520" name="outside the document lift (first floor)">
+        <description>
+            The air here smells of paper, ink, dust and overheating circuitry.
+            Directional arrows have been painted over repeatedly, their meanings subtly altered.
+        </description>
+        <exits>
+            <exit direction="S" room="522" timeCost="5"/> <!-- main editorial corridor -->
+            <exit direction="NE" room="521" timeCost="2"/> <!-- stairwell -->
+        </exits>
+        <roomItems/>
+    </room>
+
+    <room id="521" name="a service stairwell labelled first floor access" youPrefix="in">
+        <description>
+            The concrete stairwell opens onto this level with no ceremony.
+            Your footsteps echo loudly off the brutal concrete walls, it's unsettling and you become self conscious. 
+            A telescreen watches the landing, its surface dark.
+        </description>
+        <exits>
+            <exit direction="SW" room="520" timeCost="2"/>
+            <exit direction="D" room="511" timeCost="5"/> <!-- ground floor -->
+            <exit direction="U" room="531" timeCost="5"/> <!-- second floor -->
+        </exits>
+        <roomItems/>
+    </room>
+
+    <room id="522" name="the editorial main corridor" youPrefix="in">
+        <description>
+            A long corridor stretches east and west, lined with identical doors.
+            Each bears a department code rather than a name.
+            The constant clatter of speakwrites leaks through the walls.
+        </description>
+        <exits>
+            <exit direction="N" room="520" timeCost="5"/>
+            <exit direction="W" room="523" timeCost="5"/>
+            <exit direction="E" room="524" timeCost="5"/>
+        </exits>
+        <roomItems/>
+    </room>
+
+    <room id="523" name="an open-plan revision office" youPrefix="in">
+        <description>
+            Rows of narrow desks fill the room, each equipped with a speakwrite and telescreen.
+            Clerks murmur corrections into their machines, barely pausing to breathe.
+            Waste chutes along the walls swallow outdated truths without comment.
+        </description>
+        <exits>
+            <exit direction="E" room="522" timeCost="5"/>
+            <exit direction="S" room="525" timeCost="5"/> <!-- player workspace -->
+        </exits>
+        <roomItems/>
+    </room>
+
+    <room id="524" name="a sub-editors' review room" youPrefix="in">
+        <description>
+            This room is quieter, though no less tense.
+            Here, revised articles are checked for tone, emphasis, and ideological clarity.
+            A red indicator light flashes whenever a telescreen flags an inconsistency.
+        </description>
+        <exits>
+            <exit direction="W" room="522" timeCost="5"/>
+            <!-- East left open for expansion -->
+        </exits>
+        <roomItems/>
+    </room>
+
+    <room id="525" name="your editorial cubicle" youPrefix="in">
+        <description>
+            This cramped workspace is assigned to you.
+            A speakwrite waits patiently on the desk, its indicator light glowing.
+            The telescreen above you is positioned so it can see both your face and your hands.
+            A schedule on the wall lists today's required revisions.
+        </description>
+        <exits>
+            <exit direction="N" room="523" timeCost="5"/>
+        </exits>
+        <roomItems/>
+    </room>
+    
+    <room id="530" name="outside the document lift (second floor)">
+        <description>
+            The lift doors open onto a quieter corridor than below.
+            The air smells faintly of ink and cheap binding glue.
+            Notices here are fewer, more abstract, their slogans harder to parse.
+        </description>
+        <exits>
+            <exit direction="S" room="532" timeCost="5"/> <!-- main corridor -->
+            <exit direction="NE" room="531" timeCost="2"/> <!-- stairwell -->
+        </exits>
+        <roomItems/>
+    </room>
+    
+    <room id="531" name="a service stairwell labelled second floor access" youPrefix="in">
+        <description>
+            The stairwell door opens onto this level with a dull thud. The concrete here is cleaner, newer.
+            A telescreen watches the landing, its surface dark but warm to the touch.
+        </description>
+        <exits>
+            <exit direction="SW" room="530" timeCost="2"/>
+            <exit direction="D" room="521" timeCost="5"/> <!-- first floor -->
+            <exit direction="U" room="541" timeCost="5"/> <!-- third floor (archives) -->
+        </exits>
+        <roomItems/>
+    </room>
+    
+    <room id="532" name="the creative publications corridor" youPrefix="in">
+        <description>
+            A wide corridor lined with glass-fronted offices.
+            Posters advertising poetry readings, approved novels and adult entertainment peel from the walls.
+            The sound of comrades murmering into speakwrites from nearby offices mixes with low conversation.
+        </description>
+        <exits>
+            <exit direction="N" room="530" timeCost="5"/>
+            <exit direction="W" room="533" timeCost="5"/>
+            <exit direction="E" room="534" timeCost="5"/>
+        </exits>
+        <roomItems/>
+    </room>
+
+    <room id="533" name="the Prolesec literature office" youPrefix="in">
+        <description>
+            Shelves of cheaply bound pamphlets line the walls. Folk songs, moral tales, simplified histories.
+            A clerk stamps approval marks without reading.
+        </description>
+        <exits>
+            <exit direction="E" room="532" timeCost="5"/>
+        </exits>
+        <roomItems/>
+    </room>
+
+    <room id="534" name="an approved fiction workspace" youPrefix="in">
+        <description>
+            Desks are scattered with manuscripts covered in red corrections.
+            Stories here always end the same way.
+            A telescreen hums softly, recording every keystroke.
+        </description>
+        <exits>
+            <exit direction="W" room="532" timeCost="5"/>
+            <exit direction="E" room="535" timeCost="5"/>
+        </exits>
+        <roomItems/>
+    </room>
+    
+    <room id="535" name="a cultural revision office" youPrefix="in">
+        <description>
+            This office handles songs, slogans, and children's rhymes. 
+            Old verses are crossed out, replaced with simpler ones that .
+            A waste chute stands open, swallowing discarded lines.
+        </description>
+        <exits>
+            <exit direction="W" room="534" timeCost="5"/>
+        </exits>
+        <roomItems/>
+    </room>
+    
+    <room id="540" name="outside the document lift (third floor)">
+        <description>
+            The lift doors open onto a very quiet corridor. There's nothing here except for archives. 
+            Stencilled signs point to the records rooms to the West and meeting rooms to the East. 
+        </description>
+        <exits>
+            <exit direction="S" room="542" timeCost="5"/> <!-- main corridor -->
+            <exit direction="NE" room="541" timeCost="2"/> <!-- stairwell -->
+        </exits>
+        <roomItems/>
+    </room>
+    
+    <room id="541" name="a service stairwell labelled third floor access" youPrefix="in">
+        <description>
+            The stairwell opens onto straight out onto this level without ceremony. The concrete walls here look newer, recently painted a dull matt white. 
+            A telescreen watches the landing, its surface dark but warm to the touch.
+        </description>
+        <exits>
+            <exit direction="SW" room="540" timeCost="2"/>
+            <exit direction="D" room="531" timeCost="5"/> <!-- second floor -->
+            <!-- <exit direction="U" room="541" timeCost="5"/> --> <!-- third floor (archives) -->
+        </exits>
+        <roomItems/>
+    </room>
+    
+    <room id="542" name="the main corridor outside the processing office" youPrefix="in">
+        <description>
+            The corridor stretches off to the west with closed doors leading off to the south and east.
+        </description>
+        <exits>
+            <exit direction="N" room="540" timeCost="2"/>
+            <exit direction="E" room="548" timeCost="2"/>
+            <exit direction="S" room="543" timeCost="2"/>
+            <exit direction="W" room="547" timeCost="5"/>
+        </exits>
+        <roomItems/>
+    </room> 
+    
+    <room id="543" name="the records processing office" youPrefix="in">
+        <description>
+            There are several desks strewn with the accoutrements of office life, rubber stamps, in-trays. 
+            A memory hole is set back in the wall by each desk leading down to the furnaces in the basement. 
+            The telescreen is dark and silent but its eye is red, alive, silently watching the workers.  
+        </description>
+        <exits>
+            <exit direction="N" room="542" timeCost="2"/>
+        </exits>
+        <roomItems>
+            <roomItem id="508"/>
+            <roomItem id="513"/>
+            <roomItem id="504"/>
+            <!-- 
+            DOCUMENT TRAYS (fixed)
+            RED STAMP (fixed, hidden)
+            DISPOSAL CHUTE (fixed)
+            EXAMINE DOCUMENT TRAYS → reveals before/after language fragments (not full evidence, but enough to unsettle)
+            -->
+        </roomItems>
+    </room>
+    
+    <room id="544" name="the photographic indexing room" youPrefix="in" tags="telescreen-inner-party">
+        <description>
+            This is where photographic evidence is originally indexed, manipulated and cross-referenced with other documents. 
+            Several gunmetal grey filing cabinets are lined up along the walls each stenciled with a cryptic looking code.
+            The telescreens here are silent but very much alive at least during the daytime.
+        </description>
+        <exits>
+            <exit direction="N" room="547" timeCost="2"/>
+        </exits>
+        <roomItems>
+            <roomItem id="505"/>
+            <roomItem id="504"/>
+        </roomItems>
+    </room>
+    
+    <room id="545" name="the Records Supervisor's office" tags="telescreen-inner-party" youPrefix="in">
+        <description>
+            A large office with a single desk. The telescreen is clearly on but the sound is somehow switched off. 
+        </description>
+        <exits>
+            <exit direction="N" room="548" timeCost="2"/>
+        </exits>
+        <roomItems>
+            <roomItem id="509"/>
+            <roomItem id="512"/>
+            <!-- 
+            DESK (fixed), KEY required to open at night or pick lock (syntax?) with something?
+            TELESCREEN (fixed, hidden interaction)
+            LEATHER FOLDER (in desk) - puzzle to open desk, can SMASH leaves trail can't locked again. Can use LOCKPICK then can lock again
+            --> 
+        </roomItems>
+    </room>
+    
+    <room id="546" name="Records Room 26" youPrefix="in">
+        <description>
+            Rows of steel filing cabinets stretch from floor to ceiling, each drawer
+            stencilled with dates, locations and case numbers. A long inspection table
+            runs down the centre of the room beneath a harsh fluorescent strip.
+
+            Several cabinets stand slightly ajar, as though someone left in a hurry.
+            The air smells of dust, chemical toner and overheated paper.
+        </description>
+        <exits>
+            <exit direction="N" room="549" timeCost="5"/>
+        </exits>
+        <roomItems/>
+    </room>
+    
+    <room id="547" name="outside the photographic index room">
+        <description>
+            The corridor stretches off to the west with closed doors leading off to the south and east.
+        </description>
+        <exits>
+            <exit direction="E" room="542" timeCost="2"/>
+            <exit direction="S" room="544" timeCost="2"/>
+            <exit direction="W" room="549" timeCost="2"/>
+        </exits>
+        <roomItems/>
+    </room>
+    
+    <room id="548" name="meeting room 1" youPrefix="in">
+        <description>
+            There's a large rectangular table with chairs arranged around it. 
+            A few gunmetal grey filing cabinets and a barred window are the only relief to the witewashed walls.             
+        </description>
+        <exits>
+            <exit direction="S" room="545" timeCost="2"/>
+            <exit direction="W" room="542" timeCost="5"/>
+        </exits>
+        <roomItems>
+            <!-- 
+            Papers scattered on the table at night? Or accessible in the filing cabinet at night. 
+            People here during the day so risk arrest. 
+            -->
+        </roomItems>
+    </room>
+    
+    <room id="549" name="outside records room 26" youPrefix="in">
+        <description>
+            The corridor stretches off to the East.
+        </description>
+        <exits>
+            <exit direction="E" room="547" timeCost="2"/>
+            <exit direction="S" room="546" timeCost="2"/>
+        </exits>
+        <roomItems/>
+    </room>
+    
+</rooms>

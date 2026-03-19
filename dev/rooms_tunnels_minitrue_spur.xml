@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rooms>      
+    <room id="265" name="a collapsing disused tunnel" youPrefix="in" tags="no-curfew">
+        <description>
+            The tiled walls bow inward where the ceiling has partially fallen. 
+            Rubble and dust clog the floor, but a narrow crawlspace continues east. 
+            Party notices, half-buried, warn against "UNAUTHORIZED ENTRY".
+        </description>
+        <exits>
+            <exit direction="E" room="266" timeCost="5"/>
+            <exit direction="NW" room="200" timeCost="10"/>
+            <exit direction="W" room="201" timeCost="5"/>
+        </exits>
+    </room>
+    
+      <room id="266" name="Aldwych Station" youPrefix="in" tags="no-curfew">
+        <description>
+            A disused spur lined with cracked tiles and rotting posters. 
+            The tunnel here was sealed decades ago, but a narrow passage continues east. 
+        </description>
+        <exits>
+            <exit direction="W" room="265" timeCost="5"/>
+            <exit direction="E" room="267" timeCost="5"/>
+        </exits>
+    </room>  
+
+    <room id="267" name="below the Ministry of Truth" tags="no-curfew">
+        <description>
+            A manhole with an iron ladder leads up towards the ministry itself. 
+            A broken telescreen would have guarded the passage up but now it dangles by its cables, sparking faintly. 
+        </description>
+        <exits>
+            <exit direction="W" room="266" timeCost="5"/>
+            <exit direction="U" room="268" timeCost="5"/>
+        </exits>
+    </room>
+    
+    <room id="268" name="a Security Gate" youPrefix="by" tags="no-curfew">
+        <description>
+            A hatch of sturdy steel bars is bolted shut preventing access into the ministry. 
+            You can see the bolt but it can't reached through the narrow gap between the bars. 
+            Behind the hatch a faded Ministry crest is painted directly onto the wall tiles. 
+        </description>
+        <!-- 
+        The steel hatch is still open now leading into the ministry basement. Nobody comes down here very often.
+        A faded Ministry crest is painted directly onto the wall tiles. 
+        -->
+        <exits>
+            <exit direction="D" room="267" timeCost="5"/>
+            <!-- East into Minitrue (locked) -->
+        </exits>
+    </room>
+</rooms>
+

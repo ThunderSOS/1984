@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npcs>    
+    <npc id="500" name="Mrs Parsons" altNames="PARSONS|MRS PARSONS">     
+        
+        <configuration initialRoom="5" initialState="1"/>
+           
+        <properties>
+            <property name="loop_exit" value="false" type="boolean"/>
+        </properties>
+        
+        <state id="1" value="PASSIVE" evaluateUnless="loop_exit">
+            <action type="message">Mrs Parsons says, "Sorry to bother you comrade but could you help me with my sink? It's all blocked up ain't it."</action>  
+            <action type="choice" validResponses="1|2|3">1) Yes, 2) I'm sorry but I can't at the moment, 3) Ignore</action>
+            <action type="setNextState" nextState="4"/>
+        </state>
+        
+        <state id="2" value="TASK ACCEPTED">
+            <action type="addExit" roomId="5" direction="S" toRoom="6" timeCost="0"/>
+            <action type="message">Mrs Parsons says, "It's through there in me kitchen."</action>
+            <action type="moveNpc" npcId="500" roomId="7"/> 
+            <action type="setNextState" nextState="5"/>    
+            <action type="timeCost" timeCost="1"/>
+            <action type="runNpcState"/>
+        </state>
+        
+        <state id="3" value="COMPLETE"> 
+            <action type="message">Mrs Parsons says, "Thanks for unblocking the sink, comrade."</action>
+        </state>
+        
+        <state id="4" value="WAITING FOR ACCEPT">
+            <action type="response" response="1" nextState="2">Mrs Parsons says, "Thanks, comrade."</action>
+            <action type="response" response="2|3" nextState="1">Mrs Parsons says, "I'll tell thems in the telescreen on you! Goldstein!"</action>
+            <action type="setProperty" key="loop_exit" value="true"/>
+            <action type="timeCost" timeCost="2"/>
+            <action type="runNpcState"/>
+        </state>
+        
+        <state id="5" value="WAITING"/>
+    </npc>   
+   
+</npcs>

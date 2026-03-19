@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npcs>    
+    <npc id="35500" name="The Black Market Trader" altNames="TRADER|MARKET TRADER">  
+              
+        <configuration initialRoom="355" initialState="1">
+            <trading>
+                <onTradeCompleted onBuy="3" onSell="3" onSwap="4"/>
+                <offer itemId="430" price="8">
+                    You're a Party member, right? This'll be useful for your Telescreen, you can look right back at 'em! 
+                    The price is :1
+                </offer>
+                <offer itemId="431" price="5">
+                    This was designed by the best engineers in the Party, they meant to use it for testing but it turns out you can do all sorts with it given the right chip.
+                    The price is :1
+                </offer>
+            </trading>
+        </configuration>
+        
+        <state id="1" value="INTRODUCTION">
+            <action type="message">The trader whistles cheerfully, "Afternoon, comrade. I've got all the best electronics available. Buy, sell or exchange!"</action>
+            <action type="setNextState" nextState="2"/>
+            <action type="runNpcState"/>
+        </state>
+    
+        <state id="2" value="OFFER">
+            <action type="displayOffers"/>
+            <action type="setNextState" nextState="2"/>
+        </state>
+        
+        <state id="3" value="TRADE_COMPLETED">  
+            <action type="message">Nice one, comrade. Let's do business again soon!</action>
+            <action type="setNextState" nextState="2"/>
+        </state>
+        
+        <state id="4" value="SWAPPED">  
+            <action type="message">Yeah OK, should be able to sell this.</action>
+            <action type="setNextState" nextState="2"/>
+        </state>      
+    </npc>
+</npcs>

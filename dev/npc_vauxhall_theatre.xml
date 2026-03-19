@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npcs>
+    <npc id="16101" name="Comrade Elias" altNames="ELIAS|COMRADE ELIAS">
+        
+        <configuration initialRoom="999" initialState="1"/>
+        
+        <state id="1">
+            <action type="message">
+                Elias raises his hands for silence. "Comrades - every hierarchy depends on two things: obedience and memory.
+                Obedience can be broken for a moment; and memory, once rewritten, is gone forever."
+
+                He gestures toward the cracked plaster wall where a dark telescreen lens glares down. 
+                "That eye records not the world, but what the Party decides the world was. 
+                They change the past so that rebellion has nowhere to stand - no proof, no reference, no shame".
+
+                "Understand this: the Ministries do not *lie*. They *define*. 
+                To them, truth is a resource like coal - extracted, refined, burned, and gone. 
+                That is how they rule - not by force, but by shaping the mind that remembers".
+            </action>
+            <action type="choice" validResponses="1|2|3">1) "How can memory be rewritten?" 2) "You speak like a Party man yourself."</action>
+            <action type="setNextState" nextState="2"/>
+        </state>
+
+        <state id="2">
+            <action type="response" response="1" nextState="3">
+                "By cutting out contradiction," Elias replies. 
+                "You forget what cannot be verified. When all records agree, even your doubts seem mad."
+            </action>
+            <action type="response" response="2" nextState="3">
+                "I was," Elias admits softly. "Director of Historical Revision at Minitrue. Yes - I wore black overalls once. 
+                I showed others how to rewrite and forget, tought the basic principles for years until I forgot why it mattered."
+                Elias smiles, "and now I'm in hiding."
+            </action>
+            <action type="runNpcState"/>
+        </state>
+
+        <state id="3">
+            <action type="message">
+                "Silas will speak next," Elias says, stepping back into the half-dark. 
+                "He remembers what I prefer not to."
+            </action>
+            <action type="setNextState" nextState="99"/>
+            <action type="setNextState" npcId="16102" nextState="1"/>
+            <action type="clearNpcResponse"/>
+            <action type="runNpcState" npcId="16102"/>
+        </state>
+
+        <state id="99" value="PASSIVE"/>
+    </npc>
+
+    <npc id="16102" name="Comrade Silas" altNames="SILAS|COMRADE SILAS">
+        
+        <configuration initialRoom="999" initialState="99"/>
+        
+        <state id="1">
+            <action type="message">
+                Silas steps up to the makeshift dais. "They learned decades ago - quite how long, nobody can be sure anymore - keep the people busy, frightened, hungry.
+                Perpetual war, perpetual fear, perpetual want: the holy trinity of obedience."
+                "Once it's set up the cycle is self stoking - we need to interrcept. A revolution." 
+            </action>
+            <action type="choice" validResponses="1|2|3">1) "So how do we break the cycle?" 2) "That's hopeless." 3) Say nothing.</action>
+            <action type="setNextState" nextState="2"/>            
+        </state>
+
+        <state id="2">
+            <action type="response" response="1" nextState="3">"Perhaps through their eyes. The telescreens. What watches can also be watched."</action>
+            <action type="response" response="2" nextState="3">"Hopelessness is the air they feed us, comrade. Breathe something else."</action>
+            <action type="response" response="3" nextState="3">Silas studies you, eyes hard but curious.</action>
+            <action type="runNpcState" npcId="16102"/>
+        </state>
+
+        <state id="3">
+            <action type="message">"Wynn has theories. Wilder than mine but sometimes the strangest ideas survive longest."</action>
+            <action type="setNextState" nextState="99"/> 
+            <action type="setNextState" npcId="16103" nextState="1"/>
+            <action type="clearNpcResponse"/>
+            <action type="runNpcState" npcId="16103"/>
+        </state>
+
+        <state id="99"/>
+    </npc>
+
+    <npc id="16103" name="Comrade Wynn" altNames="WYNN|COMRADE WYNN">
+        
+        <configuration initialRoom="999" initialState="99"/>
+        
+        <state id="1" value="PASSIVE">
+            <action type="message">Wynn steps up to the dais. "Wilder? Perhaps. But if the telescreens are wired two ways - then maybe so is the truth."</action>
+            <action type="choice" validResponses="1|2">1) "What do you mean two-way?" 2) "Surely that's ridiculous."</action>
+            <action type="setNextState" nextState="2"/>
+        </state>
+
+        <state id="2">
+            <action type="response" response="1" nextState="3">
+                "How do you think they watch each other? The slot on the side of the screen changes the feed from propoganda to people and they can choose who to watch.
+                You can get an adapter if you know where to find the parts. I've seen them in Miniplenty watching the depots, I suppose all the Ministry's must have them.  
+                But they can't watch everyone all the time, there's not nearly enough of them! You'll find out."
+                "The principle of doublethink ensures everyone believes we're always watched even though we all know it's impossible."
+                "We need evidence though - of anything - the revisionism, famine, even the war may well be a fiction. 
+                Some evidence must still be there otherwise they can't plan further. Find the evidence and we'll have a revolution.
+                If anyone here can build an adapter we'll reconvene then and discuss part two of the plan."
+            </action>
+            <action type="response" response="2" nextState="3">
+                "Maybe. Or maybe it's inevitable. 
+                They watch each other as well you know? I've seen them. Those Telescreens work both ways."</action>
+            <action type="runNpcState"/>
+        </state>
+
+        <state id="3">
+            <action type="message">
+                The group disperses quietly, shadows slipping through the cracked doorways of the theatre. 
+                The thought lingers: "What watches can also be watched." - but how? 
+                Elias whispers to you, "you'd better be home before curfew." 
+            </action>
+            <action type="clearNpcResponse"/>
+            <action type="timeCost" timeCost="90"/>
+            <action type="setNextState" nextState="99"/>            
+        </state>
+
+        <state id="99"/>
+    </npc>
+</npcs>

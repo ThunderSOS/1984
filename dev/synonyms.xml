@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<synonyms>
+    <synonym synonym="DRAWER" item="DESK"/>
+    <synonym synonym="PEN" item="INKPEN"/>
+    <synonym synonym="ALE" item="BEER"/>
+    <synonym synonym="FLYER" item="LEAFLET"/>
+    <synonym synonym="CHAIR" item="ARMCHAIR"/>
+    <synonym synonym="SCREEN" item="TELESCREEN"/>
+    <synonym synonym="LANTERN" item="LAMP"/>
+    <synonym synonym="LAMPPOST" item="LAMP"/>
+</synonyms>
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rooms>
+    <room id="275" name="Westminster Underground Station." youPrefix="in" tags="no-curfew">
+        <description>
+            A small access tunnel leads southeast towards the Ministry of Peace. 
+            Faint echoes of footsteps filter down from another shaft above. 
+        </description>
+        <exits>
+            <exit direction="NW" room="230" timeCost="10"/> 
+            <exit direction="NE" room="270" timeCost="10"/>
+            <exit direction="SE" room="276" timeCost="10"/>
+            <!-- exit UP --> 
+        </exits>
+        <roomItems/>
+    </room>
+    
+    <room id="276" name="an access shaft between the Palace of Westminster and the Ministry of Peace." youPrefix="in" tags="no-curfew">
+        <description>
+            A vertical shaft rises from the tunnel. 
+            A locked hatch above bears the insignia of the Ministry of Peace.
+        </description>
+        <exits>
+            <exit direction="E" room="277" timeCost="5"/>
+            <exit direction="NW" room="275" timeCost="10"/>
+            <!-- up into Ministry of Peace (locked) -->
+        </exits>
+        <roomItems/>
+    </room>
+    
+    <room id="277" name="a Military Supply Bay" youPrefix="in" tags="no-curfew">
+        <description>
+            Stacks of damp wooden crates lie against the walls, stamped with faded insignia. 
+            One is half-open, revealing helmets and bayonets. 
+            The air smells of damp canvas.
+        </description>
+        <exits>
+            <exit direction="W" room="276" timeCost="5"/>
+            <exit direction="S" room="278" timeCost="5"/>
+            <!-- UP to the Palace of Westminster locked -->
+        </exits>
+    </room>
+
+    <room id="278" name="a Drill Passage" youPrefix="in" tags="no-curfew">
+        <description>
+            A long, echoing passage lined with painted slogans: "WAR IS PEACE". 
+            The floor is worn smooth, as if countless boots once marched here in endless practice.
+        </description>
+        <exits>
+            <exit direction="N" room="277" timeCost="5"/>
+        </exits>
+        <roomItems/>
+    </room>
+</rooms>
+
