@@ -1,0 +1,1 @@
+java -cp "./lib/*.jar" org.happysoft.games.Main
