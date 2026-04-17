@@ -6,7 +6,12 @@
     -->
     <player inventory="1" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
     <currency major="Dollars" minor="Cents" symbol="$" initialBalance="15"/>
-    <gameClock type="24" startTime="13:00"/>    
+    <gameClock type="24" startTime="13:00"/>
+    
+    <renderers package="org.happysoft.games.renderers">
+        <renderer type="DarkRoomRenderer" roomTag="dark" itemTagsNotPresent="light-source-active"/>
+    </renderers>
+    
     <verbs defaultPackage="org.happysoft.games.action.handler">
         <verb synonyms="NORTH|N" implementation="DirectionHandler">
             <help>
@@ -58,10 +63,14 @@
                 Synonym for GO DOWN - move Down from the current location
             </help>
         </verb>
-        <verb synonyms="LOOK|L" implementation="LookHandler">
+        <verb synonyms="LOOK|L" implementation="AdverbHandler" acceptedPrepositions="IN">
             <help>
                 Redescribe the current location
+                LOOK UP [adjective] &lt;noun&gt; IN [adjective] &lt;noun&gt;; look something up in an index for example
             </help>
+            <adverbs defaultHandler="LookHandler">
+                <adverb adverbs="UP" handler="DoTaskHandler"/>
+            </adverbs>
         </verb>
         <verb synonyms="ATTACK|KILL" implementation="AttackHandler" acceptedPrepositions="WITH">
             <help>
@@ -138,13 +147,6 @@
                 HELP; show this message
             </help>
         </verb>
-        <verb synonyms="SWITCH|TURN" implementation="AdverbHandler" itemTag="switchable">
-            <help>
-                SWITCH ON|OFF [adjective] &lt;noun&gt;; SWITCH an object ON or OFF
-            </help>
-            <adverb adverbs="ON" handler="ActivationHandler"/>
-            <adverb adverbs="OFF" handler="DeactivationHandler"/>
-        </verb>
         <verb synonyms="ATTACH" implementation="DoTaskHandler" acceptedPrepositions="TO">
             <help>
                 ATTACH [adjective] &lt;noun&gt; TO [adjective] &lt;noun&gt;; Attach a carried item to another object
@@ -195,11 +197,6 @@
                 PAY &lt;npc&gt;; PAY an NPC. The amount to pay should be clear from the context so you don't need to specify the amount
             </help>
         </verb>
-        <verb synonyms="PICK" implementation="DoTaskHandler">
-            <help>
-                PICK [adjective] &lt;noun&gt;; PICK (a lock). You must be carrying an appropriate implement to pick it with
-            </help>
-        </verb>
         <verb synonyms="PLUG" implementation="DoTaskHandler" acceptedPrepositions="INTO">
             <help>
                 PLUG [adjective] &lt;noun&gt;; INTO [adjective] &lt;noun&gt;; A synonym for ATTACH
@@ -219,6 +216,23 @@
             <help>
                 SHOW [adjective] &lt;noun&gt; TO &lt;npc&gt;; Show a carried item to an NPC
             </help>
+        </verb>
+        <verb synonyms="SWITCH|TURN" implementation="AdverbHandler" itemTag="activatable">
+            <help>
+                SWITCH ON|OFF [adjective] &lt;noun&gt;; SWITCH an object ON or OFF
+            </help>
+            <adverbs>
+                <adverb adverbs="ON|OFF" handler="ItemStateChangeHandler"/>
+            </adverbs>
+        </verb>
+        <verb synonyms="PICK" implementation="AdverbHandler" acceptedPrepositions="WITH|USING">
+            <help>
+                PICK [adjective] &lt;noun&gt; WITH|USING [adjective] &lt;noun&gt; PICK a lock etc
+                PICK UP [adjective] &lt;noun&gt;; Another synonym for GET|TAKE 
+            </help>
+            <adverbs defaultHandler="DoTaskHandler">
+                <adverb adverbs="UP" handler="TakeHandler"/>
+            </adverbs>
         </verb>
         <verb synonyms="THROW" implementation="DoTaskHandler" acceptedPrepositions="AT">
             <help>
