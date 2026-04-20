@@ -13,57 +13,12 @@
     </renderers>
     
     <verbs defaultPackage="org.happysoft.games.action.handler">
-        <verb synonyms="NORTH|N" implementation="DirectionHandler">
+        <verb synonyms="N|E|S|W|NE|NW|SE|SW|NORTH|SOUTH|EAST|WEST|NORTHEAST|NORTHWEST|SOUTHEAST|SOUTHWEST|U|D|UP|DOWN" handler="DirectionHandler" parameters="1.0">
             <help>
-                Synonym for GO NORTH - move North from the current location
+                Move from the current location in the compass direction specified or Up or Down
             </help>
         </verb>
-        <verb synonyms="EAST|E" implementation="DirectionHandler">
-            <help>
-                Synonym for GO EAST - move East from the current location
-            </help>
-        </verb>
-        <verb synonyms="SOUTH|S" implementation="DirectionHandler" >
-            <help>
-                Synonym for GO SOUTH - move South from the current location
-            </help>
-        </verb>        
-        <verb synonyms="WEST|W" implementation="DirectionHandler">
-            <help>
-                Synonym for GO WEST - move West from the current location
-            </help>
-        </verb>        
-        <verb synonyms="NORTHEAST|NE" implementation="DirectionHandler">
-            <help>
-                Synonym for GO NORTHEAST - move Northeast from the current location
-            </help>
-        </verb>
-        <verb synonyms="NORTHWEST|NW" implementation="DirectionHandler">
-            <help>
-                Synonym for GO NORTHWEST - move Northwest from the current location
-            </help>
-        </verb>
-        <verb synonyms="SOUTHEAST|SE" implementation="DirectionHandler">
-            <help>
-                Synonym for GO SOUTHEAST - move Southeast from the current location
-            </help>
-        </verb> 
-        <verb synonyms="SOUTHWEST|SW" implementation="DirectionHandler">
-            <help>
-                Synonym for GO SOUTHWEST - move Southwest from the current location
-            </help>
-        </verb>      
-        <verb synonyms="UP|U" implementation="DirectionHandler">
-            <help>
-                Synonym for GO UP - move Up from the current location
-            </help>
-        </verb> 
-        <verb synonyms="DOWN|D" implementation="DirectionHandler">
-            <help>
-                Synonym for GO DOWN - move Down from the current location
-            </help>
-        </verb>
-        <verb synonyms="LOOK|L" implementation="AdverbHandler" acceptedPrepositions="IN">
+        <verb synonyms="LOOK|L" handler="AdverbHandler" acceptedPrepositions="IN">
             <help>
                 Redescribe the current location
                 LOOK UP [adjective] &lt;noun&gt; IN [adjective] &lt;noun&gt;; look something up in an index for example
@@ -72,160 +27,132 @@
                 <adverb adverbs="UP" handler="DoTaskHandler"/>
             </adverbs>
         </verb>
-        <verb synonyms="ATTACK|KILL" implementation="AttackHandler" acceptedPrepositions="WITH">
+        <verb synonyms="ATTACK|KILL" handler="AttackHandler" acceptedPrepositions="WITH">
             <help>
                 ATTACK &lt;npc&gt; [WITH [adjective] &lt;noun&gt;]; Attack an NPC optionally with a weapon, if no WITH is specified then you throw a punch
             </help>
         </verb>
-        <verb synonyms="EXAMINE|EXAM" implementation="ExamineHandler">
+        <verb synonyms="EXAMINE|EXAM" handler="ExamineHandler">
             <help>
                 EXAM [adjective] &lt;noun&gt;; Show a more detailed description of an item (either in a location or a carried item). Use EXAM ALL to examine everything in the current location
             </help>
         </verb>
-        <verb synonyms="INVENTORY|INV|I" implementation="InventoryHandler">
+        <verb synonyms="INVENTORY|INV|I" handler="InventoryHandler">
             <help>
                 INV; List items you are carrying
             </help>
         </verb>        
-        <verb synonyms="GET|TAKE" implementation="TakeHandler" onCompleted="Taken">
+        <verb synonyms="GET|TAKE" handler="TakeHandler" onCompleted="Taken">
             <help>
                 TAKE [adjective] &lt;noun&gt;; GET|TAKE an item from the current location. Use GET|TAKE ALL to pick up all objects from the current location
             </help>
         </verb>
-        <verb synonyms="DROP" implementation="DropHandler" onCompleted="OK">
+        <verb synonyms="DROP" handler="DropHandler" onCompleted="OK">
             <help>
                 DROP [adjective] &lt;noun&gt;; leave an item in the current location
             </help>
         </verb>
-        <verb synonyms="PUT" implementation="PutHandler" acceptedPrepositions="IN|INTO|ON" onCompleted="OK">
+        <verb synonyms="PUT" handler="PutHandler" acceptedPrepositions="IN|INTO|ON" onCompleted="OK">
             <help>
                 PUT [adjective] &lt;noun&gt;; IN|INTO|ON [adjective] &lt;container&gt;; PUT an item in or into a container such as a cupboard or on a chair, etc
             </help>
         </verb>
-        <verb synonyms="SELL" implementation="SellHandler" acceptedPrepositions="TO">
+        <verb synonyms="SELL" handler="SellHandler" acceptedPrepositions="TO">
             <help>
                 SELL [adjective] &lt;noun&gt; TO &lt;npc&gt;; Sell an item to an NPC
             </help>
         </verb>
-        <verb synonyms="SWAP|EXCHANGE|OFFER" implementation="SwapHandler" acceptedPrepositions="FOR">
+        <verb synonyms="SWAP|EXCHANGE|OFFER" handler="SwapHandler" acceptedPrepositions="FOR">
             <help>
                 SWAP [adjective] &lt;noun&gt; FOR [adjective] &lt;noun&gt;; Ask an NPC to swap something you're carrying for something they possess
             </help>
         </verb>
-        <verb synonyms="BUY" implementation="BuyHandler" acceptedPrepositions="FROM">
+        <verb synonyms="BUY" handler="BuyHandler" acceptedPrepositions="FROM">
             <help>
                 BUY [adjective] &lt;noun&gt; [FROM &lt;npc&gt;]; Buy an offered item from an NPC
             </help>
         </verb>
-        <verb synonyms="WAIT|WA" implementation="WaitHandler" acceptedPrepositions="UNTIL" onCompleted="... Time passes ...">
+        <verb synonyms="WAIT|WA" handler="WaitHandler" acceptedPrepositions="UNTIL" onCompleted="... Time passes ...">
             <help>
                 WAIT mm; WAIT for the specified number of minutes or WAIT UNTIL hh:mm; WAIT UNTIL the specified time
             </help>
         </verb>
-        <verb synonyms="TIME" implementation="TimeHandler">
+        <verb synonyms="TIME" handler="TimeHandler">
             <help>
                 TIME; show the current in-game time
             </help>
         </verb>
-        <verb synonyms="SAVE" implementation="SaveHandler">
+        <verb synonyms="SAVE" handler="SaveHandler">
             <help>
                 SAVE &quot;&lt;filename&gt;&quot;; save your current game progress
             </help>
         </verb>
-        <verb synonyms="LOAD" implementation="LoadHandler">
+        <verb synonyms="LOAD" handler="LoadHandler">
             <help>
                 LOAD &quot;&lt;filename&gt;&quot;; load a previously saved game
             </help>
         </verb>
-        <verb synonyms="QUIT" implementation="QuitHandler">
+        <verb synonyms="QUIT" handler="QuitHandler">
             <help>
                 QUIT; quit and start again
             </help>
         </verb>
-        <verb synonyms="HELP" implementation="HelpHandler">
+        <verb synonyms="HELP" handler="HelpHandler">
             <help>
                 HELP; show this message
             </help>
         </verb>
-        <verb synonyms="ATTACH" implementation="DoTaskHandler" acceptedPrepositions="TO">
+        <verb synonyms="ATTACH" handler="DoTaskHandler" acceptedPrepositions="TO">
             <help>
                 ATTACH [adjective] &lt;noun&gt; TO [adjective] &lt;noun&gt;; Attach a carried item to another object
             </help>
         </verb>
-        <verb synonyms="CALL" implementation="DoTaskHandler">
+        <verb synonyms="CALL" handler="DoTaskHandler">
             <help>
                 CALL &lt;npc&gt;; CALL an NPC. Attract their attention? More for inanimate objects like LIFTS that may be modelled as an NPC
             </help>
         </verb>
-        <verb synonyms="CLOSE" implementation="DoTaskHandler">
+        <verb synonyms="CLOSE" handler="DoTaskHandler">
             <help>
                 CLOSE [adjective] &lt;noun&gt;; close a door or a container such as a drawer or a cupboard
             </help>
         </verb>
-        <verb synonyms="COMPARE|MATCH" implementation="DoTaskHandler" acceptedPrepositions="AGAINST|WITH">
+        <verb synonyms="COMPARE|MATCH" handler="DoTaskHandler" acceptedPrepositions="AGAINST|WITH">
             <help>
                 COMPARE [adjective] &lt;noun&gt; WITH|AGAINST [adjective] &lt;noun&gt;; compare one thing against another
             </help>
         </verb>
-        <verb synonyms="DETACH" implementation="DoTaskHandler" acceptedPrepositions="FROM">
+        <verb synonyms="DETACH" handler="DoTaskHandler" acceptedPrepositions="FROM">
             <help>
                 DETACH [adjective] &lt;noun&gt; FROM [adjective] &lt;noun&gt;; Detach an item from another object
             </help>
         </verb>
-        <verb synonyms="GIVE" implementation="DoTaskHandler" acceptedPrepositions="TO">
+        <verb synonyms="GIVE" handler="DoTaskHandler" acceptedPrepositions="TO">
             <help>
                 GIVE [adjective] &lt;noun&gt; TO &lt;npc&gt;; Give an item to an NPC
             </help>
         </verb>
-        <verb synonyms="JEMMY|PRISE|SMASH" implementation="DoTaskHandler" acceptedPrepositions="WITH|USING">
+        <verb synonyms="JEMMY|PRISE|SMASH" handler="DoTaskHandler" acceptedPrepositions="WITH|USING">
             <help>
                 JEMMY [adjective] &lt;noun&gt; WITH|USING [adjective] &lt;noun&gt;; Jemmy or smash something open (e.g. lock, window, door)
             </help>
         </verb>
-        <verb synonyms="LOCK" implementation="DoTaskHandler" acceptedPrepositions="WITH|USING">
+        <verb synonyms="LOCK" handler="DoTaskHandler" acceptedPrepositions="WITH|USING">
             <help>
                 LOCK [adjective] &lt;noun&gt; WITH [adjective] &lt;noun&gt;; e.g. LOCK STEEL DOOR WITH GOLD KEY
             </help>
         </verb>
-        <verb synonyms="OPEN" implementation="DoTaskHandler">
+        <verb synonyms="OPEN" handler="DoTaskHandler">
             <help>
                 OPEN [adjective] &lt;noun&gt;; e.g. open a door or a container such as a drawer or a cupboard
             </help>
         </verb>
-        <verb synonyms="PAY" implementation="DoTaskHandler">
+        <verb synonyms="PAY" handler="DoTaskHandler">
             <help>
                 PAY &lt;npc&gt;; PAY an NPC. The amount to pay should be clear from the context so you don't need to specify the amount
             </help>
         </verb>
-        <verb synonyms="PLUG" implementation="DoTaskHandler" acceptedPrepositions="INTO">
-            <help>
-                PLUG [adjective] &lt;noun&gt;; INTO [adjective] &lt;noun&gt;; A synonym for ATTACH
-            </help>
-        </verb>
-        <verb synonyms="PRESS" implementation="DoTaskHandler">
-            <help>
-                PRESS [adjective] &lt;noun&gt;; Press on an object, e.g. Press the button to call a lift
-            </help>
-        </verb>
-        <verb synonyms="SAY" implementation="DoTaskHandler" >
-            <help>
-                SAY &quot;&lt;quoted text&gt;&quot;; Say something, e.g. a password (SAY TO is not supported).
-            </help>
-        </verb>
-        <verb synonyms="SHOW" implementation="DoTaskHandler" acceptedPrepositions="TO">
-            <help>
-                SHOW [adjective] &lt;noun&gt; TO &lt;npc&gt;; Show a carried item to an NPC
-            </help>
-        </verb>
-        <verb synonyms="SWITCH|TURN" implementation="AdverbHandler" itemTag="activatable">
-            <help>
-                SWITCH ON|OFF [adjective] &lt;noun&gt;; SWITCH an object ON or OFF
-            </help>
-            <adverbs>
-                <adverb adverbs="ON|OFF" handler="ItemStateChangeHandler"/>
-            </adverbs>
-        </verb>
-        <verb synonyms="PICK" implementation="AdverbHandler" acceptedPrepositions="WITH|USING">
+        <verb synonyms="PICK" handler="AdverbHandler" acceptedPrepositions="WITH|USING">
             <help>
                 PICK [adjective] &lt;noun&gt; WITH|USING [adjective] &lt;noun&gt; PICK a lock etc
                 PICK UP [adjective] &lt;noun&gt;; Another synonym for GET|TAKE 
@@ -234,27 +161,63 @@
                 <adverb adverbs="UP" handler="TakeHandler"/>
             </adverbs>
         </verb>
-        <verb synonyms="THROW" implementation="DoTaskHandler" acceptedPrepositions="AT">
+        <verb synonyms="PLUG" handler="DoTaskHandler" acceptedPrepositions="INTO">
+            <help>
+                PLUG [adjective] &lt;noun&gt;; INTO [adjective] &lt;noun&gt;; A synonym for ATTACH
+            </help>
+        </verb>
+        <verb synonyms="PRESS" handler="DoTaskHandler">
+            <help>
+                PRESS [adjective] &lt;noun&gt;; Press on an object, e.g. Press the button to call a lift
+            </help>
+        </verb>   
+        <verb synonyms="RUN" handler="AdverbHandler">
+            <help>
+                RUN somewhere instead of walking, reduces the time taken to get to a destination. Use RUN &lt;compass direction&gt;
+            </help>
+            <adverbs>
+                <adverb adverbs="N|E|S|W|NE|NW|SE|SW|NORTH|SOUTH|EAST|WEST|NORTHEAST|NORTHWEST|SOUTHEAST|SOUTHWEST|U|D|UP|DOWN" handler="DirectionHandler" parameters="0.5"/>
+            </adverbs>
+        </verb>    
+        <verb synonyms="SAY" handler="DoTaskHandler" >
+            <help>
+                SAY &quot;&lt;quoted text&gt;&quot;; Say something, e.g. a password (SAY TO is not supported yet).
+            </help>
+        </verb>
+        <verb synonyms="SHOW" handler="DoTaskHandler" acceptedPrepositions="TO">
+            <help>
+                SHOW [adjective] &lt;noun&gt; TO &lt;npc&gt;; Show a carried item to an NPC
+            </help>
+        </verb>
+        <verb synonyms="SWITCH|TURN" handler="AdverbHandler" itemTag="activatable">
+            <help>
+                SWITCH ON|OFF [adjective] &lt;noun&gt;; SWITCH an object ON or OFF
+            </help>
+            <adverbs>
+                <adverb adverbs="ON|OFF" handler="ItemStateChangeHandler"/>
+            </adverbs>
+        </verb>        
+        <verb synonyms="THROW" handler="DoTaskHandler" acceptedPrepositions="AT">
             <help>
                 THROW [adjective] &lt;noun&gt; AT [adjective] &lt;noun&gt;; THROW a carried item AT another object
             </help>
         </verb>
-        <verb synonyms="UNLOCK" implementation="DoTaskHandler" acceptedPrepositions="WITH|USING">
+        <verb synonyms="UNLOCK" handler="DoTaskHandler" acceptedPrepositions="WITH|USING">
             <help>
                 UNLOCK [adjective] &lt;noun&gt; WITH|USING [adjective] &lt;noun&gt;; for example UNLOCK DOOR USING KEY
             </help>
         </verb>        
-        <verb synonyms="UNBLOCK" implementation="DoTaskHandler" acceptedPrepositions="WITH|USING">
+        <verb synonyms="UNBLOCK" handler="DoTaskHandler" acceptedPrepositions="WITH|USING">
             <help>
                 UNBLOCK [adjective] &lt;noun&gt; WITH|USING [adjective] &lt;noun&gt;; UNBLOCK something, e.g. a drain USING an implement
             </help>
         </verb>
-        <verb synonyms="UNBOLT" implementation="DoTaskHandler">
+        <verb synonyms="UNBOLT" handler="DoTaskHandler">
             <help>
                 UNBOLT [adjective] &lt;noun&gt;; UNBOLT a door or window
             </help>
         </verb>
-        <verb synonyms="UNPLUG" implementation="DoTaskHandler" acceptedPrepositions="FROM">
+        <verb synonyms="UNPLUG" handler="DoTaskHandler" acceptedPrepositions="FROM">
             <help>
                 UNPLUG [adjective] &lt;noun&gt; FROM [adjective] &lt;noun&gt;; UNPLUG an item FROM an object
             </help>
