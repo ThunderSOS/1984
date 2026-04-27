@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <game debug="false">
     <welcome>**** Welcome to 1984: Eyes of the State ****</welcome>
+  
+    <player inventory="1" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>
     <!--
-    <player inventory="1|400|409|101|412" startRoom="500" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>
+    <player inventory="1|412|403|404|405|409" startRoom="355" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
     -->
-    <player inventory="1" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
     <currency major="Dollars" minor="Cents" symbol="$" initialBalance="15"/>
     <gameClock type="24" startTime="13:00"/>
     
@@ -18,7 +19,7 @@
                 Move from the current location in the compass direction specified or Up or Down
             </help>
         </verb>
-        <verb synonyms="LOOK|L" handler="AdverbHandler" acceptedPrepositions="IN">
+        <verb synonyms="LOOK" handler="AdverbHandler" acceptedPrepositions="IN">
             <help>
                 Redescribe the current location
                 LOOK UP [adjective] &lt;noun&gt; IN [adjective] &lt;noun&gt;; look something up in an index for example
@@ -37,7 +38,7 @@
                 EXAM [adjective] &lt;noun&gt;; Show a more detailed description of an item (either in a location or a carried item). Use EXAM ALL to examine everything in the current location
             </help>
         </verb>
-        <verb synonyms="INVENTORY|INV|I" handler="InventoryHandler">
+        <verb synonyms="INVENTORY|INV" handler="InventoryHandler">
             <help>
                 INV; List items you are carrying
             </help>
@@ -184,7 +185,7 @@
                 SAY &quot;&lt;quoted text&gt;&quot;; Say something, e.g. a password (SAY TO is not supported yet).
             </help>
         </verb>
-        <verb synonyms="SHOW" handler="DoTaskHandler" acceptedPrepositions="TO">
+        <verb synonyms="SHOW" handler="ShowHandler" acceptedPrepositions="TO">
             <help>
                 SHOW [adjective] &lt;noun&gt; TO &lt;npc&gt;; Show a carried item to an NPC
             </help>
