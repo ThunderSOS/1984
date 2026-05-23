@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <game debug="false">
-    <welcome>**** Welcome to 1984: Eyes of the State ****</welcome>
-    
+    <welcome>**** Welcome to 1984: Eyes of the State ****</welcome>    
     <player inventory="1" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>
     <!--
-    <player inventory="1|412|403|404|405|409" startRoom="355" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
+    <player inventory="1|23|24|412|403|404|405|409" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
     -->
     <currency major="Dollars" minor="Cents" symbol="$" initialBalance="0"/>
     <gameClock type="24" startTime="13:00"/>
@@ -21,7 +20,7 @@
         </verb>
         <verb synonyms="LOOK" handler="AdverbHandler" acceptedPrepositions="IN">
             <help>
-                Redescribe the current location
+                LOOK; redescribe the current location
                 LOOK UP [adjective] &lt;noun&gt; IN [adjective] &lt;noun&gt;; look something up in an index for example
             </help>
             <adverbs defaultHandler="LookHandler">
@@ -42,10 +41,16 @@
             <help>
                 INV; List items you are carrying
             </help>
-        </verb>        
-        <verb synonyms="GET|TAKE" handler="TakeHandler" onCompleted="Taken">
+        </verb> 
+        <verb synonyms="GET" handler="TakeHandler" onCompleted="Taken">
             <help>
-                TAKE [adjective] &lt;noun&gt;; GET|TAKE an item from the current location. Use GET|TAKE ALL to pick up all objects from the current location
+                GET [adjective] &lt;noun&gt;; GET an item from the current location. Use GET ALL to pick up all objects from the current location
+            </help>
+        </verb>       
+        <verb synonyms="TAKE" handler="TakeHandler" acceptedPrepositions="OUT" onCompleted="Taken">
+            <help>
+                TAKE [adjective] &lt;noun&gt;; TAKE an item from the current location. Use TAKE ALL to pick up all objects from the current location
+                TAKE [adjective] &lt;noun&gt; OUT OF [adjective] &lt;noun&gt;; Take one object out of another (aka REMOVE FROM)
             </help>
         </verb>
         <verb synonyms="DROP" handler="DropHandler" onCompleted="OK">
@@ -103,6 +108,13 @@
                 HELP; show this message
             </help>
         </verb>
+        <verb synonyms="SCORE" handler="ScoreHandler">
+            <help>
+                SCORE; show your current score
+            </help>
+        </verb>
+        
+        <!-- Task specific verbs -->
         <verb synonyms="ATTACH" handler="DoTaskHandler" acceptedPrepositions="TO">
             <help>
                 ATTACH [adjective] &lt;noun&gt; TO [adjective] &lt;noun&gt;; Attach a carried item to another object
@@ -131,6 +143,11 @@
         <verb synonyms="GIVE" handler="DoTaskHandler" acceptedPrepositions="TO">
             <help>
                 GIVE [adjective] &lt;noun&gt; TO &lt;npc&gt;; Give an item to an NPC
+            </help>
+        </verb>
+        <verb synonyms="INSERT" handler="DoTaskHandler" acceptedPrepositions="IN|INTO">
+            <help>
+                INSERT [adjective] &lt;noun&gt; INTO [adjective] &lt;noun&gt;; Insert an item into another item 
             </help>
         </verb>
         <verb synonyms="JEMMY|PRISE|SMASH" handler="DoTaskHandler" acceptedPrepositions="WITH|USING">
@@ -171,10 +188,15 @@
             <help>
                 PRESS [adjective] &lt;noun&gt;; Press on an object, e.g. Press the button to call a lift
             </help>
-        </verb>   
+        </verb>
+        <verb synonyms="REMOVE" handler="DoTaskHandler" acceptedPrepositions="FROM">
+            <help>
+                REMOVE [adjective] &lt;noun&gt;; REMOVE one object FROM another
+            </help>
+        </verb> 
         <verb synonyms="RUN" handler="AdverbHandler">
             <help>
-                RUN somewhere instead of walking, reduces the time taken to get to a destination. Use RUN &lt;compass direction&gt;
+                RUN somewhere instead of walking, this reduces the time taken to get to a destination. Use RUN &lt;compass direction&gt;
             </help>
             <adverbs>
                 <adverb adverbs="N|E|S|W|NE|NW|SE|SW|NORTH|SOUTH|EAST|WEST|NORTHEAST|NORTHWEST|SOUTHEAST|SOUTHWEST|U|D|UP|DOWN" handler="DirectionHandler" parameters="0.5"/>
