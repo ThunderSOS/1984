@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <game debug="false">
     <welcome>**** Welcome to 1984: Eyes of the State ****</welcome>    
-    <player inventory="1" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>
     <!--
-    <player inventory="1|23|24|412|403|404|405|409" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
+    <player inventory="1|23|24|410" startRoom="350" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>
     -->
+    <player inventory="1|23|24|412|403|404|405|409" startRoom="110" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
+    
     <currency major="Dollars" minor="Cents" symbol="$" initialBalance="0"/>
     <gameClock type="24" startTime="13:00"/>
     
