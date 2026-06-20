@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <game debug="false">
-    <welcome>**** Welcome to 1984: Eyes of the State ****</welcome>    
-    <!--
-    <player inventory="1|23|24|410" startRoom="350" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>
+    <welcome>**** Welcome to 1984: Eyes of the State ****</welcome>  
+     
+    <player inventory="1" startRoom="503" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>   
+    <1--
+    <player inventory="1|23|24|412|403|404|405|409|511|517|23|24" startRoom="500" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
     -->
-    <player inventory="1|23|24|412|403|404|405|409" startRoom="110" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
-    
     <currency major="Dollars" minor="Cents" symbol="$" initialBalance="0"/>
     <gameClock type="24" startTime="13:00"/>
     
@@ -61,7 +61,8 @@
         </verb>
         <verb synonyms="PUT" handler="PutHandler" acceptedPrepositions="IN|INTO|ON" onCompleted="OK">
             <help>
-                PUT [adjective] &lt;noun&gt;; IN|INTO|ON [adjective] &lt;container&gt;; PUT an item in or into a container such as a cupboard or on a chair, etc
+                PUT [adjective] &lt;noun&gt;; IN|INTO|ON [adjective] &lt;container&gt;; PUT an item in or into a container such as a cupboard or on a chair, etc 
+                or you can use it in the more abstract sense to PUT an item IN|INTO something that uses it, like PUT BATTERIES IN TORCH or PUT PHOTO IN ALBUM. 
             </help>
         </verb>
         <verb synonyms="SELL" handler="SellHandler" acceptedPrepositions="TO">
@@ -119,6 +120,11 @@
         <verb synonyms="ATTACH" handler="DoTaskHandler" acceptedPrepositions="TO">
             <help>
                 ATTACH [adjective] &lt;noun&gt; TO [adjective] &lt;noun&gt;; Attach a carried item to another object
+            </help>
+        </verb>
+        <verb synonyms="BOLT" handler="DoTaskHandler">
+            <help>
+                BOLT [adjective] &lt;noun&gt;; BOLT a door or window
             </help>
         </verb>
         <verb synonyms="CALL" handler="DoTaskHandler">
