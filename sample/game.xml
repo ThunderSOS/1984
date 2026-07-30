@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <game debug="false">
     <welcome>**** Welcome to 1984: Eyes of the State ****</welcome> 
-    <!-- --> 
-    <player inventory="1" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>   
-    <!--
-    <player inventory="1|23|24|412|403|404|405|409|511|517|23|24" startRoom="500" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
-    -->
+       
+    <player inventory="1" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000" quitGameNpc="99999"/>   
+        
     <currency major="Dollars" minor="Cents" symbol="$" initialBalance="0"/>
     <gameClock type="24" startTime="13:00"/>
     
     <renderers package="org.happysoft.games.renderers">
         <renderer type="DarkRoomRenderer" roomTag="dark" itemTagsNotPresent="light-source-active"/>
     </renderers>
+    
+    <ignoredWords>THE|A|AN|SOME|OF|YOUR|ONE|TWO|FEW| |</ignoredWords>
     
     <verbs defaultPackage="org.happysoft.games.action.handler">
         <verb synonyms="N|E|S|W|NE|NW|SE|SW|NORTH|SOUTH|EAST|WEST|NORTHEAST|NORTHWEST|SOUTHEAST|SOUTHWEST|U|D|UP|DOWN" handler="DirectionHandler" parameters="1.0">
@@ -30,59 +30,69 @@
         </verb>
         <verb synonyms="ATTACK|KILL" handler="AttackHandler" acceptedPrepositions="WITH">
             <help>
-                ATTACK &lt;npc&gt; [WITH [adjective] &lt;noun&gt;]; Attack an NPC optionally with a weapon, if no WITH is specified then you throw a punch
+                ATTACK &lt;npc&gt; [WITH [adjective] &lt;noun&gt;]; Attack an NPC optionally with a weapon, if WITH is not specified then you throw a punch
             </help>
         </verb>
         <verb synonyms="EXAMINE|EXAM" handler="ExamineHandler">
             <help>
-                EXAM [adjective] &lt;noun&gt;; Show a more detailed description of an item (either in a location or a carried item). Use EXAM ALL to examine everything in the current location
+                EXAM [adjective] &lt;noun&gt;; Show a more detailed description of an item (either in a location or a carried item)
+                Use EXAM ALL to examine everything in the current location
             </help>
         </verb>
         <verb synonyms="INVENTORY|INV" handler="InventoryHandler">
             <help>
-                INV; List items you are carrying
+                INV; Lists items you are carrying
             </help>
         </verb> 
         <verb synonyms="GET" handler="TakeHandler" onCompleted="Taken">
             <help>
                 GET [adjective] &lt;noun&gt;; GET an item from the current location. Use GET ALL to pick up all objects from the current location
+                see also: TAKE, PUT, DROP
             </help>
         </verb>       
         <verb synonyms="TAKE" handler="TakeHandler" acceptedPrepositions="OUT" onCompleted="Taken">
             <help>
                 TAKE [adjective] &lt;noun&gt;; TAKE an item from the current location. Use TAKE ALL to pick up all objects from the current location
                 TAKE [adjective] &lt;noun&gt; OUT OF [adjective] &lt;noun&gt;; Take one object out of another (aka REMOVE FROM)
+                see also: GET, PUT, DROP
             </help>
         </verb>
         <verb synonyms="DROP" handler="DropHandler" onCompleted="OK">
             <help>
                 DROP [adjective] &lt;noun&gt;; leave an item in the current location
+                see also: GET, TAKE, PUT
             </help>
         </verb>
         <verb synonyms="PUT" handler="PutHandler" acceptedPrepositions="IN|INTO|ON" onCompleted="OK">
             <help>
                 PUT [adjective] &lt;noun&gt;; IN|INTO|ON [adjective] &lt;container&gt;; PUT an item in or into a container such as a cupboard or on a chair, etc 
-                or you can use it in the more abstract sense to PUT an item IN|INTO something that uses it, like PUT BATTERIES IN TORCH or PUT PHOTO IN ALBUM. 
+                or you can use it in the more abstract sense to PUT an item IN|INTO something that uses it, like PUT BATTERIES IN TORCH or PUT PHOTO IN ALBUM
+                see also: GET, TAKE, PUT
             </help>
         </verb>
         <verb synonyms="SELL" handler="SellHandler" acceptedPrepositions="TO">
             <help>
-                SELL [adjective] &lt;noun&gt; TO &lt;npc&gt;; Sell an item to an NPC
+                SELL [adjective] &lt;noun&gt; TO &lt;npc&gt;; Sell an item to an NPC. Note that you may want to SHOW first to find out how much they'll give you for it 
+                see also: SHOW, BUY, SWAP, GIVE
             </help>
         </verb>
         <verb synonyms="SWAP|EXCHANGE|OFFER" handler="SwapHandler" acceptedPrepositions="FOR">
             <help>
                 SWAP [adjective] &lt;noun&gt; FOR [adjective] &lt;noun&gt;; Ask an NPC to swap something you're carrying for something they possess
+                see also: BUY, SELL, SHOW, GIVE
             </help>
         </verb>
         <verb synonyms="BUY" handler="BuyHandler" acceptedPrepositions="FROM">
             <help>
                 BUY [adjective] &lt;noun&gt; [FROM &lt;npc&gt;]; Buy an offered item from an NPC
+                see also: SELL, SWAP, SHOW, GIVE
             </help>
         </verb>
         <verb synonyms="WAIT|WA" handler="WaitHandler" acceptedPrepositions="UNTIL" onCompleted="... Time passes ...">
             <help>
-                WAIT mm; WAIT for the specified number of minutes or WAIT UNTIL hh:mm; WAIT UNTIL the specified time
+                WAIT mm; WAIT for the specified number of minutes or WAIT UNTIL hh:mm; 
+                WAIT UNTIL the specified time
+                see also TIME
             </help>
         </verb>
         <verb synonyms="TIME" handler="TimeHandler">
@@ -149,7 +159,8 @@
         </verb>
         <verb synonyms="GIVE" handler="DoTaskHandler" acceptedPrepositions="TO">
             <help>
-                GIVE [adjective] &lt;noun&gt; TO &lt;npc&gt;; Give an item to an NPC
+                GIVE [adjective] &lt;noun&gt; TO &lt;npc&gt;; Give an item to an NPC, they may not be interested though
+                see also: BUY, SWAP, SELL, SHOW
             </help>
         </verb>
         <verb synonyms="INSERT" handler="DoTaskHandler" acceptedPrepositions="IN|INTO">
@@ -157,7 +168,7 @@
                 INSERT [adjective] &lt;noun&gt; INTO [adjective] &lt;noun&gt;; Insert an item into another item 
             </help>
         </verb>
-        <verb synonyms="JEMMY|PRISE|SMASH" handler="DoTaskHandler" acceptedPrepositions="WITH|USING">
+        <verb synonyms="JEMMY|JEMMIE|PRISE|SMASH" handler="DoTaskHandler" acceptedPrepositions="WITH|USING">
             <help>
                 JEMMY [adjective] &lt;noun&gt; WITH|USING [adjective] &lt;noun&gt;; Jemmy or smash something open (e.g. lock, window, door)
             </help>
