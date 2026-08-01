@@ -13,7 +13,7 @@
         <renderer type="DarkRoomRenderer" roomTag="dark" itemTagsNotPresent="light-source-active"/>
     </renderers>
     
-    <ignoredWords>THE|A|AN|SOME|OF|YOUR|ONE|TWO|FEW| |</ignoredWords>
+    <ignoredWords>GO|THE|A|AN|SOME|OF|YOUR|ONE|TWO|FEW| |</ignoredWords>
     
     <verbs defaultPackage="org.happysoft.games.action.handler">
         <verb synonyms="N|E|S|W|NE|NW|SE|SW|NORTH|SOUTH|EAST|WEST|NORTHEAST|NORTHWEST|SOUTHEAST|SOUTHWEST|U|D|UP|DOWN" handler="DirectionHandler" parameters="1.0">
@@ -35,7 +35,7 @@
                 ATTACK &lt;npc&gt; [WITH [adjective] &lt;noun&gt;]; Attack an NPC optionally with a weapon, if WITH is not specified then you throw a punch
             </help>
         </verb>
-        <verb synonyms="EXAMINE|EXAM" handler="ExamineHandler">
+        <verb synonyms="EXAMINE|EXAM|X" handler="ExamineHandler">
             <help>
                 EXAM [adjective] &lt;noun&gt;; Show a more detailed description of an item (either in a location or a carried item)
                 Use EXAM ALL to examine everything in the current location
