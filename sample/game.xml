@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <game debug="false">
     <welcome>**** Welcome to 1984: Eyes of the State ****</welcome> 
-       
-    <player inventory="1" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000" quitGameNpc="99999"/>   
     <!--
-    <player inventory="1|23|24|101|400|412|403|404|405|409|511|517|23|24|25|432|410" startRoom="500" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
+    <player inventory="1" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000" quitGameNpc="99999"/>   
     -->
+    <player inventory="-101|1|23|24|101|400|412|403|404|405|409|432|511|517|23|24|25|432|410" startRoom="500" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
+    
     <currency major="Dollars" minor="Cents" symbol="$" initialBalance="0"/>
     <gameClock type="24" startTime="13:00"/>
     
@@ -129,6 +129,11 @@
         </verb>
         
         <!-- Task specific verbs -->
+        <verb synonyms="ASK" handler="DoTaskHandler" acceptedPrepositions="ABOUT">
+            <help>
+                ASK &lt;npc&gt; ABOUT [adjective] &lt;noun&gt;; Ask an Npc about an object (topic)
+            </help>
+        </verb>        
         <verb synonyms="ATTACH" handler="DoTaskHandler" acceptedPrepositions="TO">
             <help>
                 ATTACH [adjective] &lt;noun&gt; TO [adjective] &lt;noun&gt;; Attach a carried item to another object
