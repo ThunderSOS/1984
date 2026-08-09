@@ -45,6 +45,8 @@
             <exit room="1" direction="E"/>
         </exits>
     </room>  
+	
+    <room id="999" name="Limbo"/>  
               
 </rooms>
 
