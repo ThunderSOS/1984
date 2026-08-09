@@ -15,10 +15,10 @@
             raindrops. Its blackness is so deep that it almost seems to suck light from the
             room.
         </description>
-        <stateChanges>
+        <stateChangeListeners>
             <stateChangeListener verb="TAKE" onStateChanged="200"/>
             <stateChangeListener verb="WEAR" onStateChanged="201"/>
-        </stateChanges> 
+        </stateChangeListeners> 
     </item>
     
     <item id="3" name="VELVET CLOAK" tags="wearable"> 
