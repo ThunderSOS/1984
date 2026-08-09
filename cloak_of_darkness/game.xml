@@ -222,6 +222,11 @@
                 PRESS [adjective] &lt;noun&gt;; Press on an object, e.g. Press the button to call a lift
             </help>
         </verb>
+        <verb synonyms="READ" handler="DoTaskHandler">
+            <help>
+                READ [adjective] &lt;noun&gt;; READ something
+            </help>
+        </verb> 
         <verb synonyms="REMOVE" handler="DoTaskHandler" acceptedPrepositions="FROM">
             <help>
                 REMOVE [adjective] &lt;noun&gt;; REMOVE one object FROM another

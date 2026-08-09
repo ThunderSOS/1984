@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<items>  
+    <item id="-101" name="YOURSELF" noun="ME" article="ABOUT" virtual="true" hidden="true">
+        <description>
+            As good looking as ever.
+        </description>
+    </item>       
+    <item id="1" name="HOOK" fixed="true">
+        <description>It's just a small brass hook, screwed to the wall.</description>
+    </item>
+    
+    <item id="2" name="VELVET CLOAK" tags="wearable" onTaken="202">  
+        <description>
+            A handsome cloak, of velvet trimmed with satin, and slightly spattered with
+            raindrops. Its blackness is so deep that it almost seems to suck light from the
+            room.
+        </description>
+        <stateChanges>
+            <stateChangeListener verb="TAKE" onStateChanged="200"/>
+            <stateChangeListener verb="WEAR" onStateChanged="201"/>
+        </stateChanges> 
+    </item>
+    
+    <item id="3" name="VELVET CLOAK" tags="wearable"> 
+        <stateChangeListeners>
+            <stateChangeListener verb="TAKE" onStateChanged="200"/>
+            <stateChangeListener verb="WEAR" onStateChanged="201"/>
+        </stateChangeListeners> 
+        <description>
+            A handsome cloak, of velvet trimmed with satin, and slightly spattered with
+            raindrops. Its blackness is so deep that it almost seems to suck light from the
+            room.
+            You are wearing it.
+        </description>       
+    </item>
+    
+    <item id="4" name="MESSAGE" onExamined="203">
+        <description>
+            The message, neatly marked in the sawdust, reads...
+
+            *** You have won ***
+        </description>
+    </item>
+</items>

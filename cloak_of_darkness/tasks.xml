@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tasks>   
+    <task id="1" name="Hang cloak on hook">
+        <trigger action="HANG" actionObject="CLOAK" targetObject="HOOK" roomId="3"/>
+        <conditions>
+            <condition type="checkCarrying" itemId="2">You don't have the cloak.</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="removeItemsFromInventory" itemIds="2"/>        
+            <consequence type="addItemsToRoom" itemIds="2"/>
+            <consequence type="updateItemDescription" itemId="1">
+                It's just a small brass hook, screwed to the wall.
+                There's a very dark cloak hanging on it. 
+            </consequence>
+            <consequence type="removeRoomTags" roomId="4" tags="dark"/>
+            <consequence type="addItemsToRoom" itemId="4" roomId="4"/>
+            <consequence type="message">OK</consequence>  
+        </onSuccess>
+        <onFail>
+            <conditions>
+                <condition type="checkCarrying" itemId="3"/>
+            </conditions>
+            <consequences>
+                <consequence type="message">Try TAKE OFF CLOAK first.</consequence>
+            </consequences>
+        </onFail>
+    </task>       
+    <task id="2">
+        <trigger action="READ" actionObject="MESSAGE" roomId="4"/>
+        <conditions>
+            <condition type="checkRoomHasItem" roomId="4" itemId="4">You can't see the message.</condition>
+        </conditions>
+        <onSuccess>
+            <consequence type="message">
+                The message, neatly marked in the sawdust, reads...
+
+                *** You have won ***
+            </consequence>
+            <consequence type="showScore"/>
+            <consequence type="waitForKey">Press [Enter] to conrinue...</consequence>
+            <consequence type="newGame"/>
+        </onSuccess>
+    </task>
+    
+</tasks>
+
