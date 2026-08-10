@@ -38,6 +38,15 @@
             <consequence type="removeItemsFromRoom" itemId="4" roomId="4"/>
         </onSuccess>
     </event>
+	
+	<event id="203" name="Won" type="EVENT_TRIGGERED">
+		<conditions/>
+		<onSuccess>
+		    <consequence type="showScore"/>
+            <consequence type="waitForKey">...Press [Enter] to conrinue...</consequence>
+            <consequence type="newGame"/>
+		</onSuccess>
+	</event>
     
     <event id="500000" name="Death" type="EVENT_TRIGGERED">
         <conditions/>

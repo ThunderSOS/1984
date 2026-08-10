@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <game debug="false">
-    <welcome>**** Welcome to 1984: Eyes of the State ****</welcome> 
-    <!--
-    <player inventory="1" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000" quitGameNpc="99999"/>   
-    -->
+    <welcome>
+		Cloak of Darkness
+		A basic X-TADS demonstration.
+	</welcome> 
     <player inventory="-101|3" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
     
     <currency major="Dollars" minor="Cents" symbol="$" initialBalance="0"/>
@@ -53,15 +53,6 @@
                 see also: TAKE, PUT, DROP
             </help>
         </verb>       
-        <!--
-	<verb synonyms="TAKE" handler="TakeHandler" acceptedPrepositions="OUT" onCompleted="Taken">
-            <help>
-                TAKE [adjective] &lt;noun&gt;; TAKE an item from the current location. Use TAKE ALL to pick up all objects from the current location
-                TAKE [adjective] &lt;noun&gt; OUT OF [adjective] &lt;noun&gt;; Take one object out of another (aka REMOVE FROM)
-                see also: GET, PUT, DROP
-            </help>
-        </verb>
-	-->
         <verb synonyms="DROP" handler="DropHandler" onCompleted="OK">
             <help>
                 DROP [adjective] &lt;noun&gt;; leave an item in the current location
@@ -131,95 +122,10 @@
             </help>
         </verb>
         
-        <!-- Task specific verbs -->
-        <verb synonyms="ASK" handler="DoTaskHandler" acceptedPrepositions="ABOUT">
-            <help>
-                ASK &lt;npc&gt; ABOUT [adjective] &lt;noun&gt;; Ask an Npc about an object (topic)
-            </help>
-        </verb>        
-        <verb synonyms="ATTACH" handler="DoTaskHandler" acceptedPrepositions="TO">
-            <help>
-                ATTACH [adjective] &lt;noun&gt; TO [adjective] &lt;noun&gt;; Attach a carried item to another object
-            </help>
-        </verb>
-        <verb synonyms="BOLT" handler="DoTaskHandler">
-            <help>
-                BOLT [adjective] &lt;noun&gt;; BOLT a door or window
-            </help>
-        </verb>
-        <verb synonyms="CALL" handler="DoTaskHandler">
-            <help>
-                CALL &lt;npc&gt;; CALL an NPC. Attract their attention? More for inanimate objects like LIFTS that may be modelled as an NPC
-            </help>
-        </verb>
-        <verb synonyms="CLOSE" handler="DoTaskHandler">
-            <help>
-                CLOSE [adjective] &lt;noun&gt;; close a door or a container such as a drawer or a cupboard
-            </help>
-        </verb>
-        <verb synonyms="COMPARE|MATCH" handler="DoTaskHandler" acceptedPrepositions="AGAINST|WITH">
-            <help>
-                COMPARE [adjective] &lt;noun&gt; WITH|AGAINST [adjective] &lt;noun&gt;; compare one thing against another
-            </help>
-        </verb>
-        <verb synonyms="DETACH" handler="DoTaskHandler" acceptedPrepositions="FROM">
-            <help>
-                DETACH [adjective] &lt;noun&gt; FROM [adjective] &lt;noun&gt;; Detach an item from another object
-            </help>
-        </verb>
-        <verb synonyms="GIVE" handler="DoTaskHandler" acceptedPrepositions="TO">
-            <help>
-                GIVE [adjective] &lt;noun&gt; TO &lt;npc&gt;; Give an item to an NPC, they may not be interested though
-                see also: BUY, SWAP, SELL, SHOW
-            </help>
-        </verb>
+        <!-- Task specific verbs -->     
         <verb synonyms="HANG" handler="DoTaskHandler" acceptedPrepositions="ON">
             <help>
                 HANG [adjective] &lt;noun&gt; ON [adjective] &lt;noun&gt;; Hang somehing on something.  
-            </help>
-        </verb>
-        <verb synonyms="INSERT" handler="DoTaskHandler" acceptedPrepositions="IN|INTO">
-            <help>
-                INSERT [adjective] &lt;noun&gt; INTO [adjective] &lt;noun&gt;; Insert an item into another item 
-            </help>
-        </verb>
-        <verb synonyms="JEMMY|JEMMIE|PRISE|SMASH" handler="DoTaskHandler" acceptedPrepositions="WITH|USING">
-            <help>
-                JEMMY [adjective] &lt;noun&gt; WITH|USING [adjective] &lt;noun&gt;; Jemmy or smash something open (e.g. lock, window, door)
-            </help>
-        </verb>
-        <verb synonyms="LOCK" handler="DoTaskHandler" acceptedPrepositions="WITH|USING">
-            <help>
-                LOCK [adjective] &lt;noun&gt; WITH [adjective] &lt;noun&gt;; e.g. LOCK STEEL DOOR WITH GOLD KEY
-            </help>
-        </verb>
-        <verb synonyms="OPEN" handler="DoTaskHandler">
-            <help>
-                OPEN [adjective] &lt;noun&gt;; e.g. open a door or a container such as a drawer or a cupboard
-            </help>
-        </verb>
-        <verb synonyms="PAY" handler="DoTaskHandler">
-            <help>
-                PAY &lt;npc&gt;; PAY an NPC. The amount to pay should be clear from the context so you don't need to specify the amount
-            </help>
-        </verb>
-        <verb synonyms="PICK" handler="AdverbHandler" acceptedPrepositions="WITH|USING">
-            <help>
-                PICK [adjective] &lt;noun&gt; WITH|USING [adjective] &lt;noun&gt; PICK a lock etc
-                PICK UP [adjective] &lt;noun&gt;; Another synonym for GET|TAKE 
-            </help>
-            <adverbs defaultHandler="DoTaskHandler">
-                <adverb adverbs="UP" handler="TakeHandler"/>
-            </adverbs>
-        </verb>
-        <verb synonyms="PLUG" handler="DoTaskHandler" acceptedPrepositions="INTO">
-            <help>
-                PLUG [adjective] &lt;noun&gt;; INTO [adjective] &lt;noun&gt;; A synonym for ATTACH
-            </help>
-        </verb>
-        <verb synonyms="PRESS" handler="DoTaskHandler">
-            <help>
-                PRESS [adjective] &lt;noun&gt;; Press on an object, e.g. Press the button to call a lift
             </help>
         </verb>
         <verb synonyms="READ" handler="DoTaskHandler">
@@ -227,41 +133,10 @@
                 READ [adjective] &lt;noun&gt;; READ something
             </help>
         </verb> 
-        <verb synonyms="REMOVE" handler="DoTaskHandler" acceptedPrepositions="FROM">
-            <help>
-                REMOVE [adjective] &lt;noun&gt;; REMOVE one object FROM another
-            </help>
-        </verb> 
-        <verb synonyms="RUN" handler="AdverbHandler">
-            <help>
-                RUN somewhere instead of walking, this reduces the time taken to get to a destination. Use RUN &lt;compass direction&gt;
-            </help>
-            <adverbs>
-                <adverb adverbs="N|E|S|W|NE|NW|SE|SW|NORTH|SOUTH|EAST|WEST|NORTHEAST|NORTHWEST|SOUTHEAST|SOUTHWEST|U|D|UP|DOWN" handler="DirectionHandler" parameters="0.5"/>
-            </adverbs>
-        </verb>    
-        <verb synonyms="SAY" handler="DoTaskHandler" >
-            <help>
-                SAY &quot;&lt;quoted text&gt;&quot;; Say something, e.g. a password (SAY TO is not supported yet).
-            </help>
-        </verb>
-        <verb synonyms="SHOW" handler="ShowHandler" acceptedPrepositions="TO">
-            <help>
-                SHOW [adjective] &lt;noun&gt; TO &lt;npc&gt;; Show a carried item to an NPC. If the NPC is a trader they will give you a price for it.  
-            </help>
-        </verb>
-        <verb synonyms="SWITCH|TURN" handler="AdverbHandler" itemTag="activatable">
-            <help>
-                SWITCH ON|OFF [adjective] &lt;noun&gt;; SWITCH an object ON or OFF
-            </help>
-            <adverbs>
-                <adverb adverbs="ON|OFF" handler="ItemStateChangeHandler"/>
-            </adverbs>
-        </verb>        
         <verb synonyms="TAKE" handler="AdverbHandler" acceptedPrepositions="OUT" itemTag="wearable">
             <help>
-		TAKE 
-		TAKE [adjective] &lt;noun&gt; OUT OF &lt;container&gt;
+				TAKE 
+				TAKE [adjective] &lt;noun&gt; OUT OF &lt;container&gt;
                 TAKE OFF [adjective] &lt;noun&gt;; TAKE OFF an item of clothing.
             </help>
             <adverbs defaultHandler="TakeHandler">
@@ -270,34 +145,9 @@
         </verb> 
         <verb synonyms="WEAR" handler="ItemStateChangeHandler" itemTag="wearable">
             <help>
-		WEAR [adjective] &lt;noun&gt;; WEAR an item of clothing.
+				WEAR [adjective] &lt;noun&gt;; WEAR an item of clothing.
             </help>
         </verb> 
-        <verb synonyms="THROW" handler="DoTaskHandler" acceptedPrepositions="AT">
-            <help>
-                THROW [adjective] &lt;noun&gt; AT [adjective] &lt;noun&gt;; THROW a carried item AT another object
-            </help>
-        </verb>
-        <verb synonyms="UNLOCK" handler="DoTaskHandler" acceptedPrepositions="WITH|USING">
-            <help>
-                UNLOCK [adjective] &lt;noun&gt; WITH|USING [adjective] &lt;noun&gt;; for example UNLOCK DOOR USING KEY
-            </help>
-        </verb>        
-        <verb synonyms="UNBLOCK" handler="DoTaskHandler" acceptedPrepositions="WITH|USING">
-            <help>
-                UNBLOCK [adjective] &lt;noun&gt; WITH|USING [adjective] &lt;noun&gt;; UNBLOCK something, e.g. a drain USING an implement
-            </help>
-        </verb>
-        <verb synonyms="UNBOLT" handler="DoTaskHandler">
-            <help>
-                UNBOLT [adjective] &lt;noun&gt;; UNBOLT a door or window
-            </help>
-        </verb>
-        <verb synonyms="UNPLUG" handler="DoTaskHandler" acceptedPrepositions="FROM">
-            <help>
-                UNPLUG [adjective] &lt;noun&gt; FROM [adjective] &lt;noun&gt;; UNPLUG an item FROM an object
-            </help>
-        </verb>   
     </verbs>
     
 </game>

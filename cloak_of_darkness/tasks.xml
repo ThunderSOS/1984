@@ -36,9 +36,7 @@
 
                 *** You have won ***
             </consequence>
-            <consequence type="showScore"/>
-            <consequence type="waitForKey">Press [Enter] to conrinue...</consequence>
-            <consequence type="newGame"/>
+            <consequence type="fireEvent" eventId="203"/>
         </onSuccess>
     </task>
     
