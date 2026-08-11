@@ -22,6 +22,7 @@
         <onSuccess>
             <consequence type="removeItemsFromInventory" itemId="2"/>
             <consequence type="addItemsToInventory" itemId="3"/>
+            <consequence type="message">OK</consequence>
         </onSuccess>
         <onFailed>
             <consequence type="message">You're already wearing the cloak.</consequence>

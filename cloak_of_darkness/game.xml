@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <game debug="false">
     <welcome>
-		Cloak of Darkness
-		A basic X-TADS demonstration.
-	</welcome> 
+        Cloak of Darkness
+        A basic X-TADS demonstration.
+    </welcome> 
     <player inventory="-101|3" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
     
     <currency major="Dollars" minor="Cents" symbol="$" initialBalance="0"/>
@@ -59,12 +59,16 @@
                 see also: GET, TAKE, PUT
             </help>
         </verb>
-        <verb synonyms="PUT" handler="PutHandler" acceptedPrepositions="IN|INTO|ON" onCompleted="OK">
+        <verb synonyms="PUT" handler="AdverbHandler" acceptedPrepositions="IN|INTO" onCompleted="OK">
             <help>
-                PUT [adjective] &lt;noun&gt;; IN|INTO|ON [adjective] &lt;container&gt;; PUT an item in or into a container such as a cupboard or on a chair, etc 
+                PUT [adjective] &lt;noun&gt;; IN|INTO [adjective] &lt;container&gt;; PUT an item in or into a container such as a cupboard or on a chair, etc 
                 or you can use it in the more abstract sense to PUT an item IN|INTO something that uses it, like PUT BATTERIES IN TORCH or PUT PHOTO IN ALBUM
                 see also: GET, TAKE, PUT
+                PUT [adjective] &lt;noun&gt; ON [adjective] &lt;noun&gt;; PUT something ON something else. 
             </help>
+            <adverbs defaultHandler="PutHandler">
+                <adverb adverbs="ON" handler="DoTaskHandler"/>
+            </adverbs>
         </verb>
         <verb synonyms="SELL" handler="SellHandler" acceptedPrepositions="TO">
             <help>
@@ -135,8 +139,8 @@
         </verb> 
         <verb synonyms="TAKE" handler="AdverbHandler" acceptedPrepositions="OUT" itemTag="wearable">
             <help>
-				TAKE 
-				TAKE [adjective] &lt;noun&gt; OUT OF &lt;container&gt;
+                TAKE 
+                TAKE [adjective] &lt;noun&gt; OUT OF &lt;container&gt;
                 TAKE OFF [adjective] &lt;noun&gt;; TAKE OFF an item of clothing.
             </help>
             <adverbs defaultHandler="TakeHandler">
@@ -145,7 +149,7 @@
         </verb> 
         <verb synonyms="WEAR" handler="ItemStateChangeHandler" itemTag="wearable">
             <help>
-				WEAR [adjective] &lt;noun&gt;; WEAR an item of clothing.
+                WEAR [adjective] &lt;noun&gt;; WEAR an item of clothing.
             </help>
         </verb> 
     </verbs>

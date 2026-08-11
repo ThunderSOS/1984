@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tasks>   
     <task id="1" name="Hang cloak on hook">
-        <trigger action="HANG" actionObject="CLOAK" targetObject="HOOK" roomId="3"/>
+        <trigger action="HANG|PUT" actionObject="CLOAK" targetObject="HOOK" roomId="3"/>
         <conditions>
             <condition type="checkCarrying" itemId="2">You don't have the cloak.</condition>
         </conditions>
