@@ -15,17 +15,19 @@
             raindrops. Its blackness is so deep that it almost seems to suck light from the
             room.
         </description>
-        <stateChangeListeners>
-            <stateChangeListener verb="TAKE" onStateChanged="200"/>
-            <stateChangeListener verb="WEAR" onStateChanged="201"/>
-        </stateChangeListeners> 
+        <actionListeners>
+            <actionListener verb="TAKE" onAction="200"/>
+            <actionListener verb="WEAR" onAction="201"/>
+            <actionListener verb="PUT" onAction="201"/>
+        </actionListeners> 
     </item>
     
     <item id="3" name="VELVET CLOAK" tags="wearable"> 
-        <stateChangeListeners>
-            <stateChangeListener verb="TAKE" onStateChanged="200"/>
-            <stateChangeListener verb="WEAR" onStateChanged="201"/>
-        </stateChangeListeners> 
+        <actionListeners>
+            <actionListener verb="TAKE" onAction="200"/>
+            <actionListener verb="PUT" onAction="201"/>
+            <actionListener verb="WEAR" onAction="201"/>
+        </actionListeners> 
         <description>
             A handsome cloak, of velvet trimmed with satin, and slightly spattered with
             raindrops. Its blackness is so deep that it almost seems to suck light from the
@@ -34,7 +36,7 @@
         </description>       
     </item>
     
-    <item id="4" name="MESSAGE" onExamined="203">
+    <item id="4" name="MESSAGE" fixed="true" onExamined="203">
         <description>
             The message, neatly marked in the sawdust, reads...
 

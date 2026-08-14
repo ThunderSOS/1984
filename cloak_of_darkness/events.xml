@@ -25,7 +25,7 @@
             <consequence type="message">OK</consequence>
         </onSuccess>
         <onFailed>
-            <consequence type="message">You're already wearing the cloak.</consequence>
+            <consequence type="message">Pick up the cloak first.</consequence>
         </onFailed>
     </event>
     
@@ -40,14 +40,14 @@
         </onSuccess>
     </event>
 	
-	<event id="203" name="Won" type="EVENT_TRIGGERED">
-		<conditions/>
-		<onSuccess>
-		    <consequence type="showScore"/>
+    <event id="203" name="Won" type="EVENT_TRIGGERED">
+        <conditions/>
+        <onSuccess>
+            <consequence type="showScore"/>
             <consequence type="waitForKey">...Press [Enter] to conrinue...</consequence>
             <consequence type="newGame"/>
-		</onSuccess>
-	</event>
+        </onSuccess>
+    </event>
     
     <event id="500000" name="Death" type="EVENT_TRIGGERED">
         <conditions/>
@@ -55,7 +55,7 @@
             <consequence type="message">
                 Darkness descends. 
             </consequence>
-            <consequence type="waitForKey">Press Enter to continue.</consequence>
+            <consequence type="waitForKey">...Press [Enter] to continue...</consequence>
             <consequence type="newGame"/>
         </onSuccess>
     </event>
