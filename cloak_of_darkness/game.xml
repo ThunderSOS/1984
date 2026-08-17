@@ -13,6 +13,10 @@
         <renderer type="DarkRoomRenderer" roomTag="dark" itemTagsNotPresent="light-source-active"/>
     </renderers>
     
+    <adverbSelectionRules package="org.happysoft.games.action.handler.rules">
+        <rule name="CheckTargetObjectNotNull" implementation="TargetObjectNotNullRule"/>
+    </adverbSelectionRules>
+    
     <ignoredWords>GO|THE|A|AN|SOME|OF|YOUR|ONE|TWO|FEW| | </ignoredWords>
     <pronouns>IT</pronouns>
     
@@ -22,13 +26,14 @@
                 Move from the current location in the compass direction specified or Up or Down
             </help>
         </verb>
-        <verb synonyms="LOOK" handler="AdverbHandler" acceptedPrepositions="IN">
+        <verb synonyms="LOOK" handler="AdverbHandler" acceptedPrepositions="IN|AT">
             <help>
                 LOOK; redescribe the current location
                 LOOK UP [adjective] &lt;noun&gt; IN [adjective] &lt;noun&gt;; look something up in an index for example
             </help>
             <adverbs defaultHandler="LookHandler">
                 <adverb adverbs="UP" handler="DoTaskHandler"/>
+                <adverb adverbs="THROUGH" handler="DoTaskHandler"/>
             </adverbs>
         </verb>
         <verb synonyms="ATTACK|KILL" handler="AttackHandler" acceptedPrepositions="WITH">
@@ -67,7 +72,11 @@
                 PUT [adjective] &lt;noun&gt; ON [adjective] &lt;noun&gt;; PUT something ON something else. 
             </help>
             <adverbs defaultHandler="PutHandler">
-                <adverb adverbs="ON" handler="ItemActionListener"/>
+                <adverb adverbs="ON" handler="ItemActionListener">
+                    <rules>
+                        <rule name="CheckTargetObjectNotNull" override="DoTaskHandler"/>	
+                    </rules>
+                </adverb>
             </adverbs>
         </verb>
         <verb synonyms="SELL" handler="SellHandler" acceptedPrepositions="TO">
