@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npcs>     
+    <npc id="99999" name="Quit Game">   
+        
+        <configuration initialRoom="999" initialState="1"/>       
+        
+        <state id="1" value="PASSIVE">
+            <action type="message">Really quit?</action>
+            <action type="choice" validResponses="Y|N">Y) Yes N) No</action>
+            <action type="setNextState" nextState="2"/>            
+        </state>
+        
+        <state id="2">
+            <action type="response" response="Y" nextState="4"/>   
+            <action type="response" response="N" nextState="3"/>
+            <action type="runNpcState" npcId="99999"/>
+        </state>
+        
+        <state id="3">
+            <action type="message">OK</action>
+            <action type="setNextState" nextState="1"/>
+            <action type="moveActor" npcId="99999" roomId="999"/>
+        </state>
+        
+        <state id="4">
+            <action type="message">You trudge back out of the theatre into the rain and into the night.</action>
+            <action type="setNextState" npcId="99999" nextState="1"/>
+            <action type="moveActor" npcId="99999" roomId="999"/>
+            <action type="pause" amount="2.5"/>
+            <action type="waitForKey">...Press [Enter] to continue...</action>
+            <action type="newGame"/>
+        </state>       
+    </npc>
+</npcs>

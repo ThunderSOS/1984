@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rooms>
+    <room id="1" name="the Foyer of the Opera House." youPrefix="in"> 
+        <description>
+            Foyer of the Opera House
+            You are standing in a spacious hall, splendidly decorated in red and gold, with glittering chandeliers overhead. 
+            The entrance from the street is to the north, and there are doorways south and west.
+        </description>
+        <exits>
+            <exit room="2" direction="N" exitBlockedText="You've only just arrived, and besides, the weather outside seems to be getting worse."/>
+            <exit room="3" direction="S"/>
+            <exit room="4" direction="W"/>
+        </exits>
+    </room>
+        
+    <room id="2" name="the street by the Opera House." youPrefix="out in">
+        <description>
+            It's raining hard.
+        </description>
+        <exits>
+            <exit room="1" direction="N"/>
+        </exits>
+    </room>
+        
+    <room id="3" name="the cloakroom." youPrefix="in">
+        <description>
+            The walls of this small room were clearly once lined with hooks, though now only
+            one remains. 
+        </description>
+        <exits>
+            <exit room="1" direction="N"/>
+        </exits>
+        <roomItems itemIds="1"/>
+    </room>  
+    
+    <room id="4" name="the Foyer bar" youPrefix="in" tags="dark">
+        <description>
+            The bar, much rougher than you'd have guessed after the opulence of the foyer to 
+            the north, is completely empty. There seems to be some sort of message scrawled
+            in the sawdust on the floor.
+        </description>
+        <exits>
+            <exit room="1" direction="E"/>
+        </exits>
+    </room>  
+	
+    <room id="999" name="Limbo"/>  
+              
+</rooms>
+

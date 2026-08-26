@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <game debug="false">
     <welcome>**** Welcome to 1984: Eyes of the State ****</welcome> 
-    <!--
-    <player inventory="1" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000" quitGameNpc="99999"/>   
-    -->
-    <player inventory="-101|3" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
     
+    <player inventory="1" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000" quitGameNpc="99999"/>   
+    <!--
+    <player inventory="-101|1|23|24|101|400|412|403|404|405|409|432|511|517|23|24|25|432|410" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
+    -->    
     <currency major="Dollars" minor="Cents" symbol="$" initialBalance="0"/>
     <gameClock type="24" startTime="13:00"/>
     
     <renderers package="org.happysoft.games.renderers">
         <renderer type="DarkRoomRenderer" roomTag="dark" itemTagsNotPresent="light-source-active"/>
     </renderers>
+    
+    <handlerSelectionRules package="org.happysoft.games.action.handler.rules">
+        <rule name="CheckTargetObjectNotNull" implementation="TargetObjectNotNullRule"/>
+        <rule name="CheckTargetAcceptsItems" implementation="TargetObjectAcceptsItemsRule"/>
+    </handlerSelectionRules>
     
     <ignoredWords>GO|THE|A|AN|SOME|OF|YOUR|ONE|TWO|FEW| | </ignoredWords>
     <pronouns>IT</pronouns>
@@ -53,27 +58,42 @@
                 see also: TAKE, PUT, DROP
             </help>
         </verb>       
-        <!--
-	<verb synonyms="TAKE" handler="TakeHandler" acceptedPrepositions="OUT" onCompleted="Taken">
+        <verb synonyms="TAKE" handler="TakeHandler" acceptedPrepositions="OUT" onCompleted="Taken">
             <help>
                 TAKE [adjective] &lt;noun&gt;; TAKE an item from the current location. Use TAKE ALL to pick up all objects from the current location
                 TAKE [adjective] &lt;noun&gt; OUT OF [adjective] &lt;noun&gt;; Take one object out of another (aka REMOVE FROM)
                 see also: GET, PUT, DROP
             </help>
         </verb>
-	-->
         <verb synonyms="DROP" handler="DropHandler" onCompleted="OK">
             <help>
                 DROP [adjective] &lt;noun&gt;; leave an item in the current location
                 see also: GET, TAKE, PUT
             </help>
         </verb>
-        <verb synonyms="PUT" handler="PutHandler" acceptedPrepositions="IN|INTO|ON" onCompleted="OK">
+        <verb synonyms="PUT" handler="AdverbHandler" acceptedPrepositions="IN|INTO" onCompleted="OK">
             <help>
-                PUT [adjective] &lt;noun&gt;; IN|INTO|ON [adjective] &lt;container&gt;; PUT an item in or into a container such as a cupboard or on a chair, etc 
+                PUT [adjective] &lt;noun&gt;; IN|INTO [adjective] &lt;container&gt;; PUT an item in or into a container such as a cupboard or on a chair, etc 
                 or you can use it in the more abstract sense to PUT an item IN|INTO something that uses it, like PUT BATTERIES IN TORCH or PUT PHOTO IN ALBUM
-                see also: GET, TAKE, PUT
+                PUT [adjective] &lt;noun&gt; ON [adjective] &lt;noun&gt;; PUT something ON something else like HANG x ON y
+                PUT ON [adjective] &lt;noun&gt; like WEAR x
+                See also: GET, TAKE
             </help>
+            <adverbs defaultHandler="PutHandler">
+                <!-- PUT ON x (like WEAR) --> 
+                <adverb adverbs="ON" handler="ItemActionListener" itemTag="wearable">
+                    <rules>
+                        <!-- PUT x ON y, maybe like HANG x ON y --> 
+                        <rule name="CheckTargetObjectNotNull" override="DoTaskHandler"/>	
+                    </rules>
+                </adverb>
+                <adverb adverbs="IN|INTO">
+                    <rules>
+                        <!-- PUT BATTERIES IN TORCH or fall back to PUT x IN CUPBOARD? -->
+                        <rule name="CheckTargetAcceptsItems" override="ItemAcceptsObjectHandler"/>
+                    </rules>                    
+                </adverb>
+            </adverbs>
         </verb>
         <verb synonyms="SELL" handler="SellHandler" acceptedPrepositions="TO">
             <help>
@@ -110,7 +130,7 @@
                 SAVE &quot;&lt;filename&gt;&quot;; save your current game progress
             </help>
         </verb>
-        <verb synonyms="LOAD|RESTORE" handler="LoadHandler">
+        <verb synonyms="LOAD" handler="LoadHandler">
             <help>
                 LOAD &quot;&lt;filename&gt;&quot;; load a previously saved game
             </help>
@@ -173,11 +193,6 @@
                 see also: BUY, SWAP, SELL, SHOW
             </help>
         </verb>
-        <verb synonyms="HANG" handler="DoTaskHandler" acceptedPrepositions="ON">
-            <help>
-                HANG [adjective] &lt;noun&gt; ON [adjective] &lt;noun&gt;; Hang somehing on something.  
-            </help>
-        </verb>
         <verb synonyms="INSERT" handler="DoTaskHandler" acceptedPrepositions="IN|INTO">
             <help>
                 INSERT [adjective] &lt;noun&gt; INTO [adjective] &lt;noun&gt;; Insert an item into another item 
@@ -231,8 +246,8 @@
             <help>
                 RUN somewhere instead of walking, this reduces the time taken to get to a destination. Use RUN &lt;compass direction&gt;
             </help>
-            <adverbs>
-                <adverb adverbs="N|E|S|W|NE|NW|SE|SW|NORTH|SOUTH|EAST|WEST|NORTHEAST|NORTHWEST|SOUTHEAST|SOUTHWEST|U|D|UP|DOWN" handler="DirectionHandler" parameters="0.5"/>
+            <adverbs defaultHandler="DirectionHandler">
+                <adverb adverbs="N|E|S|W|NE|NW|SE|SW|NORTH|SOUTH|EAST|WEST|NORTHEAST|NORTHWEST|SOUTHEAST|SOUTHWEST|U|D|UP|DOWN" parameters="0.5"/>
             </adverbs>
         </verb>    
         <verb synonyms="SAY" handler="DoTaskHandler" >
@@ -250,30 +265,16 @@
                 SWITCH ON|OFF [adjective] &lt;noun&gt;; SWITCH an object ON or OFF
             </help>
             <adverbs>
-                <adverb adverbs="ON|OFF" handler="ItemStateChangeHandler"/>
+                <adverb adverbs="ON" handler="ItemActionListener" itemTag="activatable" itemTagFailureText="Is it on already?"/>
+                <adverb adverbs="OFF" handler="ItemActionListener" itemTag="deactivatable" itemTagFailureText="Is it currently off?"/>
             </adverbs>
-        </verb>        
-        <verb synonyms="TAKE" handler="AdverbHandler" acceptedPrepositions="OUT" itemTag="wearable">
-            <help>
-		TAKE 
-		TAKE [adjective] &lt;noun&gt; OUT OF &lt;container&gt;
-                TAKE OFF [adjective] &lt;noun&gt;; TAKE OFF an item of clothing.
-            </help>
-            <adverbs defaultHandler="TakeHandler">
-                <adverb adverbs="OFF" handler="ItemStateChangeHandler"/>
-            </adverbs>
-        </verb> 
-        <verb synonyms="WEAR" handler="ItemStateChangeHandler" itemTag="wearable">
-            <help>
-		WEAR [adjective] &lt;noun&gt;; WEAR an item of clothing.
-            </help>
-        </verb> 
+        </verb>
         <verb synonyms="THROW" handler="DoTaskHandler" acceptedPrepositions="AT">
             <help>
                 THROW [adjective] &lt;noun&gt; AT [adjective] &lt;noun&gt;; THROW a carried item AT another object
             </help>
         </verb>
-        <verb synonyms="UNLOCK" handler="DoTaskHandler" acceptedPrepositions="WITH|USING">
+        <verb synonyms="UNLOCK" handler="DoTaskHandler" acceptedPrepositions="WITH|USING" hint="Try UNLOCK &lt;object&gt; WITH &lt;key&gt; if you have the right key.">
             <help>
                 UNLOCK [adjective] &lt;noun&gt; WITH|USING [adjective] &lt;noun&gt;; for example UNLOCK DOOR USING KEY
             </help>
