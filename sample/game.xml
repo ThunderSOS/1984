@@ -2,7 +2,7 @@
 <game debug="false">
     <welcome>**** Welcome to 1984: Eyes of the State ****</welcome> 
     
-    <player inventory="1" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000" quitGameNpc="99999"/>   
+    <player inventory="1" startRoom="200" timeout="5" skiptime="10" hp="100" onDeathEvent="500000" quitGameNpc="99999"/>   
     <!--
     <player inventory="-101|1|23|24|101|400|412|403|404|405|409|432|511|517|23|24|25|432|410" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
     -->    
@@ -10,14 +10,20 @@
     <gameClock type="24" startTime="13:00"/>
     
     <renderers package="org.happysoft.games.renderers">
-        <renderer type="DarkRoomRenderer" roomTag="dark" itemTagsNotPresent="light-source-active"/>
+        <renderer type="DarkRoomRenderer" roomTags="dark" itemTagsNotPresent="light-source-active"/>
     </renderers>
+    
+    <interceptors>
+        <interceptor actionHandler="DirectionHandler" roomTags="dark" itemTagsNotPresent="light-source-active" eventIds="20000"/>
+        <interceptor verbs="GET|TAKE" itemTags="smelly|plural" eventIds="20001"/>
+        <interceptor verbs="GET|TAKE" itemTags="smelly" eventIds="20002"/>
+    </interceptors>
     
     <handlerSelectionRules package="org.happysoft.games.action.handler.rules">
         <rule name="CheckTargetObjectNotNull" implementation="TargetObjectNotNullRule"/>
         <rule name="CheckTargetAcceptsItems" implementation="TargetObjectAcceptsItemsRule"/>
     </handlerSelectionRules>
-    
+        
     <ignoredWords>GO|THE|A|AN|SOME|OF|YOUR|ONE|TWO|FEW| | </ignoredWords>
     <pronouns>IT</pronouns>
     
@@ -89,7 +95,7 @@
                 </adverb>
                 <adverb adverbs="IN|INTO">
                     <rules>
-                        <!-- PUT BATTERIES IN TORCH or fall back to PUT x IN CUPBOARD? -->
+                        <!-- PUT BATTERIES IN TORCH or fall back to PUT x IN CUPBOARD using PutHandler -->
                         <rule name="CheckTargetAcceptsItems" override="ItemAcceptsObjectHandler"/>
                     </rules>                    
                 </adverb>
