@@ -1,1 +1,1 @@
-java -cp "./lib/*" org.happysoft.games.Main
+java -cp "./lib/*" org.happysoft.games.Main $1
