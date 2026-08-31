@@ -10,7 +10,7 @@
     <gameClock type="24" startTime="13:00"/>
     
     <renderers package="org.happysoft.games.renderers">
-        <renderer type="DarkRoomRenderer" roomTag="dark" itemTagsNotPresent="light-source-active"/>
+        <renderer type="DarkRoomRenderer" roomTags="dark" itemTagsNotPresent="light-source-active"/>
     </renderers>
     
     <handlerSelectionRules package="org.happysoft.games.action.handler.rules">
