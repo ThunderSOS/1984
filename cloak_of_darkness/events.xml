@@ -59,5 +59,17 @@
             <consequence type="newGame"/>
         </onSuccess>
     </event>
+    
+    <event id="20000" type="EVENT_TRIGGERED">
+        <conditions/>
+        <onSuccess>
+            <consequence type="message">
+                ***
+                The dark room interceptor ran but it deliberately didn't do anything. 
+                This could be used to hinder your movement back out of the unlit bar area.
+                *** 
+            </consequence>
+        </onSuccess>
+    </event>
 </events>
 
