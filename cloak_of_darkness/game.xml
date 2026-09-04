@@ -7,26 +7,74 @@
     <player inventory="-101|3" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
     
     <currency major="Dollars" minor="Cents" symbol="$" initialBalance="0"/>
-    <gameClock type="24" startTime="13:00"/>
+    <gameClock type="12" startTime="1:00pm"/>
+    
+    <!--
+        Uncomment this to enable 16 point compass directions. 
+        You can add 32 point directions here too. You map the actual verbs
+        below in the directions element.  
+        These are extra directions you are asking the system to understand
+        as opposed to the verbs that translate to those directions. 
+        The standard N,E,S,W etc directions are already built in, you only 
+        need to use this tag if you wish to add any further directions. 
+	--> 
+	<!--
+        <canonicalDirections directions="NNE|ENE|SSE|ESE|SSW|WSW|WNW|NNW"/>
+    -->
+           
+    <directions defaultHandler="org.happysoft.games.action.handler.DirectionHandler">
+        <defaultHelp>
+            Move the player in the compass direction specified or UP or DOWN. 
+        </defaultHelp>
+        <direction direction="N" canonicalDirection="NORTH" display="North"/>
+        <direction direction="E" canonicalDirection="EAST" display="East"/>
+        <direction direction="S" canonicalDirection="SOUTH" display="South"/>
+        <direction direction="W" canonicalDirection="WEST" display="West"/>
+        <direction direction="NORTH" canonicalDirection="NORTH" display="North"/>
+        <direction direction="EAST" canonicalDirection="EAST" display="East"/>
+        <direction direction="SOUTH" canonicalDirection="SOUTH" display="South"/>
+        <direction direction="WEST" canonicalDirection="WEST" display="West"/>
+        <direction direction="NE" canonicalDirection="NORTHEAST" display="NorthEast"/>
+        <direction direction="NW" canonicalDirection="NORTHWEST" display="NorthWest"/>
+        <direction direction="SE" canonicalDirection="SOUTHEAST" display="SouthEast"/>
+        <direction direction="SW" canonicalDirection="SOUTHWEST" display="SouthWest"/>
+        <direction direction="NORTHEAST" canonicalDirection="NORTHEAST" display="NorthEast"/>
+        <direction direction="NORTHWEST" canonicalDirection="NORTHWEST" display="NorthWest"/>
+        <direction direction="SOUTHEAST" canonicalDirection="SOUTHEAST" display="SouthEast"/>
+        <direction direction="SOUTHWEST" canonicalDirection="SOUTHWEST" display="SouthWest"/>
+        <direction direction="UP" canonicalDirection="UP" display="Up"/>
+        <direction direction="DOWN" canonicalDirection="DOWN" display="Down"/>
+        <direction direction="U" canonicalDirection="UP" display="Up"/>
+        <direction direction="D" canonicalDirection="DOWN" display="Down"/>
+        <!-- 
+        <direction direction="NNW" canonicalDirection="NNW" display="North by NorthWest"/>
+        -->
+    </directions>
     
     <renderers package="org.happysoft.games.renderers">
         <renderer type="DarkRoomRenderer" roomTags="dark" itemTagsNotPresent="light-source-active"/>
     </renderers>
     
+    <interceptors>
+        <interceptor actionHandler="DirectionHandler" roomTags="dark" itemTagsNotPresent="light-source-active" eventIds="20000"/>
+    </interceptors>
+    
     <handlerSelectionRules package="org.happysoft.games.action.handler.rules">
         <rule name="CheckTargetObjectNotNull" implementation="TargetObjectNotNullRule"/>
         <rule name="CheckTargetAcceptsItems" implementation="TargetObjectAcceptsItemsRule"/>
     </handlerSelectionRules>
-    
+        
     <ignoredWords>GO|THE|A|AN|SOME|OF|YOUR|ONE|TWO|FEW| | </ignoredWords>
     <pronouns>IT</pronouns>
     
     <verbs defaultPackage="org.happysoft.games.action.handler">
-        <verb synonyms="N|E|S|W|NE|NW|SE|SW|NORTH|SOUTH|EAST|WEST|NORTHEAST|NORTHWEST|SOUTHEAST|SOUTHWEST|U|D|UP|DOWN" handler="DirectionHandler" parameters="1.0">
+        <!--
+		<verb synonyms="N|E|S|W|NE|NW|SE|SW|NORTH|SOUTH|EAST|WEST|NORTHEAST|NORTHWEST|SOUTHEAST|SOUTHWEST|U|D|UP|DOWN" handler="DirectionHandler" parameters="1.0">
             <help>
                 Move from the current location in the compass direction specified or Up or Down
             </help>
         </verb>
+        -->
         <verb synonyms="LOOK" handler="AdverbHandler" acceptedPrepositions="IN|AT">
             <help>
                 LOOK; redescribe the current location

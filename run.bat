@@ -1,5 +1,5 @@
 echo off
 setlocal ENABLEDELAYEDEXPANSION
-set cp=.
+set cp=.\
 for %%i in (lib\*.jar) do set cp=!cp!;%%i
-java -classpath %cp% org.happysoft.games.Main
+java -classpath %cp% org.happysoft.games.Main %1
