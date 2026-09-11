@@ -4,6 +4,12 @@
         Cloak of Darkness
         A basic X-TADS demonstration.
     </welcome> 
+	
+	 <auxiliaryMessages>  
+        <!-- Auxiliary messages handle structural grammar logic that standard key-values can't -->
+        <auxiliaryMessage type="BELONGS" tag="plural" single=":1 doesn't belong in :2." plural=":1 don't belong n :2."/>            
+    </auxiliaryMessages>
+	
     <player inventory="-101|3" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
     
     <currency major="Dollars" minor="Cents" symbol="$" initialBalance="0"/>
