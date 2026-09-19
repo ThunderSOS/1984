@@ -16,7 +16,8 @@ for /f "tokens=1,* delims== " %%i in (build.properties) do (
 				echo Copying resources to %%j\%1
 				if not exist %%j\%1 mkdir %%j\%1
 				del "%%j\%1\*.xml"		
-				copy "%1" %%j\"%1"\*.xml		
+				copy "%1" %%j\"%1"\*.xml
+				copy "%1" %%j\"%1"\*.properties
 				copy "%1"\*.properties %%j
 				copy "%1"\*.properties .
 			)			
