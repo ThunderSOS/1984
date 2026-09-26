@@ -2,12 +2,75 @@
 <game debug="false">
     <welcome>**** Welcome to 1984: Eyes of the State ****</welcome> 
     
-    <player inventory="1" startRoom="200" timeout="5" skiptime="10" hp="100" onDeathEvent="500000" quitGameNpc="99999"/>   
+    <auxiliaryMessages>
+        <!-- Auxiliary messages handle structural grammar logic that simple key-value pairs can't -->
+        <message type="BELONGS" 
+                 selectorTag="plural" 
+                 noMatch=":1 doesn't belong in :2." 
+                 match=":1 don't belong in :2."/>
+        <message type="TRADE" 
+                 selectorTag="plural" 
+                 noMatch="I've got :1 if you want, I'll do it for :2.|I've gor :1 if you're interested. I'll do it for :2."
+                 match="I've got :1 if you like. I'll do them for :2."/>
+        <message type="PRICE" 
+                 selectorTag="plural" 
+                 noMatch="It's worth :1."
+                 match="They're worth :1."/>
+        <!--        
+        <message type="LOOK" 
+                 selectorTag="remote-viewable"
+                 noMatch="What do you want to :1?"
+                 match="It's too far away to see clearly."
+        -->        
+    </auxiliaryMessages>
+    
     <!--
-    <player inventory="-101|1|23|24|101|400|412|403|404|405|409|432|511|517|23|24|25|432|410" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
-    -->    
+    <player inventory="1|-101" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000" quitGameNpc="99999"/>   
+    -->
+    <player inventory="-101|1|23|24|101|400|412|403|404|405|409|432|511|517|23|24|25|432|410|414|505|506" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
+   
     <currency major="Dollars" minor="Cents" symbol="$" initialBalance="0"/>
-    <gameClock type="24" startTime="13:00"/>
+    <gameClock type="24" startTime="18:00"/>
+    
+    <!--
+        Uncomment this to enable 16 point compass directions. 
+        You can add 32 point directions here too. You map the actual verbs
+        below in the directions element.  
+        These are extra directions you are asking the system to understand
+        as opposed to the verbs that translate to those directions. 
+        The standard N,E,S,W etc directions are already built in, you only 
+        need to use this tag if you wish to add any further directions. 
+        <canonicalDirections directions="NNE|ENE|SSE|ESE|SSW|WSW|WNW|NNW"/>
+    -->
+           
+    <directions defaultHandler="org.happysoft.games.action.handler.DirectionHandler">
+        <defaultHelp>
+            Move the player in the compass direction specified or UP or DOWN. 
+        </defaultHelp>
+        <direction direction="N" canonicalDirection="NORTH" display="North"/>
+        <direction direction="E" canonicalDirection="EAST" display="East"/>
+        <direction direction="S" canonicalDirection="SOUTH" display="South"/>
+        <direction direction="W" canonicalDirection="WEST" display="West"/>
+        <direction direction="NORTH" canonicalDirection="NORTH" display="North"/>
+        <direction direction="EAST" canonicalDirection="EAST" display="East"/>
+        <direction direction="SOUTH" canonicalDirection="SOUTH" display="South"/>
+        <direction direction="WEST" canonicalDirection="WEST" display="West"/>
+        <direction direction="NE" canonicalDirection="NORTHEAST" display="NorthEast"/>
+        <direction direction="NW" canonicalDirection="NORTHWEST" display="NorthWest"/>
+        <direction direction="SE" canonicalDirection="SOUTHEAST" display="SouthEast"/>
+        <direction direction="SW" canonicalDirection="SOUTHWEST" display="SouthWest"/>
+        <direction direction="NORTHEAST" canonicalDirection="NORTHEAST" display="NorthEast"/>
+        <direction direction="NORTHWEST" canonicalDirection="NORTHWEST" display="NorthWest"/>
+        <direction direction="SOUTHEAST" canonicalDirection="SOUTHEAST" display="SouthEast"/>
+        <direction direction="SOUTHWEST" canonicalDirection="SOUTHWEST" display="SouthWest"/>
+        <direction direction="UP" canonicalDirection="UP" display="Up"/>
+        <direction direction="DOWN" canonicalDirection="DOWN" display="Down"/>
+        <direction direction="U" canonicalDirection="UP" display="Up"/>
+        <direction direction="D" canonicalDirection="DOWN" display="Down"/>
+        <!-- 
+        <direction direction="NNW" canonicalDirection="NNW" display="North by NorthWest"/>
+        -->
+    </directions>
     
     <renderers package="org.happysoft.games.renderers">
         <renderer type="DarkRoomRenderer" roomTags="dark" itemTagsNotPresent="light-source-active"/>
@@ -20,26 +83,45 @@
     </interceptors>
     
     <handlerSelectionRules package="org.happysoft.games.action.handler.rules">
-        <rule name="CheckTargetObjectNotNull" implementation="TargetObjectNotNullRule"/>
-        <rule name="CheckTargetAcceptsItems" implementation="TargetObjectAcceptsItemsRule"/>
+        <rule name="CheckTargetObjectIsNotNull" implementation="TargetObjectIsNotNullRule"/>
+        <rule name="CheckTargetObjectIsNull" implementation="TargetObjectIsNullRule"/>
+        <rule name="CheckTargetObjectAcceptsItems" implementation="TargetObjectAcceptsItemsRule"/>
+        <rule name="CheckTargetObjectIsLocal" implementation="TargetObjectIsLocalRule"/>
+        <rule name="CheckTargetIsInFriendRoom" implementation="TargetObjectIsInFriendRoomRule"/>
+        <rule name="NoMatch" implementation="NoMatchRule"/>
     </handlerSelectionRules>
         
     <ignoredWords>GO|THE|A|AN|SOME|OF|YOUR|ONE|TWO|FEW| | </ignoredWords>
     <pronouns>IT</pronouns>
     
     <verbs defaultPackage="org.happysoft.games.action.handler">
-        <verb synonyms="N|E|S|W|NE|NW|SE|SW|NORTH|SOUTH|EAST|WEST|NORTHEAST|NORTHWEST|SOUTHEAST|SOUTHWEST|U|D|UP|DOWN" handler="DirectionHandler" parameters="1.0">
-            <help>
-                Move from the current location in the compass direction specified or Up or Down
-            </help>
-        </verb>
-        <verb synonyms="LOOK" handler="AdverbHandler" acceptedPrepositions="IN">
+        <verb synonyms="LOOK|L" handler="AdverbHandler" acceptedPrepositions="AT|IN|WITH|USING|THROUGH">
             <help>
                 LOOK; redescribe the current location
                 LOOK UP [adjective] &lt;noun&gt; IN [adjective] &lt;noun&gt;; look something up in an index for example
+                LOOK THROUGH [adjective] &lt;noun&gt; [AT [adjective] &lt;noun&gt;]; look through something at something else
+                LOOK AT [adjective] &lt;noun&gt; WITH|USING [adjective] &lt;noun&gt;;
             </help>
             <adverbs defaultHandler="LookHandler">
+                <adverb adverbs="AT" handler="ExamineHandler" itemTag="viewer">
+                    <rules>
+                        <!-- LOOK AT x THROUGH y --> 
+                        <rule name="CheckTargetObjectIsNull" override="ExamineHandler"/>
+                        <rule name="CheckTargetIsInFriendRoom" override="ItemActionListener" itemTag="viewable"/>
+                        <rule name="CheckTargetObjectIsLocal" override="ItemActionListener" itemTag="magnifiable"/>
+                        <rule name="NoMatch" override="DefaultHandler">You don't need :1 to do that.</rule>
+                    </rules>
+                </adverb>
                 <adverb adverbs="UP" handler="DoTaskHandler"/>
+                <adverb adverbs="THROUGH" handler="ExamineHandler" itemTag="viewer">                               
+                    <rules>
+                        <!-- LOOK THROUGH x AT y --> 
+                        <rule name="CheckTargetObjectIsNull" override="ExamineHandler"/>
+                        <rule name="CheckTargetIsInFriendRoom" override="ItemActionListener" itemTag="viewable"/>
+                        <rule name="CheckTargetObjectIsLocal" override="ItemActionListener" itemTag="magnifiable"/>
+                        <rule name="NoMatch" override="DefaultHandler">You don't need :1 to do that.</rule>
+                    </rules>
+                </adverb>
             </adverbs>
         </verb>
         <verb synonyms="ATTACK|KILL" handler="AttackHandler" acceptedPrepositions="WITH">
@@ -64,12 +146,23 @@
                 see also: TAKE, PUT, DROP
             </help>
         </verb>       
-        <verb synonyms="TAKE" handler="TakeHandler" acceptedPrepositions="OUT" onCompleted="Taken">
+        <verb synonyms="TAKE" handler="AdverbHandler" acceptedPrepositions="OUT" onCompleted="Taken">
             <help>
                 TAKE [adjective] &lt;noun&gt;; TAKE an item from the current location. Use TAKE ALL to pick up all objects from the current location
                 TAKE [adjective] &lt;noun&gt; OUT OF [adjective] &lt;noun&gt;; Take one object out of another (aka REMOVE FROM)
                 see also: GET, PUT, DROP
             </help>
+            <adverbs defaultHandler="TakeHandler">
+                <!-- PUT ON x (like WEAR) --> 
+                <adverb adverbs="OFF" handler="ItemActionListener" itemTag="wearable"/>
+                <!--
+                    <rules>
+                        Take x OFF y, maybe like HANG x ON y
+                        <rule name="CheckTargetObjectIsNotNull" override="DoTaskHandler"/>	
+                    </rules>
+                </adverb>   
+                -->
+            </adverbs>
         </verb>
         <verb synonyms="DROP" handler="DropHandler" onCompleted="OK">
             <help>
@@ -77,12 +170,12 @@
                 see also: GET, TAKE, PUT
             </help>
         </verb>
-        <verb synonyms="PUT" handler="AdverbHandler" acceptedPrepositions="IN|INTO" onCompleted="OK">
+        <verb synonyms="PUT" handler="AdverbHandler">
             <help>
                 PUT [adjective] &lt;noun&gt;; IN|INTO [adjective] &lt;container&gt;; PUT an item in or into a container such as a cupboard or on a chair, etc 
                 or you can use it in the more abstract sense to PUT an item IN|INTO something that uses it, like PUT BATTERIES IN TORCH or PUT PHOTO IN ALBUM
-                PUT [adjective] &lt;noun&gt; ON [adjective] &lt;noun&gt;; PUT something ON something else like HANG x ON y
-                PUT ON [adjective] &lt;noun&gt; like WEAR x
+                PUT [adjective] &lt;noun&gt; ON [adjective] &lt;noun&gt;; PUT something ON something else like HANG x ON y or place an item on a table.
+                PUT ON [adjective] &lt;noun&gt; like WEAR x (for a wearable item)
                 See also: GET, TAKE
             </help>
             <adverbs defaultHandler="PutHandler">
@@ -90,14 +183,14 @@
                 <adverb adverbs="ON" handler="ItemActionListener" itemTag="wearable">
                     <rules>
                         <!-- PUT x ON y, maybe like HANG x ON y --> 
-                        <rule name="CheckTargetObjectNotNull" override="DoTaskHandler"/>	
+                        <rule name="CheckTargetObjectIsNotNull" override="DoTaskHandler"/>
                     </rules>
                 </adverb>
                 <adverb adverbs="IN|INTO">
                     <rules>
                         <!-- PUT BATTERIES IN TORCH or fall back to PUT x IN CUPBOARD using PutHandler -->
-                        <rule name="CheckTargetAcceptsItems" override="ItemAcceptsObjectHandler"/>
-                    </rules>                    
+                        <rule name="CheckTargetObjectAcceptsItems" override="ItemAcceptsObjectHandler"/>
+                    </rules>
                 </adverb>
             </adverbs>
         </verb>
@@ -247,7 +340,8 @@
             <help>
                 REMOVE [adjective] &lt;noun&gt;; REMOVE one object FROM another
             </help>
-        </verb> 
+        </verb>         
+        <!--    
         <verb synonyms="RUN" handler="AdverbHandler">
             <help>
                 RUN somewhere instead of walking, this reduces the time taken to get to a destination. Use RUN &lt;compass direction&gt;
@@ -256,7 +350,8 @@
                 <adverb adverbs="N|E|S|W|NE|NW|SE|SW|NORTH|SOUTH|EAST|WEST|NORTHEAST|NORTHWEST|SOUTHEAST|SOUTHWEST|U|D|UP|DOWN" parameters="0.5"/>
             </adverbs>
         </verb>    
-        <verb synonyms="SAY" handler="DoTaskHandler" >
+        -->
+        <verb synonyms="SAY" handler="DoTaskHandler" hint="You only need to SAY something in certain locations.">
             <help>
                 SAY &quot;&lt;quoted text&gt;&quot;; Say something, e.g. a password (SAY TO is not supported yet).
             </help>
@@ -266,7 +361,7 @@
                 SHOW [adjective] &lt;noun&gt; TO &lt;npc&gt;; Show a carried item to an NPC. If the NPC is a trader they will give you a price for it.  
             </help>
         </verb>
-        <verb synonyms="SWITCH|TURN" handler="AdverbHandler" itemTag="activatable">
+        <verb synonyms="SWITCH|TURN" handler="AdverbHandler">
             <help>
                 SWITCH ON|OFF [adjective] &lt;noun&gt;; SWITCH an object ON or OFF
             </help>
@@ -298,6 +393,11 @@
         <verb synonyms="UNPLUG" handler="DoTaskHandler" acceptedPrepositions="FROM">
             <help>
                 UNPLUG [adjective] &lt;noun&gt; FROM [adjective] &lt;noun&gt;; UNPLUG an item FROM an object
+            </help>
+        </verb>
+        <verb synonyms="WEAR" handler="ItemActionListener" itemTag="wearable">
+            <help>
+                WEAR [adjective] &lt;noun&gt;; WEAR an item
             </help>
         </verb>   
     </verbs>

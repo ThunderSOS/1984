@@ -5,7 +5,7 @@
         A basic X-TADS demonstration.
     </welcome> 
 	
-	 <auxiliaryMessages>  
+    <auxiliaryMessages>  
         <!-- Auxiliary messages handle structural grammar logic that standard key-values can't -->
         <auxiliaryMessage type="BELONGS" tag="plural" single=":1 doesn't belong in :2." plural=":1 don't belong n :2."/>            
     </auxiliaryMessages>
@@ -16,15 +16,15 @@
     <gameClock type="12" startTime="1:00pm"/>
     
     <!--
-        Uncomment this to enable 16 point compass directions. 
-        You can add 32 point directions here too. You map the actual verbs
-        below in the directions element.  
-        These are extra directions you are asking the system to understand
-        as opposed to the verbs that translate to those directions. 
-        The standard N,E,S,W etc directions are already built in, you only 
-        need to use this tag if you wish to add any further directions. 
-	--> 
-	<!--
+    Uncomment this to enable 16 point compass directions. 
+    You can add 32 point directions here too. You map the actual verbs
+    below in the directions element.  
+    These are extra directions you are asking the system to understand
+    as opposed to the verbs that translate to those directions. 
+    The standard N,E,S,W etc directions are already built in, you only 
+    need to use this tag if you wish to add any further directions. 
+    --> 
+    <!--
         <canonicalDirections directions="NNE|ENE|SSE|ESE|SSW|WSW|WNW|NNW"/>
     -->
            
@@ -60,22 +60,28 @@
     <renderers package="org.happysoft.games.renderers">
         <renderer type="DarkRoomRenderer" roomTags="dark" itemTagsNotPresent="light-source-active"/>
     </renderers>
-    
+     
     <interceptors>
         <interceptor actionHandler="DirectionHandler" roomTags="dark" itemTagsNotPresent="light-source-active" eventIds="20000"/>
+        <interceptor verbs="GET|TAKE" itemTags="smelly|plural" eventIds="20001"/>
+        <interceptor verbs="GET|TAKE" itemTags="smelly" eventIds="20002"/>
     </interceptors>
     
     <handlerSelectionRules package="org.happysoft.games.action.handler.rules">
-        <rule name="CheckTargetObjectNotNull" implementation="TargetObjectNotNullRule"/>
-        <rule name="CheckTargetAcceptsItems" implementation="TargetObjectAcceptsItemsRule"/>
+        <rule name="CheckTargetObjectIsNotNull" implementation="TargetObjectIsNotNullRule"/>
+        <rule name="CheckTargetObjectIsNull" implementation="TargetObjectIsNullRule"/>
+        <rule name="CheckTargetObjectAcceptsItems" implementation="TargetObjectAcceptsItemsRule"/>
+        <rule name="CheckTargetObjectIsLocal" implementation="TargetObjectIsLocalRule"/>
+        <rule name="CheckTargetIsInFriendRoom" implementation="TargetObjectIsInFriendRoomRule"/>
+        <rule name="NoMatch" implementation="NoMatchRule"/>
     </handlerSelectionRules>
-        
+    
     <ignoredWords>GO|THE|A|AN|SOME|OF|YOUR|ONE|TWO|FEW| | </ignoredWords>
     <pronouns>IT</pronouns>
     
     <verbs defaultPackage="org.happysoft.games.action.handler">
         <!--
-		<verb synonyms="N|E|S|W|NE|NW|SE|SW|NORTH|SOUTH|EAST|WEST|NORTHEAST|NORTHWEST|SOUTHEAST|SOUTHWEST|U|D|UP|DOWN" handler="DirectionHandler" parameters="1.0">
+                <verb synonyms="N|E|S|W|NE|NW|SE|SW|NORTH|SOUTH|EAST|WEST|NORTHEAST|NORTHWEST|SOUTHEAST|SOUTHWEST|U|D|UP|DOWN" handler="DirectionHandler" parameters="1.0">
             <help>
                 Move from the current location in the compass direction specified or Up or Down
             </help>
@@ -129,7 +135,7 @@
             <adverbs defaultHandler="PutHandler">
                 <adverb adverbs="ON" handler="ItemActionListener">
                     <rules>
-                        <rule name="CheckTargetObjectNotNull" override="DoTaskHandler"/>	
+                        <rule name="CheckTargetObjectIsNotNull" override="DoTaskHandler"/>	
                     </rules>
                 </adverb>
             </adverbs>
