@@ -16,21 +16,14 @@
                  selectorTag="plural" 
                  noMatch="It's worth :1."
                  match="They're worth :1."/>
-        <!--        
-        <message type="LOOK" 
-                 selectorTag="remote-viewable"
-                 noMatch="What do you want to :1?"
-                 match="It's too far away to see clearly."
-        -->        
     </auxiliaryMessages>
     
-    <!--
     <player inventory="1|-101" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000" quitGameNpc="99999"/>   
+    <!--
+    <player inventory="-101|1|23|24|101|400|412|403|404|405|409|432|511|517|23|24|25|432|410|414" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
     -->
-    <player inventory="-101|1|23|24|101|400|412|403|404|405|409|432|511|517|23|24|25|432|410|414|505|506" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
-   
     <currency major="Dollars" minor="Cents" symbol="$" initialBalance="0"/>
-    <gameClock type="24" startTime="18:00"/>
+    <gameClock type="24" startTime="13:00"/>
     
     <!--
         Uncomment this to enable 16 point compass directions. 
@@ -41,11 +34,10 @@
         The standard N,E,S,W etc directions are already built in, you only 
         need to use this tag if you wish to add any further directions. 
         <canonicalDirections directions="NNE|ENE|SSE|ESE|SSW|WSW|WNW|NNW"/>
-    -->
-           
+    -->               
     <directions defaultHandler="org.happysoft.games.action.handler.DirectionHandler">
         <defaultHelp>
-            Move the player in the compass direction specified or UP or DOWN. 
+            Move the player in the direction specified or UP or DOWN. 
         </defaultHelp>
         <direction direction="N" canonicalDirection="NORTH" display="North"/>
         <direction direction="E" canonicalDirection="EAST" display="East"/>
@@ -72,6 +64,11 @@
         -->
     </directions>
     
+    <movementModes>
+        <mode verb="CRAWL" timeMultiplier="2"/>
+        <mode verb="RUN" timeMultiplier="0.5"/>
+    </movementModes>
+    
     <renderers package="org.happysoft.games.renderers">
         <renderer type="DarkRoomRenderer" roomTags="dark" itemTagsNotPresent="light-source-active"/>
     </renderers>
@@ -90,9 +87,10 @@
         <rule name="CheckTargetIsInFriendRoom" implementation="TargetObjectIsInFriendRoomRule"/>
         <rule name="NoMatch" implementation="NoMatchRule"/>
     </handlerSelectionRules>
-        
+    
     <ignoredWords>GO|THE|A|AN|SOME|OF|YOUR|ONE|TWO|FEW| | </ignoredWords>
     <pronouns>IT</pronouns>
+    <again>AGAIN|REDO</again>
     
     <verbs defaultPackage="org.happysoft.games.action.handler">
         <verb synonyms="LOOK|L" handler="AdverbHandler" acceptedPrepositions="AT|IN|WITH|USING|THROUGH">
@@ -170,7 +168,7 @@
                 see also: GET, TAKE, PUT
             </help>
         </verb>
-        <verb synonyms="PUT" handler="AdverbHandler">
+        <verb synonyms="PUT" handler="AdverbHandler" acceptedPrepositions="IN|INTO">
             <help>
                 PUT [adjective] &lt;noun&gt;; IN|INTO [adjective] &lt;container&gt;; PUT an item in or into a container such as a cupboard or on a chair, etc 
                 or you can use it in the more abstract sense to PUT an item IN|INTO something that uses it, like PUT BATTERIES IN TORCH or PUT PHOTO IN ALBUM
@@ -278,7 +276,12 @@
         </verb>
         <verb synonyms="COMPARE|MATCH" handler="DoTaskHandler" acceptedPrepositions="AGAINST|WITH">
             <help>
-                COMPARE [adjective] &lt;noun&gt; WITH|AGAINST [adjective] &lt;noun&gt;; compare one thing against another
+                COMPARE [adjective] &lt;noun&gt;; WITH|AGAINST [adjective] &lt;noun&gt;; compare one thing against another
+            </help>
+        </verb>        
+        <verb synonyms="CRAWL" handler="DirectionHandler">
+            <help>
+                CRAWL &lt;direction&gt;; Sometimes you may have to crawl through a low opening, use CRAWL &lt;direction&gt;
             </help>
         </verb>
         <verb synonyms="DETACH" handler="DoTaskHandler" acceptedPrepositions="FROM">
@@ -336,21 +339,21 @@
                 PRESS [adjective] &lt;noun&gt;; Press on an object, e.g. Press the button to call a lift
             </help>
         </verb>
+        <verb synonyms="PUSH" handler="DoTaskHandler">
+            <help>
+                PUSH [adjective] &lt;noun&gt; &lt;direction&gt;; Push an objerct somewhere
+            </help>
+        </verb>
         <verb synonyms="REMOVE" handler="DoTaskHandler" acceptedPrepositions="FROM">
             <help>
                 REMOVE [adjective] &lt;noun&gt;; REMOVE one object FROM another
             </help>
-        </verb>         
-        <!--    
-        <verb synonyms="RUN" handler="AdverbHandler">
+        </verb>
+        <verb synonyms="RUN" handler="DoTaskHandler">
             <help>
-                RUN somewhere instead of walking, this reduces the time taken to get to a destination. Use RUN &lt;compass direction&gt;
-            </help>
-            <adverbs defaultHandler="DirectionHandler">
-                <adverb adverbs="N|E|S|W|NE|NW|SE|SW|NORTH|SOUTH|EAST|WEST|NORTHEAST|NORTHWEST|SOUTHEAST|SOUTHWEST|U|D|UP|DOWN" parameters="0.5"/>
-            </adverbs>
-        </verb>    
-        -->
+                RUN somewhere instead of walking, this reduces the time taken to get to a destination. Use RUN &lt;direction&gt;
+            </help>            
+        </verb>
         <verb synonyms="SAY" handler="DoTaskHandler" hint="You only need to SAY something in certain locations.">
             <help>
                 SAY &quot;&lt;quoted text&gt;&quot;; Say something, e.g. a password (SAY TO is not supported yet).
