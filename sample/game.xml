@@ -18,10 +18,24 @@
                  match="They're worth :1."/>
     </auxiliaryMessages>
     
-    <player inventory="1|-101" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000" quitGameNpc="99999"/>   
+    <player inventory="1|-101" 
+            startRoom="1" 
+            timeout="5" 
+            skiptime="10" 
+            hp="100"
+            defaultCombatItem="-9"
+            onDeathEvent="99999" 
+            quitGameNpc="99999"/>   
     <!--
-    <player inventory="-101|1|23|24|101|400|412|403|404|405|409|432|511|517|23|24|25|432|410|414" startRoom="1" timeout="5" skiptime="10" hp="100" onDeathEvent="500000"/>    
-    -->
+    <player inventory="-101|1|23|24|101|400|412|403|404|405|409|432|511|517|23|24|25|432|410|414" 
+            startRoom="1"
+            timeout="5"
+            skiptime="10"
+            hp="100"
+            defaultCombatItem="-9"
+            onDeathEvent="99999"
+            quitGameNpc="99999"/>
+    ==>
     <currency major="Dollars" minor="Cents" symbol="$" initialBalance="0"/>
     <gameClock type="24" startTime="13:00"/>
     
@@ -32,8 +46,9 @@
         These are extra directions you are asking the system to understand
         as opposed to the verbs that translate to those directions. 
         The standard N,E,S,W etc directions are already built in, you only 
-        need to use this tag if you wish to add any further directions. 
-        <canonicalDirections directions="NNE|ENE|SSE|ESE|SSW|WSW|WNW|NNW"/>
+        need to use this tag if you wish to add any further directions.
+         
+        <canonicalDirections directions="NNE|ENE|SSE|ESE|SSW|WSW|WNW|NNW"/>    
     -->               
     <directions defaultHandler="org.happysoft.games.action.handler.DirectionHandler">
         <defaultHelp>
@@ -90,7 +105,7 @@
     
     <ignoredWords>GO|THE|A|AN|SOME|OF|YOUR|ONE|TWO|FEW| | </ignoredWords>
     <pronouns>IT</pronouns>
-    <again>AGAIN|REDO</again>
+    <again>A|AGAIN|REDO</again>
     
     <verbs defaultPackage="org.happysoft.games.action.handler">
         <verb synonyms="LOOK|L" handler="AdverbHandler" acceptedPrepositions="AT|IN|WITH|USING|THROUGH">
@@ -168,7 +183,7 @@
                 see also: GET, TAKE, PUT
             </help>
         </verb>
-        <verb synonyms="PUT" handler="AdverbHandler" acceptedPrepositions="IN|INTO">
+        <verb synonyms="PUT" handler="AdverbHandler" acceptedPrepositions="IN|INTO" onCompleted="OK">
             <help>
                 PUT [adjective] &lt;noun&gt;; IN|INTO [adjective] &lt;container&gt;; PUT an item in or into a container such as a cupboard or on a chair, etc 
                 or you can use it in the more abstract sense to PUT an item IN|INTO something that uses it, like PUT BATTERIES IN TORCH or PUT PHOTO IN ALBUM
